@@ -1,0 +1,71 @@
+<div class="content">
+    <div class="logos">
+        <a href="https://www.youtube.com/watch?v=W4G8VUaHZKg"
+            target="_blank">
+            <img class="logo"
+                src="./../../../../assets/images/logos/youtube-logo.png"
+                alt="">
+        </a>
+        <a href="https://blog.angular-university.io/angular-signals/"
+            target="_blank">
+            <img src="./../../../../assets/images/logos/angular-university-logo.png"
+                style="width: 3rem;"
+                alt=""></a>
+    </div>
+    <div class="courses">
+        <div class="">Counter value: {{vascoSignalsService.counter()}}</div>
+
+        <div class="">Derived value: {{derivedCounter()}}</div>
+
+        <button mat-raised-button
+            color="primary"
+            (click)="increment()">Increment</button>
+    </div>
+    <ul class="methods">
+        <li class="set">
+            <div>set():</div>
+            <div> this.counter.set(this.counter() + 1);</div>
+        </li>
+        <li class="update">
+            <div>update(): </div>
+            <div>this.counter.update(counter => counter + 1);</div>
+        </li>
+        <li class="computed">
+            <div>computed():</div>
+            <div>Signals can be created and derived from other signals. When a signal updates, all its dependent signals will then get updated automatically.</div>
+        </li>
+        <li class="untracked">
+            <div>untracked</div> return untracked(this.counter) * 10;
+        </li>
+        <li class="effect">
+            <div>effect()</div>
+            <div>The effect will be re-run whenever any of the signals that it uses changes value.</div>
+            <div>By default, Angular does not allow a signal value to be changed from inside an effect function.</div>
+        </li>
+        <li class="allowSignalWrites">
+            <div>allowSignalWrites</div>
+            <div>To allow that we can pass the option allowSignalWrites to effect:</div>
+            <div>This option needs to be used very carefully though, and only in special situations.</div>
+        </li>
+        <li class="manualCleanup">
+            <div>manualCleanup</div>
+        </li>
+        <li class="onCleanup">
+            <div>onCleanup</div>
+        </li>
+        <li class="signal.asReadonly">
+            <div>signal.asReadonly()</div>
+            <div>But we can't set values on the derivedCounter signal, as both the set() and
+                update() APIs are unavailable.</div>
+        </li>
+        <li class="OnPush">
+            <div>OnPush</div>
+            <div>changeDetection: ChangeDetectionStrategy.OnPush,</div>
+        </li>
+    </ul>
+
+
+    <h3>List value: {{list()}}</h3>
+
+    <h3>Object title: {{object().title}}</h3>
+</div>

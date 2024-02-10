@@ -1,0 +1,8 @@
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    a {
+        padding: 0.5rem 0.5rem;
+    }
+}

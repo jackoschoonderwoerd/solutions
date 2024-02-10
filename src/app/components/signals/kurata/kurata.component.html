@@ -1,0 +1,28 @@
+<div class="content">
+    <div class="logos">
+
+        <a href="https://www.youtube.com/watch?v=oqYQG7QMdzw&list=PLErOmyzRKOCr07Kcnx75Aqh6PWSbIokPB">
+            <img class="logo"
+                src="./../../../../assets/images/logos/youtube-logo.png"
+                alt="">
+        </a>
+    </div>
+    <img class="logo"
+        src="./../../../../assets/images/signals/variables-vs-signals.png"
+        alt="">
+
+    <h1>shopping cart</h1>
+
+    <select [ngModel]="quantity()"
+        (change)="onQuantitySelected($any($event.target).value)">
+        <option disabled
+            value="">-- Select a quantity</option>
+        <option *ngFor="let q of qtyAvailable()">{{q}}</option>
+    </select>
+
+
+    <div class="">Vehicle: {{selectedVehicle().name}}</div>
+    <div class="">Price: {{selectedVehicle().price | number:'1.2-2'}}</div>
+    <div class="">Quantity: {{quantity()}}</div>
+    <div class="">Total: {{exPrice()|number:'1.2-2'}}</div>
+</div>

@@ -1,0 +1,30 @@
+<div class="content">
+
+    <div class="container">
+        <div class="logos">
+            <a href="https://www.youtube.com/watch?v=vy03zR73Rio"
+                target="_blank"><img class="logo"
+                    src="./../../../../assets/images/logos/youtube-logo.png"
+                    alt=""></a>
+        </div>
+        <mat-form-field>
+            <input #firstNameControl="ngModel"
+                [ngModel]="firstName()"
+                (ngModelChange)="firstName.set($event)"
+                matInput
+                placeholder="First Name"
+                required>
+            <mat-error *ngIf="firstNameControl.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input #lastNameControl="ngModel"
+                [ngModel]="lastName()"
+                (ngModelChange)="lastName.set($event)"
+                matInput
+                placeholder="Last Name"
+                required>
+            <mat-error *ngIf="lastNameControl.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <h3>Full Name: {{fullName()}}</h3>
+    </div>
+</div>

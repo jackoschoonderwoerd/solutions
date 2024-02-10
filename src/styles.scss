@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.content {
+    padding: 1rem;
+}
+mat-toolbar {
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+    display: flex;
+}
+a {
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 1rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+}
+.link-active {
+    background-color: black;
+    color: white;
+}
+.logos {
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    .logo {
+        width: 3rem;
+    }
+}
