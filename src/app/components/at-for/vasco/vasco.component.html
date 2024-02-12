@@ -1,0 +1,78 @@
+<div class="content">
+    <div class="logos">
+        <a href="https://blog.angular-university.io/angular-for/"
+            target="_blank"><img class="logo"
+                src="./../../../../assets/images/logos/angular-university-logo.png"
+                alt=""></a>
+        <a href="https://angular.dev/guide/templates/control-flow?ref=blog.angular-university.io"
+            target="_blank"><img class="logo"
+                src="./../../../../assets/images/logos/angular.jpg"
+                alt=""></a>
+        <a href="https://www.youtube.com/watch?v=Aq4u8sjxRlA"
+            target="_blank">
+            <img class="logo"
+                src="./../../../../assets/images/logos/youtube-logo.png"
+                alt="">
+        </a>
+    </div>
+    <ul class="items">
+        @for(item of items;track item){
+        <li>{{item}}</li>
+        }
+    </ul>
+    <ul class="persons">
+        @for(person of persons; track person.id) {
+        <li class="person">
+            {{person.name}}
+        </li>
+        }
+    </ul>
+    <p>&#64;empty</p>
+    <ul class="empty-array">
+        @for(item of emptyArray;track item) {
+        <li class="item">{{item}}</li>
+        }
+        @empty {
+        <li class="empty">No items found; empty array</li>
+        }
+    </ul>
+    <p>&#64;for with String</p>
+    <ul>
+        @for (char of "Angular"; track char) {
+        <li>{{ char }}</li>
+        }
+    </ul>
+    <p>&#64;for with Iterable objects (ExpressionChangedAfterItHasBeenCheckedError)</p>
+    <ul>
+        @for (entry of myMap; track entry) {
+        <li>{{ entry[0]}}: {{ entry[1] }}</li>
+        }
+    </ul>
+    <p>&#64;for with $index</p>
+    <ul>
+        @for (item of items; track item; let index = $index) {
+        <li>INDEX: {{ index }} - ITEM: {{ item }}</li>
+        }
+    </ul>
+    <p>&#64;for with $first and $last</p>
+    <ul>
+        @for (item of items; track item; let first = $first, last = $last) {
+        <li>{{ item }}: FIRST: {{ first }}: LAST: {{ last }}</li>
+        }
+    </ul>
+    <p>&#64;for with $odd and $even</p>
+    <ul>
+        @for (item of items; track item; let odd = $odd, even = $even) {
+        <li>{{ item }}: ODD: {{ odd }}: EVEN: {{ even }}</li>
+        }
+    </ul>
+    <p>&#64;for with $count</p>
+    <ul>
+        @for (item of items; track item; let count = $count) {
+        <li>{{ item }}:COUNT: {{ count }}</li>
+        }
+    </ul>
+    <p>&#64;for vs ngFor</p>
+
+
+</div>

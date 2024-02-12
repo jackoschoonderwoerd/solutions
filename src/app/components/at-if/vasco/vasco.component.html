@@ -1,0 +1,29 @@
+<div class="content">
+    <div class="logos">
+        <a href="https://blog.angular-university.io/angular-if/"
+            target="_blank"><img class="logo"
+                src="./../../../../assets/images/logos/angular-university-logo.png"
+                alt="">
+        </a><a href="https://www.youtube.com/watch?v=W5l5r0tCsAk">
+            <img class="logo"
+                src="./../../../../assets/images/logos/youtube-logo.png"
+                alt=""></a>
+
+    </div>
+    <button mat-raised-button
+        (click)="toggleShowHello()">Toggle showHello</button>
+    <div class="show-hello-value">'showHello value: {{showHello}}'</div>
+    <button mat-raised-button
+        (click)="toggleShowGoodbye()">Toogle showGoodbye</button>
+    <div class="show-goodbye-value">showGoodbye value: {{showGoodbye}}</div>
+
+    @if(showHello) {
+    <h2>Hello</h2>
+    }
+    @else if (showGoodbye) {
+    <h2>Goodbye</h2>
+    }
+    @else {
+    <h2>See you later</h2>
+    }
+</div>

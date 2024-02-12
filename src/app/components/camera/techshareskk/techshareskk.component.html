@@ -1,0 +1,27 @@
+<div class="content">
+    <button (click)="checkPermissions()"
+        mat-raised-button>Check the web cam permissions</button>
+    <p *ngIf="status">{{status}}</p>
+
+    <div class="camera"
+        *ngIf="stream">
+        <!-- web cam image will be shown here -->
+        <webcam [trigger]="$trigger"
+            [width]="width"
+            (imageCapture)="snapshot($event)"
+            (initError)="handleInitError($event)"
+            [imageQuality]="1"></webcam>
+        <button mat-raised-button
+            (click)="capture()">{{buttonLabel}}</button>
+    </div>
+
+    <!-- preview section -->
+
+    <div class="preview"
+        *ngIf="previewImage">
+        <img [src]="previewImage"
+            alt="">
+        <button mat-raised-button
+            (click)="save()">proceed</button>
+    </div>
+</div>
