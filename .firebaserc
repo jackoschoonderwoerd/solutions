@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "solutions-jacko": {
+      "hosting": {
+        "solutions": [
+          "solutions-jacko"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "solutions-jacko"
+  }
+}

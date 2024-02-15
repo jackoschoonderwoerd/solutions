@@ -1,0 +1,11 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.npmjs.com/package/ngx-highlightjs"><img src="./../../../../assets/images/links/npm.png"
+                alt=""
+                class="logo"></a>
+    </div>
+    @for(snippet of snippets;track snippet) {
+    <pre><code [highlight]="snippet"></code></pre>
+    <hr>
+    }
+</div>

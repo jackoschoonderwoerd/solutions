@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "~prismjs/themes/prism-solarizedlight.css";
+@import "prismjs/themes/prism-okaidia.css";
 
 html,
 body {
@@ -27,7 +29,8 @@ a {
     background-color: black;
     color: white;
 }
-.logos {
+.links {
+    width: 100%;
     border: 1px solid gray;
     display: flex;
     align-items: center;
@@ -35,4 +38,14 @@ a {
     .logo {
         width: 3rem;
     }
+}
+.snippet {
+    padding: 1rem;
+    background-color: lightgray;
+}
+.title {
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
 }

@@ -1,27 +1,69 @@
 <div class="content">
-    <button (click)="checkPermissions()"
-        mat-raised-button>Check the web cam permissions</button>
-    <p *ngIf="status">{{status}}</p>
-
-    <div class="camera"
-        *ngIf="stream">
-        <!-- web cam image will be shown here -->
-        <webcam [trigger]="$trigger"
-            [width]="width"
-            (imageCapture)="snapshot($event)"
-            (initError)="handleInitError($event)"
-            [imageQuality]="1"></webcam>
-        <button mat-raised-button
-            (click)="capture()">{{buttonLabel}}</button>
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=3WrUTzVjxko">
+            <img class="logo"
+                src="./../../../../assets/images/links/youtube-logo.png"
+                alt="">
+        </a>
+        <a href="https://www.npmjs.com/package/ngx-webcam">
+            <img class="logo"
+                src="./../../../../assets/images/links/npm.png"
+                alt="">
+        </a>
     </div>
+    <div class="camera-container">
+        <div class="top">
+            <button (click)="checkPermissions()"
+                mat-raised-button
+                color="primary">Check the web cam permissions</button>
+            <p *ngIf="status">{{status}}</p>
+        </div>
+        <div class="image-preview">
+            <div class="left"
+                *ngIf="stream">
+                <!-- web cam image will be shown here -->
+                <webcam [trigger]="$trigger"
+                    [width]="width"
+                    (imageCapture)="snapshot($event)"
+                    (initError)="handleInitError($event)"
+                    [imageQuality]="1"></webcam>
+                <button mat-raised-button
+                    color="primary"
+                    (click)="capture()">{{buttonLabel}}</button>
+            </div>
 
-    <!-- preview section -->
 
-    <div class="preview"
-        *ngIf="previewImage">
-        <img [src]="previewImage"
-            alt="">
-        <button mat-raised-button
-            (click)="save()">proceed</button>
+            <!-- preview section -->
+
+            <div class="preview"
+                *ngIf="previewImage">
+                <img [src]="previewImage"
+                    alt="">
+                <button mat-raised-button
+                    (click)="proceed()">proceed</button>
+            </div>
+        </div>
+    </div>
+    <div class="downloaded-images">
+        <div class="title">downloaded images</div>
+        <div class="images-container">
+            @for(document of imagesData$|async; track document) {
+            <!-- {{document|json}}
+            {{document.imageData|json}} -->
+            <!-- {{document.imageData.downloadUrl}} -->
+            <div class="image-container">
+                <img [src]="document.imageData.downloadUrl"
+                    alt="">
+                <div class="name-button">
+                    <div class="img-name">{{document.imageData.fileName}}</div>
+                    <button mat-icon-button
+                        color="warn"
+                        (click)="onDeleteImage(document)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
     </div>
 </div>

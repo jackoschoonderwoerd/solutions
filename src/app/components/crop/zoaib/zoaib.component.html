@@ -1,0 +1,31 @@
+<div class="content">
+    <div class="image-control-component"
+        [style.width]="imageWidth() + 'px'">
+        <img [src]="imageSource()"
+            [height]="imageHeight()"
+            [width]="imageWidth()"
+            alt=""
+            class="mat-elevation-z5">
+        <input #inputField
+            type="file"
+            hidden
+            (change)="fileSelected($event)"
+            (click)="inputField.value = ''">
+        <button mat-raised-button
+            color="primary"
+            (click)="inputField.click()">Select Photo</button>
+    </div>
+    <div class="cropped-images mat-elevation-z5">
+        @for (document of imagesData$|async; track $index) {
+        <div class="img-container">
+            <img [src]="document.imageData.downloadUrl"
+                alt="">
+            <button mat-raised-button
+                color="warn"
+                (click)="onDelete(document.id, document.imageData.fileName)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+        }
+    </div>
+</div>

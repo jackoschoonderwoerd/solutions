@@ -1,14 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { WebcamImage, WebcamInitError, WebcamModule } from 'ngx-webcam';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
+import { FirestoreService } from '../../../shared/firestore.service';
+import { StorageService } from '../../../shared/storage.service';
+import { MatDialog } from '@angular/material/dialog';
+
+import { FormGroup } from '@angular/forms';
+import { FilenameDialogComponent } from './filename-dialog/filename-dialog.component';
+import { FirebaseError } from '@angular/fire/app';
+import { DocumentReference } from '@angular/fire/firestore';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-techshareskk',
     standalone: true,
-    imports: [CommonModule, MatButtonModule, WebcamModule],
+    imports: [CommonModule, MatButtonModule, WebcamModule, MatIconModule],
     templateUrl: './techshareskk.component.html',
     styleUrl: './techshareskk.component.scss'
 })
@@ -19,18 +28,34 @@ export class TechshareskkComponent implements OnInit {
     trigger: Subject<void> = new Subject();
     previewImage: string = '';
     buttonLabel: string = 'capture'
+    imagesData$: Observable<any>
+    webCamImage: WebcamImage;
+    imageFile: File;
+
+
 
     get $trigger(): Observable<void> {
         return this.trigger.asObservable();
     }
+    constructor(
+        private fsService: FirestoreService,
+        private storage: StorageService,
+        private dialog: MatDialog,
+        private router: Router
+    ) { }
 
     ngOnInit(): void {
         this.checkPermissions();
+        const path = `${this.router.url}/images`
+        this.imagesData$ = this.fsService.collection(path).pipe(tap((data) => {
+            console.log(data)
+        }))
     }
 
     capture() {
         this.trigger.next();
     }
+
     handleInitError(error: WebcamInitError) {
         if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
             console.warn("Camera access was not allowed by user!");
@@ -39,15 +64,39 @@ export class TechshareskkComponent implements OnInit {
     }
 
     snapshot(e: WebcamImage) {
+        this.webCamImage = e
         this.previewImage = e.imageAsDataUrl;
-        this.buttonLabel = 'Recapture image'
+        this.buttonLabel = 'Recapture image';
     }
-    save() {
-        console.log(this.previewImage);
-        alert('Save the image somewhere')
-    }
-    checkPermissions() {
 
+    proceed() {
+        this.requestFileName().then((fileName: string) => {
+            if (fileName) {
+                this.storeImage(fileName)
+                    .then((downloadUrl: any) => {
+                        console.log(`image file stored; ${downloadUrl}`);
+                        return downloadUrl
+                    })
+                    .catch((err: FirebaseError) => {
+                        console.log(`failed to store image; ${err.message}`)
+                    })
+                    .then((downloadUrl: string) => {
+                        console.log(downloadUrl)
+                        return this.saveDownloadUrl(fileName, downloadUrl)
+                    })
+                    .then((res: DocumentReference) => {
+                        console.log(`document added; ${res.id}`)
+                    })
+                    .catch((err: FirebaseError) => {
+                        console.log(`failed to add document; ${err.message}`)
+                    })
+            } else {
+                alert('something went wrong')
+            }
+        })
+    }
+
+    checkPermissions() {
         navigator.mediaDevices.getUserMedia({
             video: {
                 width: 200,
@@ -68,5 +117,81 @@ export class TechshareskkComponent implements OnInit {
                     this.status = 'Camera not available due to unknow reason';
                 }
             })
+    }
+
+    requestFileName() {
+        const promise = new Promise((resolve, reject) => {
+
+            const dialogRef = this.dialog.open(FilenameDialogComponent, {
+                width: '300'
+            })
+            dialogRef.afterClosed().subscribe((data: any) => {
+                if (data) {
+                    console.log(data.fileName);
+                    const fileName = data.fileName + '.jpeg'
+                    resolve(fileName)
+
+                } else {
+                    return
+                }
+            })
+        })
+        return promise
+    }
+
+    private storeImage(fileName: string) {
+        const imageFile = this.convertWebcamImageToImageFile();
+        const path = `${this.router.url}/${fileName}`
+        return this.storage.storeFile(path, imageFile)
+    }
+    private saveDownloadUrl(fileName: string, downloadUrl: string) {
+        const downloadData = {
+            fileName: fileName,
+            downloadUrl: downloadUrl
+        }
+        const path = `${this.router.url}/images`
+        return this.fsService.addDoc(path, downloadData)
+
+    }
+
+    private convertWebcamImageToImageFile() {
+        const arr = this.webCamImage.imageAsDataUrl.split(",");
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        this.imageFile = new File([u8arr], 'this.imageName', { type: 'jpeg' })
+        return this.imageFile
+    }
+    onDeleteImage(document) {
+        console.log(document)
+        this.deleteImageFile(document)
+            .then((res) => {
+                console.log(`image file deleted; ${res}`)
+            })
+            .catch((err: FirebaseError) => {
+                console.log(`failed to delete image file; ${err.message}`)
+            })
+            .then(() => {
+                return this.deleteImageUrl(document)
+            })
+            .then((res: any) => {
+                console.log(`image url deleted; ${res}`)
+            })
+            .catch((err: FirebaseError) => {
+                console.log(`failed to delete image url; ${err.message}`)
+            })
+    }
+    private deleteImageFile(document) {
+        const path = `${this.router.url}/${document.imageData.fileName}`
+        return this.storage.deleteObject(path)
+    }
+    private deleteImageUrl(document) {
+        const path = `${this.router.url}/images/${document.id}`
+        console.log(path);
+        return this.fsService.deleteDoc(path);
     }
 }

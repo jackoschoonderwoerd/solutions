@@ -10,6 +10,13 @@ export const routes: Routes = [
             .then(r => r.SIGNALS_ROUTES)
     },
     {
+        path: 'ngrx-signals',
+        loadComponent: () => import('./components/ngrx-signals/ngrx-signals.component')
+            .then(c => c.NgrxSignalsComponent),
+        loadChildren: () => import('./components/ngrx-signals/ngrx-signals.routes')
+            .then(r => r.NGRX_SIGNALS_ROUTES)
+    },
+    {
         path: 'update-ng',
         loadComponent: () => import('./components/update-ng/update-ng.component')
             .then(c => c.UpdateNgComponent),
@@ -43,5 +50,27 @@ export const routes: Routes = [
             .then(c => c.CameraComponent),
         loadChildren: () => import('./components/camera/camera.routes')
             .then(r => r.CAMERA_ROUTES)
+    },
+    {
+        path: 'crop',
+        loadComponent: () => import('./components/crop/crop.component')
+            .then(c => c.CropComponent),
+        loadChildren: () => import('./components/crop/crop.routes')
+            .then(r => r.CROP_ROUTES)
+    },
+    {
+        path: 'highlightjs',
+        loadComponent: () => import('./components/highlightjs/highlightjs.component')
+            .then(c => c.HighlightjsComponent),
+        loadChildren: () => import('./components/highlightjs/highlightjs.routes')
+            .then(r => r.HIGHLIGHTJS_ROUTES)
+    },
+    {
+        path: 'prism',
+        loadComponent: () => import('./components/prism/prism.component')
+            .then(c => c.PrismComponent),
+        loadChildren: () => import('./components/prism/prism.routes')
+            .then(r => r.PRISM_ROUTES)
     }
+
 ];

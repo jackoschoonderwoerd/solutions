@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { VascoService } from './vasco.service';
 
 @Component({
     selector: 'app-vasco',
@@ -33,6 +34,8 @@ export class VascoComponent {
         ["firstName", "Angular"],
         ["lastName", "Framework"],
     ]);
+    public service = inject(VascoService)
+    snippets = this.service.getSnippets()
 }
 
 export interface Person {
