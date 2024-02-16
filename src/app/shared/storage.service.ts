@@ -15,6 +15,7 @@ import {
     getStorage,
     getBytes,
     ListResult,
+    getBlob
 } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 
@@ -51,5 +52,9 @@ export class StorageService {
             const storageRef = ref(this.storage, path)
             return deleteObject(storageRef)
         }
+    }
+    getBlob(pathToBlob) {
+        const storageRef = ref(this.storage, pathToBlob)
+        return getBlob(storageRef)
     }
 }

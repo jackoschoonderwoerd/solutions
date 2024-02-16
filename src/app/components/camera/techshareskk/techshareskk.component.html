@@ -52,7 +52,8 @@
             {{document.imageData|json}} -->
             <!-- {{document.imageData.downloadUrl}} -->
             <div class="image-container">
-                <img [src]="document.imageData.downloadUrl"
+                <img (click)="onImage($event)"
+                    [src]="document.imageData.downloadUrl"
                     alt="">
                 <div class="name-button">
                     <div class="img-name">{{document.imageData.fileName}}</div>
@@ -60,6 +61,11 @@
                         color="warn"
                         (click)="onDeleteImage(document)">
                         <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                        color="primary"
+                        (click)="onCrop(document)">
+                        <mat-icon>crop</mat-icon>
                     </button>
                 </div>
             </div>

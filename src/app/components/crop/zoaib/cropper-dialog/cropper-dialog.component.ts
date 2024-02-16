@@ -24,6 +24,7 @@ export type CropperDialogResult = {
 export class CropperDialogComponent {
     data: CropperDialogData = inject(MAT_DIALOG_DATA);
 
+
     constructor() {
         console.log(this.data)
     }

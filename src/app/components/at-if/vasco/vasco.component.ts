@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { HIGHLIGHT_OPTIONS, HighlightModule, HighlightOptions, HighlightResult } from 'ngx-highlightjs';
+import { VascoService } from './vasco.service';
+import { ShowCodeComponent } from '../../../shared/show-code/show-code.component';
 
 
 @Component({
     selector: 'app-vasco',
     standalone: true,
-    imports: [MatButtonModule, HighlightModule],
+    imports: [MatButtonModule, HighlightModule, ShowCodeComponent],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss',
     providers: [
@@ -18,12 +20,19 @@ import { HIGHLIGHT_OPTIONS, HighlightModule, HighlightOptions, HighlightResult }
         },
     ],
 })
-export class VascoComponent {
+export class VascoComponent implements OnInit {
 
+    vascoService = inject(VascoService)
     response: HighlightResult;
 
     showHello: boolean = true;
     showGoodbye: boolean = true
+    snippets: string[] = []
+
+
+    ngOnInit(): void {
+        this.snippets = this.vascoService.getSnippets()
+    }
 
     toggleShowHello() {
         this.showHello = !this.showHello
@@ -31,20 +40,4 @@ export class VascoComponent {
     toggleShowGoodbye() {
         this.showGoodbye = !this.showGoodbye
     }
-    code = `
-    @if(showHello) {
-    <h2>Hello</h2>
-    }
-    @else if (showGoodbye) {
-    <h2>Goodbye</h2>
-    }
-    @else {
-    <h2>See you later</h2>
-    }
-    <button mat-raised-button
-        (click)="toggleShowHello()">Toggle showHello</button>
-    <div class="show-hello-value">'showHello value: {{showHello}}'</div>
-    <button mat-raised-button
-        (click)="toggleShowGoodbye()">Toogle showGoodbye</button>
-    <div class="show-goodbye-value">showGoodbye value: {{showGoodbye}}</div>`;
 }

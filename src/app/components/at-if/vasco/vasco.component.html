@@ -17,6 +17,9 @@
         (click)="toggleShowGoodbye()">Toogle showGoodbye</button>
     <div class="show-goodbye-value">showGoodbye value: {{showGoodbye}}</div>
 
+
+
+
     @if(showHello) {
     <h2>Hello</h2>
     }
@@ -26,7 +29,8 @@
     @else {
     <h2>See you later</h2>
     }
-    <div class="snippets">
-        <pre><code [highlight]="code"></code></pre>
-    </div>
+
+    @for(snippet of snippets;track snippet) {
+    <app-show-code [snippet]="snippet"></app-show-code>
+    }
 </div>

@@ -13,6 +13,9 @@ import { FilenameDialogComponent } from './filename-dialog/filename-dialog.compo
 import { FirebaseError } from '@angular/fire/app';
 import { DocumentReference } from '@angular/fire/firestore';
 import { MatIconModule } from '@angular/material/icon';
+import { CropComponent } from '../../crop/crop.component';
+import { CropperDialogComponent, CropperDialogData } from '../../crop/zoaib/cropper-dialog/cropper-dialog.component';
+import { getDownloadURL } from '@angular/fire/storage';
 
 @Component({
     selector: 'app-techshareskk',
@@ -193,5 +196,34 @@ export class TechshareskkComponent implements OnInit {
         const path = `${this.router.url}/images/${document.id}`
         console.log(path);
         return this.fsService.deleteDoc(path);
+    }
+    onCrop(document) {
+        console.log(document)
+        this.getBlob(document.downloadUrl)
+        // const pathToDocument = `${this.router.url}/images/${document.id}`
+        // this.getDownloadUrl(pathToDocument)
+        // const cropperDialogData: CropperDialogData = {
+        //     image: this.imageFile,
+        //     width: 300,
+        //     height: 300
+        // }
+        // this.dialog.open(CropperDialogComponent, {
+        //     data: {
+        //         cropperDialogData
+        //     }
+        // })
+
+    }
+    getBlob(pathTofile) {
+        this.storage.getBlob(pathTofile)
+            .then((data: any) => {
+                console.log(data)
+            })
+            .catch((err: FirebaseError) => {
+                console.log(err.message)
+            })
+    }
+    onImage(e) {
+        console.log(e.target)
     }
 }
