@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CropComponent } from '../../crop/crop.component';
 import { CropperDialogComponent, CropperDialogData } from '../../crop/zoaib/cropper-dialog/cropper-dialog.component';
 import { getDownloadURL } from '@angular/fire/storage';
+import { VascoService } from '../../loading-indicator/vasco/vasco.service';
 
 @Component({
     selector: 'app-techshareskk',
@@ -44,14 +45,18 @@ export class TechshareskkComponent implements OnInit {
         private fsService: FirestoreService,
         private storage: StorageService,
         private dialog: MatDialog,
-        private router: Router
+        private router: Router,
+        public loadingService: VascoService
     ) { }
 
     ngOnInit(): void {
+        this.loadingService.loadingOn();
+        this.loadingService.loading.set(true)
         this.checkPermissions();
         const path = `${this.router.url}/images`
         this.imagesData$ = this.fsService.collection(path).pipe(tap((data) => {
-            console.log(data)
+            this.loadingService.loadingOff();
+            this.loadingService.loading.set(false)
         }))
     }
 

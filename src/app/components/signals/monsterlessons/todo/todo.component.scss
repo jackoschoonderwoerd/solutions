@@ -1,0 +1,11 @@
+@import "./../monsterlessons.component.scss";
+
+li {
+    display: flex;
+    align-items: center;
+    .view {
+        border: 3px solid green;
+        display: flex;
+        align-items: center;
+    }
+}

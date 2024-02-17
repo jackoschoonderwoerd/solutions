@@ -71,6 +71,14 @@ export const routes: Routes = [
             .then(c => c.PrismComponent),
         loadChildren: () => import('./components/prism/prism.routes')
             .then(r => r.PRISM_ROUTES)
+    },
+    {
+        path: 'loading-indicator',
+        loadComponent: () => import('./components/loading-indicator/loading-indicator.component')
+            .then(c => c.LoadingIndicatorComponent),
+        loadChildren: () => import('./components/loading-indicator/loading-indicator.routes')
+            .then(r => r.LOADING_INDICATOR_ROUTES)
+
     }
 
 ];

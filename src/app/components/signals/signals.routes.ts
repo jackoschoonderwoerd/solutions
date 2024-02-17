@@ -15,5 +15,11 @@ export const SIGNALS_ROUTES: Routes = [
         path: 'kurata',
         loadComponent: () => import('./kurata/kurata.component')
             .then(c => c.KurataComponent)
+    },
+    {
+        path: 'monsterlessons',
+        loadComponent: () => import('./monsterlessons/monsterlessons.component')
+            .then(c => c.MonsterlessonsComponent)
     }
+
 ]

@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <a routerLink="vasco"
+        routerLinkActive="link-active">vasco loading indicator</a>
+</mat-toolbar>
+
+
+<div class="vasco">
+    <div class="title">vasco</div>
+    @for(snippet of snippets;track snippet) {
+
+    <app-show-code [snippet]="snippet"></app-show-code>
+    }
+</div>
+<router-outlet></router-outlet>

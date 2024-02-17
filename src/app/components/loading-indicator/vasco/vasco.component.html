@@ -1,0 +1,37 @@
+<!-- @if(loading$ | async) {
+
+<div class="spinner-container">
+    @if(customLoadingIndicator) {
+
+    <ng-container *ngTemplateOutlet="customLoadingIndicator" />
+
+    } @else {
+
+    <mat-spinner />
+
+    }
+</div>
+} -->
+
+@if(vascoService.loading()) {
+
+<div class="spinner-container">
+    @if(customLoadingIndicator) {
+
+    <ng-container *ngTemplateOutlet="customLoadingIndicator" />
+
+    } @else {
+
+    <mat-spinner />
+    }
+</div>
+}
+
+
+
+
+
+<!--
+@if(vascoService.loading()){
+
+} -->
