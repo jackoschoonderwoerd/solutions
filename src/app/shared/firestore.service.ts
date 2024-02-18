@@ -30,11 +30,11 @@ export class FirestoreService {
     firestore = inject(Firestore)
 
 
-    addDoc(path: string, imageData: object) {
+    addDoc(path: string, data: object) {
         console.log(path)
-        console.log(imageData)
+        console.log(data)
         const collectionRef = collection(this.firestore, path)
-        return addDoc(collectionRef, { imageData })
+        return addDoc(collectionRef, data)
     }
 
     collection(path) {
@@ -44,6 +44,14 @@ export class FirestoreService {
     deleteDoc(path) {
         const docRef = doc(this.firestore, path)
         return deleteDoc(docRef);
+    }
+    updateDoc(path: string, value) {
+        const docRef = doc(this.firestore, path)
+        return updateDoc(docRef, value)
+    }
+    setDoc(path, object) {
+        const docRef = doc(this.firestore, path);
+        return setDoc(docRef, object)
     }
 
 }

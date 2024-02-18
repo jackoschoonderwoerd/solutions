@@ -9,4 +9,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ShowCodeComponent {
     @Input() snippet: string
+
+    constructor() {
+        console.log(this.snippet)
+    }
 }

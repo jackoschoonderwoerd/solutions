@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
@@ -9,6 +9,22 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     templateUrl: './sidenav.component.html',
     styleUrl: './sidenav.component.scss'
 })
-export class SidenavComponent {
-
+export class SidenavComponent implements OnInit {
+    menuItems: string[] = [
+        'signals',
+        'ngrx-signals',
+        'update-ng',
+        'at-if',
+        'at-for',
+        'ng-module',
+        'camera',
+        'crop',
+        'highlights',
+        'prism',
+        'loadingindicator',
+        'count-visitors'
+    ]
+    ngOnInit(): void {
+        this.menuItems = this.menuItems.sort();
+    }
 }

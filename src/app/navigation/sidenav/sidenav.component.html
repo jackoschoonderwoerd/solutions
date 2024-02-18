@@ -1,26 +1,6 @@
 <div class="nav-list">
-    <a routerLinkActive="link-active"
-        routerLink="signals">signals</a>
-    <a routerLink="ngrx-signals">ngrx-signals</a>
-
-    <a routerLinkActive="link-active"
-        routerLink="update-ng">update-ng</a>
-
-    <a routerLinkActive="link-active"
-        routerLink="at-if">at-if</a>
-
-    <a routerLinkActive="link-active"
-        routerLink="at-for">at-for</a>
-    <a routerLink="ng-module"
-        routerLinkActive="link-active">ng-module</a>
-    <a routerLink="camera"
-        routerLinkActive="link-active">camera</a>
-    <a routerLink="crop"
-        routerLinkActive="link-active">crop</a>
-    <a routerLink="highlightjs"
-        routerLinkActive="link-active">highlightjs</a>
-    <a routerLink="prism"
-        routerLinkActive="link-active">prism</a>
-    <a routerLink="loading-indicator"
-        routerLinkActive="link-active">loading indicator</a>
+    @for(item of menuItems; track item) {
+    <a [routerLink]="item"
+        routerLinkActive="link-active">{{item}}</a>
+    }
 </div>

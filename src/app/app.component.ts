@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
@@ -10,6 +10,8 @@ import {
 import { HighlightResult } from 'ngx-highlightjs';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { VascoComponent } from './components/loading-indicator/vasco/vasco.component';
+
+import { FirestoreService } from './shared/firestore.service';
 
 @Component({
     selector: 'app-root',
@@ -26,7 +28,11 @@ import { VascoComponent } from './components/loading-indicator/vasco/vasco.compo
         },
     ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'solutions';
 
+
+    ngOnInit(): void {
+
+    }
 }

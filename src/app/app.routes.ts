@@ -78,7 +78,13 @@ export const routes: Routes = [
             .then(c => c.LoadingIndicatorComponent),
         loadChildren: () => import('./components/loading-indicator/loading-indicator.routes')
             .then(r => r.LOADING_INDICATOR_ROUTES)
-
+    },
+    {
+        path: 'count-visitors',
+        loadComponent: () => import('./components/count-visitors/count-visitors.component')
+            .then(c => c.CountVisitorsComponent),
+        loadChildren: () => import('./components/count-visitors/count-visitors.routes')
+            .then(r => r.COUNT_VISITORS_ROUTES)
     }
 
 ];

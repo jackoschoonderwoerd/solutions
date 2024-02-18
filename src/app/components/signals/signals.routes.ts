@@ -20,6 +20,11 @@ export const SIGNALS_ROUTES: Routes = [
         path: 'monsterlessons',
         loadComponent: () => import('./monsterlessons/monsterlessons.component')
             .then(c => c.MonsterlessonsComponent)
+    },
+    {
+        path: 'max',
+        loadComponent: () => import('./max/max.component')
+            .then(c => c.MaxComponent)
     }
 
 ]

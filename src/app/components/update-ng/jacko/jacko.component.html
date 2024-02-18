@@ -1,13 +1,9 @@
 <div class="content">
     <ul>
+        @for(snippet of snippets; track snippet){
         <li>
-            <pre><code>npm install -g &#64;angular/cli</code></pre>
+            <app-show-code [snippet]="snippet"></app-show-code>
         </li>
-        <li>
-            <pre><code>ng update &#64;angular/core</code></pre>
-        </li>
-        <li>
-            <pre><code>ng update</code></pre>
-        </li>
+        }
     </ul>
 </div>
