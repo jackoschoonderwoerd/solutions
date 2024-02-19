@@ -1,0 +1,16 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=iO6j3SR7U6Q">
+            <img src="./../../../../assets/images/links/youtube-logo.png"
+                alt=""
+                class="logo">
+        </a>
+    </div>
+    <ul>
+        @for(snippet of sweService.snippets(); track snippet){
+        <li>
+            <app-show-code [snippet]="snippet"></app-show-code>
+        </li>
+        }
+    </ul>
+</div>

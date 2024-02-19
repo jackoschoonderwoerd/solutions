@@ -92,6 +92,15 @@ export const routes: Routes = [
             .then(c => c.NgxTranslateComponent),
         loadChildren: () => import('./components/ngx-translate/ngx-translate.routes')
             .then(r => r.NGX_TRANSLATE_ROUTES)
+    },
+    {
+        path: 'google-translate',
+        loadComponent: () => import('./components/google-translate/google-translate.component')
+            .then(c => c.GoogleTranslateComponent),
+        loadChildren: () => import('./components/google-translate/google-translate.routes')
+            .then(r => r.GOOGLE_TRANSLATE_ROUTES
+            )
+
     }
 
 ];

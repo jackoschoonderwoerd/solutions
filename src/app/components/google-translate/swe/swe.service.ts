@@ -1,34 +1,27 @@
-<!doctype html>
-<html lang="en">
+import { Injectable, signal } from '@angular/core';
 
-<head>
-    <meta charset="utf-8">
-    <title>Solutions</title>
-    <base href="/">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-    <link rel="icon"
-        type="image/x-icon"
-        href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
+@Injectable({
+    providedIn: 'root'
+})
+export class SweService {
 
+    constructor() { }
 
-</head>
+    snippets = signal([
 
-<body>
-    <!-- <div class=""
+        `
+    IN INDEX.HTML:
+
+    <div class=""
         id="google_translate_element"></div>
     <div class="notranslate">This text will not translate</div>
-    <div class="">The cow jumped over the moon</div> -->
+    <div class="">The cow jumped over the moon</div>
 
     <app-root></app-root>
 
 
 
-    <!-- <span>
+    <span>
         <script type="text/javascript">
             //<![CDATA[
             function googleTranslateElementInit() {
@@ -43,7 +36,7 @@
 
         </script>
         <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    </span> -->
-</body>
-
-</html>
+    </span>
+    `
+    ])
+}

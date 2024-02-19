@@ -8,6 +8,7 @@ export class JackoService {
     constructor() { }
 
     snippets: string[] = [
+        `ng version`,
         `npm install -g @angular/cli`,
         'ng update @angular/core',
         'ng update'

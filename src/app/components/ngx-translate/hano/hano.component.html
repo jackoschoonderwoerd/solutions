@@ -18,13 +18,28 @@
         </a>
     </div>
     <app-navbar></app-navbar>
-    <div class="selected-language-abr">
-        {{hanoService.selectedLanguage()}}
+
+    <div class="">
+        put your json files in assets/ngx-translate/i18n
     </div>
-    <button>{{'about'|translate}}</button>
-    <mat-card>
-        <title mat-card-title>{{person.home|translate}}</title>
-    </mat-card>
+    <ul>
+        <li style="font-size: 3rem; font-weight: bold;"
+            class="selected-language-abr">
+            {{hanoService.selectedLanguage()}}
+        </li>
+        @for(original of originalsArr; track original) {
+
+        <li>
+            <div class="original">{{original}}</div>
+            <div class="translation">{{original|translate}}</div>
+        </li>
+        }
+
+    </ul>
+
+
+
+
     @for(snippet of snippets;track snippet) {
     <app-show-code [snippet]="snippet"></app-show-code>
     }

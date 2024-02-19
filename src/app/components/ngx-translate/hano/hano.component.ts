@@ -7,6 +7,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ShowCodeComponent } from '../../../shared/show-code/show-code.component';
 import { MatCardModule } from '@angular/material/card';
+// import * as original from './../../../../assets/ngx-translate/i18n/'
+
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http)
@@ -32,14 +34,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class HanoComponent implements OnInit {
     public hanoService = inject(HanoService)
-    snippets: string[] = []
-    person = {
-        home: 'thuis',
-        about: 'over ons'
-    }
+    snippets: string[] = [];
+    private URL = './../../../../assets/ngx-translate/i18n/en.json';
+    originalsArr: string[] = [];
+
 
     constructor(
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private httpClient: HttpClient
     ) {
         this.translateService.setDefaultLang('en');
         this.translateService.use(localStorage.getItem('language') || 'en')
@@ -47,5 +49,10 @@ export class HanoComponent implements OnInit {
 
     ngOnInit(): void {
         this.snippets = this.hanoService.getSnippets();
+        this.httpClient.get(this.URL).subscribe((jsonData: any) => {
+            console.log(jsonData)
+            this.originalsArr = Object.keys(jsonData)
+            console.log(this.originalsArr)
+        })
     }
 }
