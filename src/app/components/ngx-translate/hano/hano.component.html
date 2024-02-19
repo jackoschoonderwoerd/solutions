@@ -1,0 +1,31 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=vSwYuyH4kMA&t=677s">
+
+            <img src="./../../../../assets/images/links/youtube-logo.png"
+                alt=""
+                class="logo">
+        </a>
+        <a href="https://github.com/chrisira/angular_localization-Youtube">
+            <img src="./../../../../assets/images/links/github.png"
+                alt=""
+                class="logo">
+        </a>
+        <a href="https://github.com/ngx-translate/core/issues/1398">
+            <img src="./../../../../assets/images/links/github.png"
+                alt=""
+                class="logo">
+        </a>
+    </div>
+    <app-navbar></app-navbar>
+    <div class="selected-language-abr">
+        {{hanoService.selectedLanguage()}}
+    </div>
+    <button>{{'about'|translate}}</button>
+    <mat-card>
+        <title mat-card-title>{{person.home|translate}}</title>
+    </mat-card>
+    @for(snippet of snippets;track snippet) {
+    <app-show-code [snippet]="snippet"></app-show-code>
+    }
+</div>

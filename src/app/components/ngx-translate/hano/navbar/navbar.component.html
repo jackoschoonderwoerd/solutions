@@ -1,0 +1,9 @@
+<mat-toolbar>
+    <mat-select placeholder="select language"
+        (selectionChange)="languageSelected($event)">
+        @for(language of languages; track language){
+        <mat-option [value]="language.abr">{{language.name}}</mat-option>
+        }
+    </mat-select>
+
+</mat-toolbar>

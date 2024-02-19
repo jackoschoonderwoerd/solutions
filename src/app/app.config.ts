@@ -10,7 +10,14 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from './../environments/environment';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
 
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/ngx-translate/i18n/', '.json');
+}
 
 
 export const appConfig: ApplicationConfig = {
@@ -39,9 +46,24 @@ export const appConfig: ApplicationConfig = {
                     scss: () => import('highlight.js/lib/languages/scss'),
                 },
                 // themePath: 'path-to-theme.css'
-                themePath: 'assets/styles/solarized-dark.css'
-            }
-        }
-    ]
+                themePath: 'assets/styles/solarized-dark.css',
 
+            },
+
+
+        },
+        importProvidersFrom(HttpClientModule), // or provideHttpClient() in Angular v15
+        importProvidersFrom(
+            TranslateModule.forChild({
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: createTranslateLoader,
+                    deps: [HttpClient],
+                },
+            })
+        ),
+        HttpClient,
+
+        TranslateStore
+    ],
 };

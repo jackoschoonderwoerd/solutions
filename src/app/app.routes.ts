@@ -85,6 +85,13 @@ export const routes: Routes = [
             .then(c => c.CountVisitorsComponent),
         loadChildren: () => import('./components/count-visitors/count-visitors.routes')
             .then(r => r.COUNT_VISITORS_ROUTES)
+    },
+    {
+        path: 'ngx-translate',
+        loadComponent: () => import('./components/ngx-translate/ngx-translate.component')
+            .then(c => c.NgxTranslateComponent),
+        loadChildren: () => import('./components/ngx-translate/ngx-translate.routes')
+            .then(r => r.NGX_TRANSLATE_ROUTES)
     }
 
 ];

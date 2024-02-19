@@ -22,7 +22,8 @@ export class SidenavComponent implements OnInit {
         'highlights',
         'prism',
         'loadingindicator',
-        'count-visitors'
+        'count-visitors',
+        'ngx-translate'
     ]
     ngOnInit(): void {
         this.menuItems = this.menuItems.sort();
