@@ -7,11 +7,12 @@ import {
     HIGHLIGHT_OPTIONS,
     HighlightOptions,
 } from 'ngx-highlightjs';
-import { HighlightResult } from 'ngx-highlightjs';
-import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+
+
 import { VascoComponent } from './components/loading-indicator/vasco/vasco.component';
 
-import { FirestoreService } from './shared/firestore.service';
+
+
 
 @Component({
     selector: 'app-root',

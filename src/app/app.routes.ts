@@ -101,6 +101,27 @@ export const routes: Routes = [
             .then(r => r.GOOGLE_TRANSLATE_ROUTES
             )
 
+    },
+    {
+        path: 'mat-theme',
+        loadComponent: () => import('./components/mat-theme/mat-theme.component')
+            .then(c => c.MatThemeComponent),
+        loadChildren: () => import('./components/mat-theme/mat-theme.routes')
+            .then(r => r.MAT_THEME_ROUTES)
+    },
+    {
+        path: 'form-array',
+        loadComponent: () => import('./components/form-array/form-array.component')
+            .then(c => c.FormArrayComponent),
+        loadChildren: () => import('./components/form-array/form-array.routes')
+            .then(r => r.FORM_ARRAY_ROUTES)
+    },
+    {
+        path: 'add-image',
+        loadComponent: () => import('./components/add-image/add-image.component')
+            .then(c => c.AddImageComponent),
+        loadChildren: () => import('./components/add-image/add-image.routes')
+            .then(r => r.ADD_IMAGE_ROUTES)
     }
 
 ];

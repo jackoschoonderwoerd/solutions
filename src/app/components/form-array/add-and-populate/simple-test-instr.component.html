@@ -1,0 +1,117 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.tektutorialshub.com/angular/nested-formarray-example-add-form-fields-dynamically/">techtutorialshub</a>
+    </div>
+    <h1>Angular Nested FormArray / Dynamic FormArray</h1>
+
+    <form [formGroup]="empForm"
+        (ngSubmit)="onSubmit()">
+        <div class="title">cd form</div>
+        <div class="form-field title">
+            <label for="title">title</label>
+            <input type="text"
+                placeholder="title"
+                id="title"
+                formControlName="title">
+        </div>
+        <div formArrayName="employees"
+            class="employees">
+            <div class="title">employees</div>
+            <div *ngFor="let employee of employees().controls; let empIndex=index">
+                <div [formGroupName]="empIndex"
+                    class="employee">
+                    <div class="title">employee</div>
+                    <div class="name">
+
+                        <div class="form-field">
+                            <label for="firstName">{{empIndex}} First Name :</label>
+
+                            <input type="text"
+                                formControlName="firstName" />
+                        </div>
+                        <div class="form-field">
+                            <label for="">Last Name:</label>
+
+                            <input type="text"
+                                formControlName="lastName" />
+                        </div>
+
+                        <button (click)="removeEmployee(empIndex)">Remove employee</button>
+                    </div>
+
+                    <div class="skills-container"
+                        formArrayName="skills">
+                        <div class="title">employee skills</div>
+                        <div class="skill"
+                            *ngFor="let skill of employeeSkills(empIndex).controls; let skillIndex=index">
+                            <div class="title">skill</div>
+                            <div [formGroupName]="skillIndex"
+                                class="skill-details">
+                                <div class="form-field ">
+
+                                    <label for="skill">{{skillIndex}} Skill :</label>
+                                    <input type="text"
+                                        id="skill"
+                                        formControlName="skill" />
+                                </div>
+                                <div class="form-field exp">
+                                    <label for="exp">Exp:</label>
+                                    <input id="exp"
+                                        type="text"
+                                        formControlName="exp" />
+                                </div>
+                                <button (click)="removeEmployeeSkill(empIndex,skillIndex)">
+                                    Remove skill
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button"
+                            (click)="addEmployeeSkill(empIndex)">
+                            Add Skill
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button type="button"
+                (click)="addEmployee()">Add Employee</button>
+        </div>
+        <button [disabled]="empForm.invalid"
+            type="submit">{{editmode ? 'update cd':'add cd'}}</button>
+    </form>
+
+    <div class="cds">
+        @for(cd of cds$|async;track cd) {
+        <div class="cd">
+            <div class="title">{{cd.title}}</div>
+            <div class="employees">
+                @for(employee of cd.employees; track employee) {
+                <div class="employee">
+                    <div class="name">
+                        <div class="firstName">{{employee.firstName}}</div>
+                        <div class="lastName">{{employee.lastName}}</div>
+                    </div>
+                    <div class="skills">
+                        @for(skill of employee.skills; track skill) {
+                        <div class="skill">
+                            {{skill.skill}} - {{skill.exp}}
+                        </div>
+                        }
+                    </div>
+
+
+                </div>
+                }
+                <button (click)="onEditCd(cd.id)">edit cd</button>
+                <button (click)="onDeleteCd(cd.id)">delete cd</button>
+
+            </div>
+        </div>
+        <!-- {{cd|json}} -->
+        }
+    </div>
+
+    {{this.empForm.value|json }}
+
+    <br /><br />
+    <a href="https://www.tektutorialshub.com/angular/nested-formarray-example-add-form-fields-dynamically/">Nested FormArray / Dynamic FormArray</a>
+</div>

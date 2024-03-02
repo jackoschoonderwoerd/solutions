@@ -73,7 +73,7 @@ export class ZoaibComponent implements OnInit {
         const path = `${this.router.url}/images`
         this.baseUrl.set(this.router.url)
         this.imagesData$ = this.fsService.collection(path).pipe(tap((imagesDataArray) => {
-
+            console.log(imagesDataArray)
             if (imagesDataArray.length > 0) {
                 this.imagesPresent.set(true)
             } else {

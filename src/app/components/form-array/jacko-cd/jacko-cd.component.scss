@@ -1,0 +1,20 @@
+mat-form-field {
+    margin-right: 1rem;
+}
+.emp-form {
+    background-color: wheat;
+    border: 1px solid black;
+    padding: 1rem;
+}
+.musicians-form-array {
+    border: 1px solid orange;
+    padding: 1rem;
+    .musician {
+        border: 1px solid blue;
+        padding: 1rem;
+    }
+}
+.reviews-form {
+    padding: 1rem;
+    border: 1px solid red;
+}

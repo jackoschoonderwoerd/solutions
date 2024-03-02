@@ -53,5 +53,9 @@ export class FirestoreService {
         const docRef = doc(this.firestore, path);
         return setDoc(docRef, object)
     }
+    getDoc(path) {
+        const docRef = doc(this.firestore, path)
+        return docData(docRef)
+    }
 
 }

@@ -18,11 +18,14 @@
     <div class="cropped-images mat-elevation-z5">
         @for (document of imagesData$|async; track $index) {
         <div class="img-container">
-            <img [src]="document.imageData.downloadUrl"
+
+
+            <img [src]="document.downloadUrl"
                 alt="">
+            <div class="file-name">{{document.fileName}}</div>
             <button mat-raised-button
                 color="warn"
-                (click)="onDelete(document.id, document.imageData.fileName)">
+                (click)="onDelete(document.id, document.fileName)">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>

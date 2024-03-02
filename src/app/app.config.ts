@@ -15,6 +15,7 @@ import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/ngx-translate/i18n/', '.json');
 }
@@ -64,6 +65,6 @@ export const appConfig: ApplicationConfig = {
         ),
         HttpClient,
 
-        TranslateStore
+        TranslateStore, provideAnimationsAsync()
     ],
 };

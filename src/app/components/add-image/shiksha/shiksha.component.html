@@ -1,0 +1,17 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=l0kMEbOhqtA">
+            <img src="./../../../../assets/images/links/youtube-logo.png"
+                alt=""
+                class="logo">
+        </a>
+    </div>
+    <input type="file"
+        style="display: none;"
+        #fileInput
+        (change)="onFileInputChange($event)">
+    <button mat-raised-button
+        (click)="fileInput.click()">select file</button>
+    <img [src]="url"
+        alt="">
+</div>
