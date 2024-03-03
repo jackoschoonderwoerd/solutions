@@ -1,7 +1,38 @@
 <div class="content">
     <div class="links">
-        <a href="https://www.youtube.com/watch?v=HqxY0JPlh54&list=WL&index=41&t=45s"><img src="./../../../../assets/images/links/angular-university-logo.png"
+        <a href="https://www.youtube.com/watch?v=HqxY0JPlh54&list=WL&index=41&t=45s"
+            target="_blank"><img src="./../../../../assets/images/links/angular-university-logo.png"
                 alt=""
                 class="logo"></a>
+        <a href="https://material.angular.io/components/categories"
+            target="_blank">angular-material</a>
+        <a href="https://ngrx.io/guide/signals"
+            target="_blank">ngrx/signals</a>
     </div>
-</div>
+    <div class="app">
+
+        <div class="angular-univ-container">
+            <img src="https://pbs.twimg.com/profile_images/1745440716095160320/0PSHAXyl_400x400.png">
+            <h1>Angular University</h1>
+            <a href="https://angular-university.io">angular-university.io</a>
+        </div>
+
+        @if (!store.loading()) {
+        <app-todos-list />
+        }
+        @else {
+        <mat-spinner />
+        }
+
+
+    </div>
+    <!-- <app-todos-list></app-todos-list> -->
+    <!-- <div class="app">
+        <pre>
+            <code>
+
+                {{store.todos()|json}}
+            </code>
+        </pre>
+    </div>
+</div> -->
