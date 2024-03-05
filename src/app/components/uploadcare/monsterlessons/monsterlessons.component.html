@@ -1,0 +1,23 @@
+<h1>Monsterlessons Academy</h1>
+<h2>CTX Response Not working, moved to a seperate project: Utils/Monsterlessons/Uploadcare</h2>
+
+<lr-config ctx-name="my-uploader"
+    pubkey="911e4e794b6c22555890"
+    multiple="true"
+    removeCopyright="true"
+    sourceList="local, url, camera, dropbox, gdrive"
+    use-cloud-image-editor="true"></lr-config>
+
+<lr-file-uploader-regular ctx-name="my-uploader"
+    class="parentContainer"
+    css-src="https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.30.0/web/lr-file-uploader-regular.min.css"></lr-file-uploader-regular>
+
+<lr-upload-ctx-provider ctx-name="my-uploader"
+    #ctxProvider></lr-upload-ctx-provider>
+
+<div *ngFor="let uploadedFile of uploadedFiles">
+    <img src="{{ uploadedFile.cdnUrl + '/-/preview/-/resize/x200/' }}"
+        *ngIf="uploadedFile.cdnUrl" />
+</div>
+
+<router-outlet></router-outlet>

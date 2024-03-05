@@ -9,13 +9,15 @@
         <a href="https://ngrx.io/guide/signals"
             target="_blank">ngrx/signals</a>
     </div>
+    <app-show-code [snippet]="'ng add @ngrx/signals@latest'"></app-show-code>
     <div class="app">
 
-        <div class="angular-univ-container">
+        <!-- <div class="angular-univ-container">
             <img src="https://pbs.twimg.com/profile_images/1745440716095160320/0PSHAXyl_400x400.png">
             <h1>Angular University</h1>
             <a href="https://angular-university.io">angular-university.io</a>
-        </div>
+        </div> -->
+
 
         @if (!store.loading()) {
         <app-todos-list />
@@ -26,13 +28,5 @@
 
 
     </div>
-    <!-- <app-todos-list></app-todos-list> -->
-    <!-- <div class="app">
-        <pre>
-            <code>
 
-                {{store.todos()|json}}
-            </code>
-        </pre>
-    </div>
-</div> -->
+</div>

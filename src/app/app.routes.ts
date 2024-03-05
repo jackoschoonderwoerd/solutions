@@ -122,6 +122,27 @@ export const routes: Routes = [
             .then(c => c.AddImageComponent),
         loadChildren: () => import('./components/add-image/add-image.routes')
             .then(r => r.ADD_IMAGE_ROUTES)
+    },
+    {
+        path: 'uploadcare',
+        loadComponent: () => import('./components/uploadcare/uploadcare.component')
+            .then(c => c.UploadcareComponent),
+        loadChildren: () => import('./components/uploadcare/uploadcare.routes')
+            .then(r => r.UPLOADCARE_ROUTES)
+    },
+    {
+        path: 'viewchild',
+        loadComponent: () => import('./components/viewchild/viewchild.component')
+            .then(c => c.ViewchildComponent),
+        loadChildren: () => import('./components/viewchild/viewchild.routes')
+            .then(r => r.VIEWCHILD_ROUTES)
+    },
+    {
+        path: 'text-editor',
+        loadComponent: () => import('./components/text-editor/text-editor.component')
+            .then(c => c.TextEditorComponent),
+        loadChildren: () => import('./components/text-editor/text-editor.routes')
+            .then(r => r.TEXT_EDITOR_ROUTES)
     }
 
 ];

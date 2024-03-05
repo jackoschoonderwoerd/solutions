@@ -27,7 +27,7 @@ import { TodosFilter, TodosStore } from '../store/todos.store';
 })
 export class TodosListComponent {
 
-    filter = viewChild.required(MatButtonToggleGroup)
+    filter = viewChild.required(MatButtonToggleGroup);
 
     store = inject(TodosStore)
 
@@ -39,10 +39,12 @@ export class TodosListComponent {
     }
 
     async onAddTodo(title: string) {
+        console.log(`addTodo 01 todos-list.component.ts onAddTodo(${title})`)
         this.store.addTodo(title)
     }
 
     async onDeleteTodo(id: string, event: MouseEvent) {
+        console.log(`01 todos-list.component.ts - onDeleteTodo(${id})`)
         event.stopPropagation();
         await this.store.deleteTodo(id)
     }
@@ -50,6 +52,7 @@ export class TodosListComponent {
         await this.store.updateTodo(id, completed)
     }
     onFilterTodos(event: MatButtonToggleChange) {
+        console.log(`06 todos-list.component.ts - onFilterTodos(${event.value})`)
         const filter = event.value as TodosFilter;
         this.store.updateFilter(filter);
     }

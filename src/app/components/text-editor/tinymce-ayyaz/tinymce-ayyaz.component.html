@@ -1,0 +1,30 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=wtoObCdlLGQ"
+            target="_blank">tiymce-ayyaz</a>
+        <a href="https://www.tiny.cloud/solutions/wysiwyg-angular-rich-text-editor/"
+            target="_blank">tinyMCE</a>
+        <a href="https://www.tiny.cloud/docs/tinymce/6/angular-pm/"
+            target="_blank">Angular framework</a>
+    </div>
+    <form [formGroup]="form">
+        <editor formControlName="editor"
+            apiKey="n6z1jie1g7j3j6d4x9oyay4przt4ivupw964pkwl6c9t7j21"
+            [init]="tinymceInit"></editor>
+
+
+        <button (click)="onSubmit()">submit</button>
+    </form>
+    <div class="submitted-text">
+        <h4>submitted data:</h4>
+        <div class="result">
+            {{submittedText}}
+        </div>
+    </div>
+
+    <div class="submitted-text">
+        <h4>inner html:</h4>
+        <div class="result"
+            [innerHTML]="submittedText"></div>
+    </div>
+</div>
