@@ -1,0 +1,78 @@
+<form class="subject-form"
+    [formGroup]="subjectForm"
+    (ngSubmit)="onStoreSubject()">
+    <div class="title">subject</div>
+    <mat-form-field>
+        <mat-label>Subject name</mat-label>
+        <input type="text"
+            matInput
+            formControlName="subjectName">
+    </mat-form-field>
+
+    <form class="topics-array"
+        formArrayName="topicsArray">
+        <div class="title">topics array</div>
+        <div *ngFor="let topicControl of topics().controls; let topicIndex=index"
+            class="topic-control">
+            <div class="topic"
+                [formGroupName]="topicIndex">
+                <div class="title">topic</div>
+                <mat-form-field>
+                    <mat-label>{{topicIndex}} Topic name :</mat-label>
+                    <input matInput
+                        type="text"
+                        formControlName="topicName" />
+                </mat-form-field>
+
+
+                <mat-icon (click)="removeTopic(topicIndex)">delete_forever</mat-icon>
+
+
+                <div formArrayName="itemsArray"
+                    class="items-array">
+                    <div class="title">items array</div>
+                    <div *ngFor="let skill of itemsArray(topicIndex).controls; let skillIndex=index">
+                        <div [formGroupName]="skillIndex"
+                            class="item">
+                            <div class="title">item</div>
+                            <mat-form-field>
+                                <mat-label>{{skillIndex}} Item name</mat-label>
+                                <input type="text"
+                                    matInput
+                                    formControlName="itemName" />
+                            </mat-form-field>
+
+
+                            <mat-icon (click)="removeItem(topicIndex,skillIndex)">delete_forever</mat-icon>
+                        </div>
+                    </div>
+                    <button type="button"
+                        mat-raised-button
+                        color="primary"
+                        (click)="addItem(topicIndex)">
+                        Add Item
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button mat-raised-button
+            type="button"
+            color="primary"
+            (click)="addTopic()">Add Topic</button>
+    </form>
+
+    <button mat-raised-button
+        color="primary"
+        [disabled]="subjectForm.invalid"
+        type="submit">{{!editmode ? 'Store Subject': 'Update Subject' }}
+    </button>
+</form>
+
+
+<pre>
+        <code>
+
+            {{subjectForm.value|json}}
+
+        </code>
+    </pre>

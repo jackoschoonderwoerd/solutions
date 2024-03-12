@@ -1,0 +1,32 @@
+<div class="content">
+    <div class="links">
+        <a href="https://www.youtube.com/watch?v=BqXw2zO2iXg">monsterlessons</a>
+    </div>
+    <div class="map">
+        <div class="title">map</div>
+        {{map}}
+    </div>
+    <div class="get-foo">
+        <div class="title">get-foo</div>
+        {{map.get('foo')}}
+    </div>
+    <div class="size">
+        <div class="title">map.size</div>
+        {{map.size}}
+    </div>
+    <hr>
+    <div class="title">stringifiedMap</div>
+    <app-show-code [snippet]="snippetStringifiedMap"></app-show-code>
+    <div class="stringified-map">
+        {{stringifiedMap}}
+
+    </div>
+    <hr>
+    <div class="title">
+        objectifiedMap
+    </div>
+    <app-show-code [snippet]="snippetObjectifiedMap"></app-show-code>
+    <div class="objectified-map">
+        {{objectifiedMap}}
+    </div>
+</div>

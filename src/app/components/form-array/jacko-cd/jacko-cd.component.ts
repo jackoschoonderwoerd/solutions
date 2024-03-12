@@ -69,7 +69,6 @@ export class JackoCdComponent {
 
 
     onEdit(id) {
-        console.log(this.musiciansControls)
         const pathToCd = `cds/${id}`
         this.fsService.getDoc(pathToCd).pipe(take(1)).subscribe((cd: Cd) => {
 
@@ -188,64 +187,8 @@ export class JackoCdComponent {
                 console.log(`failed to store cd; ${err.message}`)
             })
     }
-    // onEdit(id: string) {
-    //     console.log(id)
-
-    //     const musicians: Musician[] =
-    //         [
-    //             {
-    //                 firstName: 'jako',
-    //                 lastName: 'sch',
-    //                 instruments: [
-    //                     {
-    //                         name: 'base',
-    //                         seqNr: 1
-    //                     }
-    //                 ],
-    //                 seqNr: 5
-    //             }
-    //         ]
-    //     const pathToCd = `cds/${id}`;
-    //     this.fsService.getDoc(pathToCd).pipe(take(1)).pipe(take(1)).subscribe((cd: Cd) => {
-    //         console.log(cd)
-    //         this.cdForm.patchValue({
-    //             title: cd.title,
-
-    //         })
-    //         const musicians = cd.musicians;
-    //         for (let i = 0; i < musicians.length; i++) {
-    //             this.musiciansControls.push(this.fb.control(''))
-    //         }
-    //         console.log(this.musiciansControls)
-    //         setTimeout(() => {
-    //         }, 0);
-    //         this.setFormArrayValues(musicians)
 
 
-    //     })
-    // }
-
-    // setFormArrayValues(musicians: Musician[]) {
-
-    //     this.musiciansControls.forEach((control, index) => {
-    //         control.setValue(musicians[index]);
-    //     })
-    //     console.log(this.musiciansControls)
-
-    //     // const newControl = new FormControl(jackoa);
-
-    //     const myFormControl = new FormControl(this.musiciansControls)
-    //     // Add the new control to the form group
-
-    //     // this.cdForm.addControl('myMusicians', myFormControl);
-
-    //     // this.cdForm.setControl('myMusicians', myFormControl);
-    //     this.cdForm.setControl('musicians', myFormControl);
-
-    //     // this.cdForm.addControl('jacko', this.musiciansControls)
-    //     console.log(this.cdForm)
-    //     // this.cdForm.get('musicians')
-    // }
 
 
 

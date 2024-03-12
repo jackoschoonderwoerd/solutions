@@ -1,0 +1,34 @@
+<button *ngIf="isRootNode"
+    mat-button
+    [matMenuTriggerFor]="menu">
+    {{ trigger }} <span>rootmode</span>
+</button>
+
+<button *ngIf="!isRootNode"
+    mat-menu-item
+    [matMenuTriggerFor]="menu"
+    (menuOpened)="getData(trigger)">
+    {{ trigger }} <span>!rootmode</span>
+</button>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item
+        *ngIf="isLoading"
+        style="display: flex; justify-content: center; align-items: center;">
+        <mat-spinner mode="indeterminate"
+            diameter="24"></mat-spinner>
+    </button>
+    <span>DATA JSON: {{data|json}}</span>
+    <ng-container *ngFor="let node of data; let i = index">
+        <span>NODE: {{node}}</span>
+        <button mat-menu-item
+            style="border: 1px solid black;">
+            <app-second-try-menu [trigger]="node"
+                *ngIf="database.isExpandable(node); else menuItem"></app-second-try-menu>
+            <span>is expandable: </span><span> {{isExpandable(node)}}</span>
+        </button>
+        <ng-template #menuItem>
+            <button mat-menu-item><span>{{ node }}</span><span> end of the line</span></button>
+        </ng-template>
+    </ng-container>
+</mat-menu>

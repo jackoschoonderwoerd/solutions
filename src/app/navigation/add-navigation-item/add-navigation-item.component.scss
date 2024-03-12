@@ -1,0 +1,33 @@
+form {
+    min-width: 20rem;
+    max-width: 25em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.subject-form {
+    border: 3px solid black;
+    padding: 1rem;
+    .topics-array {
+        border: 3px solid red;
+        padding: 1rem;
+        .topic-control {
+            border: 3px solid blue;
+            padding: 1rem;
+            .topic {
+                .items-array {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1rem;
+                    gap: 1rem;
+                    border: 3px solid green;
+                    .item {
+                        padding: 1rem;
+                        border: 3px solid pink;
+                    }
+                }
+            }
+        }
+    }
+}

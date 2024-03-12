@@ -143,6 +143,39 @@ export const routes: Routes = [
             .then(c => c.TextEditorComponent),
         loadChildren: () => import('./components/text-editor/text-editor.routes')
             .then(r => r.TEXT_EDITOR_ROUTES)
+    },
+    {
+        path: 'async-await',
+        loadComponent: () => import('./components/async-await/async-await.component')
+            .then(c => c.AsyncAwaitComponent),
+        loadChildren: () => import('./components/async-await/async-await.routes')
+            .then(r => r.ASYNC_AWAIT_ROUTES)
+    },
+    {
+        path: 'add-navigation-item',
+        loadComponent: () => import('./navigation/add-navigation-item/add-navigation-item.component')
+            .then(c => c.AddNavigationItemComponent)
+    },
+    {
+        path: 'dynamic-nested-menu',
+        loadComponent: () => import('./components/dynamic-nested-menu/dynamic-nested-menu.component')
+            .then(c => c.DynamicNestedMenuComponent),
+        loadChildren: () => import('./components/dynamic-nested-menu/dynamic-nested-menu.routes')
+            .then(r => r.DYNAMIC_NESTED_MENU_ROUTES)
+    },
+    {
+        path: 'map',
+        loadComponent: () => import('./components/map/map.component')
+            .then(c => c.MapComponent),
+        loadChildren: () => import('./components/map/map.routes')
+            .then(r => r.MAP_ROUTES)
+    },
+    {
+        path: 'map-constructor',
+        loadComponent: () => import('./components/map-constructor/map-constructor.component')
+            .then(c => c.MapConstructorComponent),
+        loadChildren: () => import('./components/map-constructor/map-constructor.routes')
+            .then(r => r.MAP_CONTRUCTOR_ROUTES)
     }
 
 ];

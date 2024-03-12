@@ -1,0 +1,27 @@
+<div class="content">
+    <div class=""
+        [innerHTML]="itemsHtml">
+    </div>
+
+    @for(object of mappedObjects; track object) {
+    <div class="object-value">
+        {{object.value}}
+    </div>
+    }
+    <p>
+        creates a new array and adds each manipulated element of the original array
+
+    </p>
+    <p>
+        returns a manipulated version of each element in an array into a new array
+    </p>
+    <p>
+        the map method can be chained to another method
+    </p>
+
+    @for(newNumber of mappedNewNumbers; track newNumber) {
+    <div class="">
+        {{newNumber.value}}
+    </div>
+    }
+</div>

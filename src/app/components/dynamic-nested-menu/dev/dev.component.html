@@ -1,0 +1,49 @@
+<div class="content">
+    <div class="links">
+        <a href="https://dev.to/shhdharmen/angular-material-menu-nested-menu-using-dynamic-data-1nfm">dev</a>
+        <a href="https://github.com/shhdharmen/mat-menu-dynamic-data">git</a>
+    </div>
+
+    <app-menu [trigger]="'Food'"
+        [data]="initialData"
+        [isRootNode]="true"></app-menu>
+
+    <hr>
+    <div class="title">stringifiedDataMap</div>
+    <div class="">{{database.getStringifiedDataMap()}}</div>
+    <hr>
+
+    <button mat-button
+        [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+    </mat-menu>
+
+    <button mat-button
+        [matMenuTriggerFor]="animals">Animal index</button>
+
+    <mat-menu #animals="matMenu">
+        <button mat-menu-item
+            [matMenuTriggerFor]="vertebrates">Vertebrates</button>
+    </mat-menu>
+
+    <mat-menu #vertebrates="matMenu">
+        <button mat-menu-item
+            [matMenuTriggerFor]="fish">Fishes</button>
+        <button mat-menu-item>Amphibians</button>
+        <button mat-menu-item>Reptiles</button>
+        <button mat-menu-item>Birds</button>
+        <button mat-menu-item>Mammals</button>
+    </mat-menu>
+
+    <mat-menu #fish="matMenu">
+        <button mat-menu-item>Baikal oilfish</button>
+        <button mat-menu-item>Bala shark</button>
+        <button mat-menu-item>Ballan wrasse</button>
+        <button mat-menu-item>Bamboo shark</button>
+        <button mat-menu-item>Banded killifish</button>
+    </mat-menu>
+
+
+</div>
