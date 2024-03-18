@@ -4,6 +4,9 @@ import { SecondTryService } from '../second-try.service';
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorPageComponent } from '../../../../shared/error-page/error-page.component';
 
 @Component({
     selector: 'app-second-try-menu',
@@ -25,6 +28,8 @@ export class SecondTryMenuComponent {
     @Input() isRootNode = false;
     isLoading = false;
     dataLoaded = false;
+    router = inject(Router)
+    dialog = inject(MatDialog)
 
     database = inject(SecondTryService)
 
@@ -35,11 +40,18 @@ export class SecondTryMenuComponent {
         if (!this.dataLoaded) {
             this.isLoading = true;
             this.database.getChildren(node).subscribe((d) => {
-                console.log(d)
                 this.data = d?.slice() || [];
                 this.isLoading = false;
                 this.dataLoaded = true;
             })
         }
+    }
+    navigate(node: string) {
+        console.log(node);
+        this.router.navigateByUrl(node)
+            .then(() => { console.log(`route exists`) })
+            .catch((err: any) => {
+                console.log(`route does not exist ${err}`)
+            })
     }
 }

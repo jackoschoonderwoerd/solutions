@@ -1,14 +1,21 @@
 <button *ngIf="isRootNode"
-    mat-button
+    mat-raised-button
     [matMenuTriggerFor]="menu">
     {{ trigger }} <span>rootmode</span>
+    <div>
+        is expandable: {{database.isExpandable(trigger)}}
+    </div>
 </button>
 
 <button *ngIf="!isRootNode"
     mat-menu-item
     [matMenuTriggerFor]="menu"
-    (menuOpened)="getData(trigger)">
-    {{ trigger }} <span>!rootmode</span>
+    (menuOpened)="getData(trigger)"
+    (click)="navigate(trigger)">
+    {{ trigger }} <div>!rootmode</div>
+    <div>
+        is expandable: {{database.isExpandable(trigger)}}
+    </div>
 </button>
 
 <mat-menu #menu="matMenu">
@@ -18,17 +25,16 @@
         <mat-spinner mode="indeterminate"
             diameter="24"></mat-spinner>
     </button>
-    <span>DATA JSON: {{data|json}}</span>
     <ng-container *ngFor="let node of data; let i = index">
-        <span>NODE: {{node}}</span>
-        <button mat-menu-item
-            style="border: 1px solid black;">
+        <!-- <span>NODE: {{node}}</span> -->
+        <button mat-menu-item>
             <app-second-try-menu [trigger]="node"
                 *ngIf="database.isExpandable(node); else menuItem"></app-second-try-menu>
-            <span>is expandable: </span><span> {{isExpandable(node)}}</span>
         </button>
         <ng-template #menuItem>
-            <button mat-menu-item><span>{{ node }}</span><span> end of the line</span></button>
+            <!-- <button mat-menu-item><span>{{ node }}</span></button> -->
+            <button mat-menu-item
+                (click)="navigate(node)">{{node}} <div class="">end of the line</div></button>
         </ng-template>
     </ng-container>
 </mat-menu>

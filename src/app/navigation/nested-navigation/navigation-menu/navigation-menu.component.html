@@ -1,32 +1,37 @@
 <button *ngIf="isRootNode"
     mat-button
-    [matMenuTriggerFor]="menu">
+    [matMenuTriggerFor]="menu"
+    (click)="onRootNode()">
     {{ trigger }}
 </button>
-
 <button *ngIf="!isRootNode"
     mat-menu-item
     [matMenuTriggerFor]="menu"
     (menuOpened)="getData(trigger)">
     {{ trigger }}
 </button>
-<button (click)="getData('firebase')">get data</button>
+
 <mat-menu #menu="matMenu">
-    <!-- <button mat-menu-item
+    <button mat-menu-item
         *ngIf="isLoading"
         style="display: flex; justify-content: center; align-items: center">
         <mat-spinner mode="indeterminate"
             diameter="24"></mat-spinner>
-    </button> -->
-
-
+    </button>
+    <!-- {{data}} -->
     <ng-container *ngFor="let node of data; let i = index">
+
+        <!-- for every node -->
         <button mat-menu-item>
-            <app-menu [trigger]="node"
-                *ngIf="isExpandable(node); else menuItem"></app-menu>
+            <!-- if expandable create menu again -->
+            <app-navigation-menu [trigger]="node"
+                *ngIf="isExpandable(node); else menuItem">
+            </app-navigation-menu>
         </button>
+        <!-- else show button -->
         <ng-template #menuItem>
-            <button mat-menu-item>{{ node }}</button>
+            <button (click)="onNode(node)"
+                mat-menu-item>{{ node }}</button>
         </ng-template>
     </ng-container>
 </mat-menu>

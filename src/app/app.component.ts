@@ -10,6 +10,8 @@ import {
 
 
 import { VascoComponent } from './components/loading-indicator/vasco/vasco.component';
+import { SecondTryComponent } from './components/dynamic-nested-menu/second-try/second-try.component';
+import { NestedNavigationComponent } from './navigation/nested-navigation/nested-navigation.component';
 
 
 
@@ -17,7 +19,15 @@ import { VascoComponent } from './components/loading-indicator/vasco/vasco.compo
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, SidenavComponent, HighlightModule, VascoComponent],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        SidenavComponent,
+        HighlightModule,
+        VascoComponent,
+        SecondTryComponent,
+        NestedNavigationComponent
+    ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     providers: [

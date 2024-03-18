@@ -11,6 +11,9 @@ import { FirebaseError } from '@angular/fire/app';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Item, Subject, Topic } from '../navigation.service';
+import { WarnDialogComponent } from '../../shared/warn-dialog/warn-dialog.component';
+import { Dialog } from '@angular/cdk/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-add-navigation-item',
@@ -23,7 +26,8 @@ import { Item, Subject, Topic } from '../navigation.service';
         MatIconModule,
         NgFor,
         MatButtonModule,
-        CommonModule
+        CommonModule,
+        WarnDialogComponent
     ],
     templateUrl: './add-navigation-item.component.html',
     styleUrl: './add-navigation-item.component.scss'
@@ -35,7 +39,11 @@ export class AddNavigationItemComponent implements OnInit {
     constructor(private fb: FormBuilder) { }
     cds$: Observable<any>
     editmode: boolean = false;
-    baseUrl: string = 'navigation'
+    baseUrl: string = 'navigation';
+    subjects$: Observable<any>;
+    subjectId: string;
+    dialog = inject(MatDialog)
+
 
 
 
@@ -46,6 +54,7 @@ export class AddNavigationItemComponent implements OnInit {
         this.cds$ = this.fsService.collection(pathToCds);
         this.initSubjectForm();
         // this.onEdit('GIQPmaLrwnUDdOW76g2P')
+        this.subjects$ = this.fsService.collection(this.baseUrl)
     }
 
     initSubjectForm() {
@@ -62,29 +71,27 @@ export class AddNavigationItemComponent implements OnInit {
     }
 
 
-    onEdit(id) {
-        const pathToCd = `cds/${id}`
-        this.fsService.getDoc(pathToCd).pipe(take(1)).subscribe((cd: any) => {
+    // onEdit(id) {
+    //     const pathToCd = `cds/${id}`
+    //     this.fsService.getDoc(pathToCd).pipe(take(1)).subscribe((cd: any) => {
 
-            console.log(cd)
-            this.subjectForm.patchValue({
-                title: cd.title
-            })
-            // return;
-            // initialize array
-            for (let i = 0; i < cd.musicians.length; i++) {
-                this.musicianControls.push(this.fb.control(''));
-            }
-            // const musicians = cd.musicians
-            this.musicianControls.forEach((control, index) => {
-                console.log(control.value)
-                control.setValue(
-                    cd.musicians[index]
-                )
-                console.log(control.value)
-            })
-        })
-    }
+    //         console.log(cd)
+    //         this.subjectForm.patchValue({
+    //             title: cd.title
+    //         })
+
+    //         for (let i = 0; i < cd.musicians.length; i++) {
+    //             this.musicianControls.push(this.fb.control(''));
+    //         }
+    //         this.musicianControls.forEach((control, index) => {
+    //             console.log(control.value)
+    //             control.setValue(
+    //                 cd.musicians[index]
+    //             )
+    //             console.log(control.value)
+    //         })
+    //     })
+    // }
 
     // ============ musician ============
 
@@ -137,22 +144,103 @@ export class AddNavigationItemComponent implements OnInit {
     }
 
 
-
     onStoreSubject() {
         console.log(this.subjectForm.value);
         const formValue = this.subjectForm.value
 
         const subject: Subject = {
             ...formValue
-
         }
-        const pathToSubject = `${this.baseUrl}`;
-        this.fsService.addDoc(pathToSubject, subject)
-            .then((res: DocumentReference) => {
-                console.log(`navigation subject stored; ${res.id}`)
+        if (!this.editmode) {
+            const pathToCollection = `${this.baseUrl}`;
+            this.fsService.addDoc(pathToCollection, subject)
+                .then((res: DocumentReference) => {
+                    console.log(`navigation subject stored; ${res.id}`);
+                    this.resetForm();
+                })
+                .catch((err: FirebaseError) => {
+                    console.log(`failed to store navigation subject; ${err.message}`)
+                })
+        } else {
+            console.log(subject)
+            const pathToDocument = `${this.baseUrl}/${this.subjectId}`
+            this.fsService.updateDoc(pathToDocument, subject)
+                .then((res: any) => {
+                    console.log(`subject updated; ${res}`)
+                    this.resetForm()
+
+                })
+                .catch((err: FirebaseError) => {
+                    console.log(`failed to update subject; ${err.message}`)
+                })
+        }
+    }
+
+    onEditSubject(subjectId: string) {
+        this.subjectForm.reset()
+        this.topics().controls.length = 0;
+        this.subjectId = subjectId
+        this.editmode = true;
+        console.log(subjectId)
+        const pathToSubject = `${this.baseUrl}/${subjectId}`;
+        this.fsService.getDoc(pathToSubject).pipe(take(1)).subscribe((subject: Subject) => {
+            console.log(subject)
+            this.populateForm(subject)
+        })
+    }
+
+    existingItem(item: Item): FormGroup {
+        return this.fb.group({
+            itemName: item.itemName
+        })
+    }
+    existingTopic(topicName: string, items: Item[]): FormGroup {
+        return this.fb.group({
+            topicName: topicName,
+            itemsArray: this.fb.array(items)
+        })
+    }
+
+
+    populateForm(subject: Subject) {
+        this.subjectForm.patchValue({
+            subjectName: subject.subjectName
+        });
+        subject.topicsArray.forEach((topic: Topic) => {
+            const existingItems = [];
+            topic.itemsArray.forEach((item: Item) => {
+                existingItems.push(this.existingItem(item))
             })
-            .catch((err: FirebaseError) => {
-                console.log(`failed to store navigation subject; ${err.message}`)
-            })
+            console.log(existingItems)
+            this.topics().push(this.existingTopic(topic.topicName, existingItems))
+            console.log(this.subjectForm.value)
+
+        })
+    }
+    resetForm() {
+        this.subjectForm.reset();
+        this.topics().controls.length = 0;
+        this.editmode = false;
+    }
+    onDeleteSubject(subjectId: string) {
+        const dialogRef = this.dialog.open(WarnDialogComponent, {
+            data: {
+                message: `this will permanently delete the complete subject`
+            }
+        })
+        dialogRef.afterClosed().subscribe((res: boolean) => {
+            if (res) {
+                const pathToDocument = `${this.baseUrl}/${subjectId}`
+                this.fsService.deleteDoc(pathToDocument)
+                    .then((res: any) => {
+                        console.log(`subject deleted; ${res}`)
+                    })
+                    .catch((err: FirebaseError) => {
+                        console.log(`failed to delete subject; ${err.message}`)
+                    })
+            } else {
+                console.log(`aborted`);
+            }
+        })
     }
 }

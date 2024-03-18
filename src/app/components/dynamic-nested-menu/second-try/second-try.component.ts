@@ -21,15 +21,14 @@ import { JsonPipe } from '@angular/common';
 })
 export class SecondTryComponent {
 
-    // secondTryService = inject(SecondTryService)
-    // secondTryService=inject(SecondTryService)
-
-
     title = "mat-menu-dynamic-data";
     initialData: string[] = [];
     constructor(public secondTryService: SecondTryService) {
-        this.secondTryService.getSubjects('');
-        this.initialData = this.secondTryService.rootLevelNodes.slice();
-        // this.initialData = this.database.secondTryRootLevelNodes.slice();
+
+        this.secondTryService.getSubjects()
+        // this.initialData = this.secondTryService.rootLevelNodes.slice();
+        this.secondTryService.getRootlevelNodes().then((nodes: string[]) => {
+            this.initialData = nodes
+        });
     }
 }

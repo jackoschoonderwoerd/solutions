@@ -89,6 +89,7 @@ export class NavigationService {
         'async-await',
         'dynamic-nested-menu',
         'map',
-        'map-constructor'
+        'map-constructor',
+        'model-function'
     ]
 }

@@ -176,6 +176,26 @@ export const routes: Routes = [
             .then(c => c.MapConstructorComponent),
         loadChildren: () => import('./components/map-constructor/map-constructor.routes')
             .then(r => r.MAP_CONTRUCTOR_ROUTES)
-    }
+    },
+    {
+        path: 'collection',
+        loadComponent: () => import('./components/firebase/firestore/collection/collection.component')
+            .then(c => c.CollectionComponent)
+    },
+    {
+        path: 'doc',
+        loadComponent: () => import('./components/firebase/firestore/doc/doc.component')
+            .then(c => c.DocComponent)
+    },
 
+    {
+        path: 'firebase',
+        loadChildren: () => import('./components/firebase/firebase.routes')
+            .then(r => r.FIREBASE_ROUTES)
+    },
+    {
+        path: 'angular',
+        loadChildren: () => import('./components/angular/angular.routes')
+            .then(r => r.ANGULAR_ROUTES)
+    }
 ];

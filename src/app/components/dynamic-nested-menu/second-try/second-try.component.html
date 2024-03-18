@@ -4,20 +4,9 @@
         <a href="https://github.com/shhdharmen/mat-menu-dynamic-data">git</a>
     </div>
 
-    <app-second-try-menu [trigger]="'Foods'"
+    <app-second-try-menu [trigger]="'navigation'"
         [data]="initialData"
         [isRootNode]="true"></app-second-try-menu>
 
-    <hr>
-    <div class="title">stringifiedDataMap</div>
-    <div class="">{{secondTryService.getStringifiedOriginalDataMap()}}</div>
-    <hr>
-    <div class="new-map">
-        <div class="">{{secondTryService.stringifiedMap}}</div>
-    </div>
-    <hr>
-    <div class="mapped-subjects">
-        <div class="title">mapped subjects</div>
-        <div class="">{{secondTryService.mappedSubjects|json}}</div>
-    </div>
+
 </div>
