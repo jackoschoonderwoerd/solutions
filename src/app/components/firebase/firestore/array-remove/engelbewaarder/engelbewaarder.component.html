@@ -1,0 +1,64 @@
+<div class="content">
+    <form [formGroup]="spiritsForm">
+        <mat-form-field>
+            <label for="name">name</label>
+            <input type="text"
+                matInput
+                formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <label for="price">price</label>
+            <input type="number"
+                matInput
+                formControlName="price">
+        </mat-form-field>
+        <button mat-raised-button
+            color="primary"
+            [disabled]="spiritsForm.invalid"
+            (click)="onAddOrUpdateSpirit()">{{!editSpiritMode ? 'add':'update'}} spirit</button>
+        <button mat-raised-button
+            (click)="onCancel()">cancel</button>
+    </form>
+
+    <ul class="spirits">
+        @for(spirit of (spiritsObject$|async)?.spiritsArray;track spirit;
+        let first = $first, last = $last, index = $index;) {
+        <li class="spirit"
+            [ngClass]="{'selected-spirit': index === indexForEdit}">
+
+            <div class="credentials">
+                <div class="name">
+                    {{spirit.name}}
+                </div>
+                <div class="price">
+                    {{spirit.price|currency:'EUR'}}
+                </div>
+            </div>
+            <div class="buttons">
+                <button mat-icon-button
+                    (click)="onDelete(spirit)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button
+                    (click)="onEdit(spirit, index)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button [disabled]="first"
+                    mat-icon-button
+                    (click)="onMoveUp(spirit)">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+
+
+                <button [disabled]="last"
+                    mat-icon-button
+                    (click)="onMoveDown(spirit)">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+
+            </div>
+        </li>
+        }
+    </ul>
+</div>

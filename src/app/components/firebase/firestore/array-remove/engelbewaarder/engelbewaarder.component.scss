@@ -1,0 +1,41 @@
+.content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    form {
+        grid-template-columns: 1 / 2;
+        min-width: 15rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .spirits {
+        background-color: lightgray;
+        padding: 1rem;
+        grid-template-columns: 2/-1;
+        max-width: 30rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        .spirit {
+            padding: 0.2rem 1rem;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .credentials {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                // border: 1px solid red;
+            }
+            // width: 100%;
+            .buttons {
+                display: flex;
+            }
+        }
+    }
+}
+.selected-spirit {
+    background-color: white;
+}

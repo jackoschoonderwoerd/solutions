@@ -1,0 +1,154 @@
+<mat-toolbar>
+    <a routerLink="drinks"
+        routerLinkActive="link-acrive">drinks</a>
+</mat-toolbar>
+<router-outlet></router-outlet>
+
+<div class="content">
+    <form [formGroup]="empForm"
+        (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-field">
+            <label for="name">name</label>
+            <input matInput
+                type="text"
+                placeholder="name"
+                id="name"
+                formControlName="name">
+        </mat-form-field>
+        <div formArrayName="hobbies"
+            class="hobbies">
+            <div class="title">hobbies</div>
+            <div *ngFor="let hobby of hobbies().controls; let hobbyIndex=index">
+                <div [formGroupName]="hobbyIndex"
+                    class="hobby">
+                    <div class="title">hobby</div>
+                    <div class="name">
+
+                        <!-- <div class="form-field">
+                            <label for="hobbyName">{{hobbyIndex}} Hobby Name :</label>
+
+                            <input type="text"
+                                formControlName="hobbyName" />
+                        </div> -->
+
+                        <mat-form-field class="form-field">
+                            <label for="hobbyName">{{hobbyIndex}} Hobby Name :</label>
+
+                            <input matInput
+                                type="text"
+                                formControlName="hobbyName" />
+                        </mat-form-field>
+
+
+                        <!-- <div class="form-field">
+                            <label for="">Last Name:</label>
+
+                            <input type="text"
+                                formControlName="lastName" />
+                        </div> -->
+
+                        <button (click)="removeHobby(hobbyIndex)">Remove hobby</button>
+                    </div>
+
+                    <!-- <div class="skills-container"
+                        formArrayName="skills">
+                        <div class="title">hobby skills</div>
+                        <div class="skill"
+                            *ngFor="let skill of employeeSkills(hobbyIndex).controls; let skillIndex=index">
+                            <div class="title">skill</div>
+                            <div [formGroupName]="skillIndex"
+                                class="skill-details">
+                                <div class="form-field ">
+
+                                    <label for="skill">{{skillIndex}} Skill :</label>
+                                    <input type="text"
+                                        id="skill"
+                                        formControlName="skill" />
+                                </div>
+                                <div class="form-field exp">
+                                    <label for="exp">Exp:</label>
+                                    <input id="exp"
+                                        type="text"
+                                        formControlName="exp" />
+                                </div>
+                                <button (click)="removeEmployeeSkill(hobbyIndex,skillIndex)">
+                                    Remove skill
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button"
+                            (click)="addEmployeeSkill(hobbyIndex)">
+                            Add Skill
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+            <button mat-raised-button
+                color="primary"
+                type="button"
+                (click)="addHobby()">Add Hobby</button>
+        </div>
+        <button mat-raised-button
+            color="primary"
+            type="submit">{{editmode ? 'update person':'add person'}}</button>
+    </form>
+    <ul class="persons">
+        @for(person of hobbyPersons$|async; track person.id) {
+        <li class="person">
+            <div class="person-content">
+                <div class="title">name</div>
+                <div class="person-name">{{person.personName}}</div>
+                <div class="person-buttons">
+                    <button mat-icon-button
+                        (click)="onEditPerson()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                        (click)="onDeletePerson(person.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="hobbies">
+                @if(person.hobbyNames && person.hobbyNames.length) {
+                <ul class="hobby-names-list">
+                    <div class="title">hobbies array</div>
+                    @for(hobbyName of person.hobbyNames;track hobbyName) {
+                    <li class="hobby">
+                        <div class="hobby-name">{{hobbyName}}</div>
+                        <div class="hobby-buttons">
+                            <button mat-icon-button
+                                (click)="onEditHobbyName(person.id, hobbyName)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button
+                                (click)="onDeleteHobby(person.id, hobbyName)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </li>
+                    }
+                </ul>
+                }
+                <form class="hobby-name-form"
+                    [formGroup]="hobbyNameForm">
+                    <mat-form-field>
+                        <label for="">{{editHobbyNameMode ? 'UPDATE' : 'ADD'}} hobbyName and press enter</label>
+                        <input matInput
+                            formControlName="hobbyName"
+                            (keydown)="onHobbyNameKeyDown($event, person.id)"
+                            type="text">
+                    </mat-form-field>
+                    @if(editHobbyNameMode) {
+
+                    <button mat-raised-button
+                        (click)="onCancelEditHobbyName()">cancel edit hobby name</button>
+                    }
+                </form>
+            </div>
+
+        </li>
+        }
+    </ul>
+
+</div>

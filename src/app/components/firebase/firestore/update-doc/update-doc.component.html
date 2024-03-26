@@ -1,0 +1,96 @@
+<div class="content">
+    <form [formGroup]="form">
+        <mat-form-field>
+            <label for="">name</label>
+            <input type="text"
+                matInput
+                formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <label for="">phone</label>
+            <input type="text"
+                matInput
+                formControlName="phone">
+        </mat-form-field>
+        <button mat-raised-button
+            [disabled]="form.invalid"
+            (click)="onSubmit()">
+            @if(updatingPhone){
+            <span>update phone</span>
+            }
+            @else if (updatingName) {
+            <span>update name</span>
+            }
+            @else if(editmode) {
+            <span>update person</span>
+            }
+            @else if(!editmode) {
+            <span>add person</span>
+            }
+        </button>
+        <button mat-raised-button
+            (click)="onClearForm()">clear form</button>
+    </form>
+    @if((persons$|async)?.length) {
+
+    <ul class="persons">
+        @for(person of persons$|async; track person.id) {
+        <li class="person">
+            <button mat-mini-fab
+                color="primary"
+                (click)="onEdit(person.id, 'person')">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <div class="credentials">
+                <div class="name">name: {{person.name}}
+                    <div class="buttons">
+                        <button mat-mini-fab
+                            color="primary"
+                            (click)="onEdit(person.id, 'name')">
+                            <mat-icon>person</mat-icon>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="phone">phone: {{person.phone}}
+                    <div class="buttons">
+                        <button mat-mini-fab
+                            color="primary"
+                            (click)="onEdit(person.id, 'phone')">
+
+                            <mat-icon>phone</mat-icon>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <button class="delete"
+                mat-mini-fab
+                color="warn"
+                (click)="onDelete(person.id)">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+
+        </li>
+        }
+
+    </ul>
+    }
+    @if(response && response != ''){
+
+    <div class="response-from-firestore">
+        <div class="title">response:</div>
+        {{response }}
+    </div>
+    }
+    <div class="snippets">
+        <app-show-code [snippet]="snippet_1"></app-show-code>
+    </div>
+    <div class="modes">
+        <div class="editmode">editmode: <span>{{editmode}}</span></div>
+        <div class="updatingName">updatingName: <span>{{updatingName}}</span></div>
+        <div class="updatingPhone">updatingPhone: <span>{{updatingPhone}}</span></div>
+    </div>
+</div>

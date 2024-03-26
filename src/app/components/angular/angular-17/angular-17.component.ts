@@ -3,12 +3,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-model-function',
+    selector: 'app-angular-17',
     standalone: true,
     imports: [MatToolbarModule, RouterModule],
-    templateUrl: './model-function.component.html',
-    styleUrl: './model-function.component.scss'
+    templateUrl: './angular-17.component.html',
+    styleUrl: './angular-17.component.scss'
 })
-export class ModelFunctionComponent {
+export class Angular17Component {
 
 }

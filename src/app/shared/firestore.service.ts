@@ -4,6 +4,7 @@ import {
     addDoc,
     arrayRemove,
     arrayUnion,
+
     collection,
     collectionData,
     collectionGroup,
@@ -21,6 +22,8 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
+import { FirebaseError } from '@angular/fire/app';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -32,8 +35,6 @@ export class FirestoreService {
 
 
     addDoc(path: string, data: object): Promise<DocumentReference<object, DocumentData>> {
-        console.log(path)
-        console.log(data)
         const collectionRef = collection(this.firestore, path)
         return addDoc(collectionRef, data)
     }
@@ -58,5 +59,25 @@ export class FirestoreService {
         const docRef = doc(this.firestore, path)
         return docData(docRef)
     }
+    findDoc(path, field, value) {
+        const collectionRef = collection(this.firestore, path)
+        const queryRef = query(collectionRef, where(field, '==', value))
+        return collectionData(queryRef, { idField: 'id' })
+    }
+    removeElementFromArray(pathToDocument: string, arrayName: string, value: object): Promise<void> {
+        const docRef = doc(this.firestore, pathToDocument)
+        return updateDoc(docRef, {
+            [arrayName]: arrayRemove(value)
+        })
+    }
+    addElementToArray(pathToDocument: string, arrayName: string, value: object): Promise<void> {
+        const docRef = doc(this.firestore, pathToDocument);
+        return updateDoc(docRef, {
+            // spiritsArray: arrayUnion(spirit)
+            [arrayName]: arrayUnion(value)
+        })
+    }
+
+
 
 }

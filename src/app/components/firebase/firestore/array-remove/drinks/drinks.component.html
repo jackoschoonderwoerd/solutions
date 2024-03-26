@@ -1,0 +1,12 @@
+<div class="content">
+    <form [formGroup]="drinkTypesForm">
+        <mat-form-field>
+            <label for="">drink type</label>
+            <input type="text"
+                matInput
+                formControlName="name">
+        </mat-form-field>
+        <button mat-raised-button
+            (click)="onAddDrinkType()">{{!editmode ? 'add':'update'}}</button>
+    </form>
+</div>

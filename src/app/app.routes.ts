@@ -197,5 +197,10 @@ export const routes: Routes = [
         path: 'angular',
         loadChildren: () => import('./components/angular/angular.routes')
             .then(r => r.ANGULAR_ROUTES)
+    },
+    {
+        path: 'javascript',
+        loadChildren: () => import('./components/javascript/javascript.routes')
+            .then(r => r.JAVASCRIPT_ROUTES)
     }
 ];

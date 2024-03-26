@@ -1,0 +1,25 @@
+<div class="content">
+
+    <div class="title">
+        response: <span>{{response}}</span>
+    </div>
+    <hr>
+    <div class="title">
+        error: <span>{{error}}</span>
+    </div>
+    <hr>
+
+
+    <ul class="jsonplaceholder">
+        @for(element of jsonplaceholderdata; track element.id) {
+        <li>{{element.name}}</li>
+        }
+    </ul>
+
+    <div class="snippets">
+        @for(snippet of snippets;track snippet) {
+
+        <app-show-code [snippet]="snippet"></app-show-code>
+        }
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="content">
+    <p>vasco works!</p>
+    <div class="event-emitter">
+        <h4>inputFromAddTodoThrougEventEmitter:</h4>
+        <p>
+
+            {{inputFromAddTodoThrougEventEmitter}}
+        </p>
+    </div>
+    <div class="model">
+        <h4>inputFromAddTodoThrougModel:</h4>
+        <p>{{inputFromAddTodoThrougModel}}</p>
+    </div>
+    <app-add-todo (todoAddedThrougEventEmitter)="inputChangedThroughEventEmitter($event)"
+        (todoAddedThroughModel)="inputChangedThroughModel($event)"
+        (counter)="onCounterChanged($event)"></app-add-todo>
+</div>
