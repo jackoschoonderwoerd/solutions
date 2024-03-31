@@ -1,64 +1,218 @@
 <div class="content">
-    <form [formGroup]="spiritsForm">
-        <mat-form-field>
-            <label for="name">name</label>
-            <input type="text"
-                matInput
-                formControlName="name">
-        </mat-form-field>
-        <mat-form-field>
-            <label for="price">price</label>
-            <input type="number"
-                matInput
-                formControlName="price">
-        </mat-form-field>
-        <button mat-raised-button
-            color="primary"
-            [disabled]="spiritsForm.invalid"
-            (click)="onAddOrUpdateSpirit()">{{!editSpiritMode ? 'add':'update'}} spirit</button>
-        <button mat-raised-button
-            (click)="onCancel()">cancel</button>
-    </form>
+    <div class="consumption-types">
 
-    <ul class="spirits">
-        @for(spirit of (spiritsObject$|async)?.spiritsArray;track spirit;
-        let first = $first, last = $last, index = $index;) {
-        <li class="spirit"
-            [ngClass]="{'selected-spirit': index === indexForEdit}">
+        <div class="manage-consumption-types">
+            <div class="title">manage consumption types</div>
+            <ul class="consumption-types">
+                @for(consumptionType of (consumptionTypes$|async)?.consumptionTypesArray; track consumptionType) {
+                <li [class.selected-consuption-type-name]="selectedConsumptionTypeName === consumptionType.name "
+                    class="consumption-type">
+                    <button mat-raised-button
+                        (click)="onSelectConsumptionType(consumptionType.name)">
+                        {{consumptionType.name}}
+                        <mat-icon matSuffix>edit</mat-icon>
+                    </button>
 
-            <div class="credentials">
-                <div class="name">
-                    {{spirit.name}}
-                </div>
-                <div class="price">
-                    {{spirit.price|currency:'EUR'}}
-                </div>
+                    <button mat-icon-button
+                        color="warn"
+                        (click)="onDeleteConsuptionType(consumptionType.name)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                </li>
+                }
+            </ul>
+            <mat-form-field>
+                <label for="">add consumption type and press enter</label>
+                <input matInput
+                    #consumptionTypeInput
+                    (keyup)="onConsumptionTypeInputChange($event)"
+                    type="text">
+            </mat-form-field>
+        </div>
+    </div>
+    @if(!selectedConsumptionTypeName){
+    <div class="title">
+        Select consumption type to proceed
+    </div>
+    }
+    @if(selectedConsumptionTypeName) {
+    <div class="consumptions">
+        <header>
+            <div class="title">manage consumptions</div>
+
+            <div class="currently-selected-consumption">
+                <span>currently selected consumption type: </span>
+                <span class="type">
+                    {{selectedConsumptionTypeName}}
+                </span>
             </div>
-            <div class="buttons">
-                <button mat-icon-button
-                    (click)="onDelete(spirit)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button mat-icon-button
-                    (click)="onEdit(spirit, index)">
-                    <mat-icon>edit</mat-icon>
-                </button>
+        </header>
 
-                <button [disabled]="first"
-                    mat-icon-button
-                    (click)="onMoveUp(spirit)">
-                    <mat-icon>expand_less</mat-icon>
-                </button>
+        <ul class="consumptions-list">
+
+            @for(consumption of (consumptions$|async)?.consumptionsArray;track consumption;
+            let first = $first, last = $last, index = $index;) {
+            <li class="consumption"
+                [ngClass]="{'selected-consumption': index === indexForEdit}">
+
+                <div class="consumption-properties">
+                    @if(consumption.nameDutch){
+                    <div class="name-dutch consumption-property">
+                        <div class="property-name">name dutch</div>
+                        <div class="property">{{consumption.nameDutch}}</div>
+                    </div>
+                    }
+                    @if(consumption.nameEnglish) {
+                    <div class="name-english consumption-property">
+                        <div class="property-name">name english</div>
+                        <div class="property">{{consumption.nameEnglish}}</div>
+                    </div>
+                    }
+                    @if(consumption.price) {
+                    <div class="price consumption-property">
+                        <div class="property-name">price</div>
+                        <div class="property">{{consumption.price|currency:'EUR'}}</div>
+                    </div>
+                    }
+                    @if(consumption.descriptionDutch) {
+                    <div class="price consumption-property">
+                        <div class="property-name">desc. dutch</div>
+                        <div class="property"
+                            [innerHTML]="consumption.descriptionDutch">
+                        </div>
+                    </div>
+                    }
+                    @if(consumption.descriptionEnglish) {
+                    <div class="price consumption-property">
+                        <div class="property-name">desc. english</div>
+                        <div class="property"
+                            [innerHTML]="consumption.descriptionEnglish">
+                        </div>
+                    </div>
+                    }
+                    @if(consumption.alcoholPercentage) {
+                    <div class="price consumption-property">
+                        <div class="property-name">alc. %</div>
+                        <div class="property">{{consumption.alcoholPercentage|number}}
+                        </div>
+                    </div>
+                    }
+                    @if(consumption.vessel) {
+                    <div class="price consumption-property">
+                        <div class="property-name">vessel</div>
+                        <div class="property">{{consumption.vessel}}
+                        </div>
+                    </div>
+                    }
+                    @if(consumption.volume) {
+                    <div class="price consumption-property">
+                        <div class="property-name">vol. cc</div>
+                        <div class="property">{{consumption.volume|number}}
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="buttons">
+                    <button mat-icon-button
+                        (click)="onDelete(consumption)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                        (click)="onEdit(consumption, index)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button [disabled]="first"
+                        mat-icon-button
+                        (click)="onMoveUp(consumption)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+
+                    <button [disabled]="last"
+                        mat-icon-button
+                        (click)="onMoveDown(consumption)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                </div>
+            </li>
+            }
+        </ul>
+
+        <form [formGroup]="consumptionForm">
+            <mat-form-field>
+                <label for="nameDutch">name dutch</label>
+                <input type="text"
+                    matInput
+                    formControlName="nameDutch">
+            </mat-form-field>
+            <mat-form-field>
+                <label for="nameDutch">name english</label>
+                <input type="text"
+                    matInput
+                    formControlName="nameEnglish">
+            </mat-form-field>
+            @if(selectedConsumptionTypeName === 'beer' || selectedConsumptionTypeName === 'snack' || selectedConsumptionTypeName === 'plate') {
+            <mat-form-field>
+                <label for="descriptionDutch">description dutch</label>
+                <input type="text"
+                    matInput
+                    formControlName="descriptionDutch">
+            </mat-form-field>
+            <mat-form-field>
+                <label for="descriptionEnglish">description english</label>
+                <input type="text"
+                    matInput
+                    formControlName="descriptionEnglish">
+            </mat-form-field>
+            }
+            @if(selectedConsumptionTypeName === 'beer') {
+            <mat-form-field>
+                <label for="alcoholPercentage">alcohol percentage %</label>
+                <input type="number"
+                    matInput
+                    formControlName="alcoholPercentage">
+            </mat-form-field>
+            <mat-form-field>
+                <label for="volume">volume cc</label>
+                <input type="number"
+                    step="1"
+                    min="0.00"
+                    matInput
+                    formControlName="volume">
+            </mat-form-field>
+            }
+            @if(selectedConsumptionTypeName === 'beer' || selectedConsumptionTypeName === 'wine') {
+            <mat-form-field>
+                <mat-label>vessel</mat-label>
+                <mat-select formControlName="vessel">
+                    <mat-option value="glass">glass</mat-option>
+                    <mat-option value="bottle">bottle</mat-option>
+                </mat-select>
+            </mat-form-field>
+            }
 
 
-                <button [disabled]="last"
-                    mat-icon-button
-                    (click)="onMoveDown(spirit)">
-                    <mat-icon>expand_more</mat-icon>
-                </button>
+            <mat-form-field>
+                <label for="price">price</label>
+                <input type="currency"
+                    step="0.01"
+                    min="0.00"
+                    matInput
+                    formControlName="price">
+            </mat-form-field>
+            <button mat-raised-button
+                color="primary"
+                [disabled]="consumptionForm.invalid"
+                (click)="onAddOrUpdateConsumption()">{{!editConsumptionMode ? 'add':'update'}} {{selectedConsumptionTypeName}}</button>
+            @if(editConsumptionMode) {
+            <button mat-raised-button
+                (click)="onCancel()">cancel</button>
+            }
+        </form>
 
-            </div>
-        </li>
-        }
-    </ul>
+
+
+    </div>
+    }
 </div>
