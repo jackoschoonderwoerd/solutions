@@ -12,7 +12,7 @@ export class TodosService {
     async getTodos() {
         await sleep(1000);
         console.log('05 todos.service.ts - getTodos()')
-        return TODOS
+        return TODOS;
     }
     async addTodo(todo: Partial<Todo>): Promise<Todo> {
         console.log(todo)

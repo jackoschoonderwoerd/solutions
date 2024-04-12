@@ -1,0 +1,29 @@
+<div class="content">
+
+    <button mat-raised-button
+        (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
+
+    <main>
+        <div class="left">
+
+            <app-consumption-types />
+
+
+
+            <app-consumption-type-details />
+
+
+
+            <app-consumptions />
+
+
+
+            <app-consumption-details />
+
+        </div>
+        @if(store.storeComponentVisible()){
+        <app-store-component />
+        }
+    </main>
+
+</div>

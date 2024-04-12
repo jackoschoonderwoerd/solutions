@@ -1,0 +1,33 @@
+<div class="app">
+    <div class="title">consumption types</div>
+    @if(!store.typesLoading() ) {
+    <ul class="consumption-types-list">
+        @for(consumptionType of store.consumptionTypesArray().consumptionTypes; track consumptionType; let index = $index) {
+
+        <li class="consumption-types-list-item">
+            <div class="left">
+                <div class="icons">
+
+                    <mat-icon class="edit-icon"
+                        color="primary"
+                        (click)="onEdit(consumptionType)">edit</mat-icon>
+                    <mat-icon class="delete-icon"
+                        color="warn"
+                        (click)="onDeleteConsumptionType($event, consumptionType)">delete</mat-icon>
+                    {{consumptionType.name}}
+                </div>
+            </div>
+            <mat-icon color="primary"
+                (click)="onConsumptionTypeSelected(consumptionType)"
+                matPrefix>search</mat-icon>
+        </li>
+        }
+    </ul>
+    }
+    @if(store.typesLoading()) {
+    <mat-spinner></mat-spinner>
+    }
+
+    <button mat-raised-button
+        (click)="store.toggleConsumptionTypeDetailsComponentVisible(true)">add consumption type</button>
+</div>

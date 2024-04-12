@@ -1,0 +1,31 @@
+<div class="app">
+    <div class="title">courses</div>
+    @if(!store.typesLoading() ) {
+    <ul class="consumption-types-list">
+        @for(course of store.courses(); track course; let index = $index) {
+        <li class="consumption-types-list-item">
+            <div class="left">
+                <div class="icons">
+                    <mat-icon class="edit-icon"
+                        color="primary"
+                        (click)="onEdit(course)">edit</mat-icon>
+                    <mat-icon class="delete-icon"
+                        color="warn"
+                        (click)="onDeleteCourse(course)">delete</mat-icon>
+                    <div class="id">{{course.id}}</div>
+                </div>
+            </div>
+            <mat-icon color="primary"
+                (click)="onCourseSelected(course)"
+                matPrefix>search</mat-icon>
+        </li>
+        }
+    </ul>
+    }
+    @if(store.typesLoading()) {
+    <mat-spinner></mat-spinner>
+    }
+
+    <button mat-raised-button
+        (click)="onAdd()">add consumption type</button>
+</div>

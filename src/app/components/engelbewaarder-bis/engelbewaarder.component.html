@@ -1,0 +1,29 @@
+<div class="content">
+
+    <button mat-raised-button
+        (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
+
+    <main>
+        <div class="left">
+            @if (store.coursesVisible()) {
+            <app-consumption-types />
+            }
+
+            @if(store.courseDetailsVisible()) {
+            <app-consumption-type-details />
+            }
+
+            @if(store.consumptionsVisible()){
+            <app-consumptions />
+            }
+
+            @if(store.consumptionDetailsVisible()){
+            <app-consumption-details />
+            }
+        </div>
+        @if(store.storeComponentVisible()){
+        <app-store-component />
+        }
+    </main>
+
+</div>

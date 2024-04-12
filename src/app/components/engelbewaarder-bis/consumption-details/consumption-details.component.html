@@ -1,0 +1,98 @@
+<div class="app">
+    <div class="title">consumption details</div>
+    <div class="active-consumption-type">
+        <span class="title">
+            <!-- {{store.course().id}} -->
+        </span>
+        (currently selected)
+    </div>
+    <form [formGroup]="form">
+        @if(store.course().nameDutchVisible){
+        <mat-form-field>
+            <mat-label for="nameDutch">name dutch</mat-label>
+            <input type="text"
+                matInput
+                formControlName="nameDutch">
+        </mat-form-field>
+        }
+
+        @if(store.course().nameEnglishVisible){
+        <mat-form-field>
+            <mat-label for="nameDutch">name english</mat-label>
+            <input type="text"
+                matInput
+                formControlName="nameEnglish">
+        </mat-form-field>
+        }
+
+        @if(store.course().descriptionDutchVisible) {
+        <mat-form-field>
+            <mat-label for="descriptionDutch">description dutch</mat-label>
+            <input type="text"
+                matInput
+                formControlName="descriptionDutch">
+        </mat-form-field>
+        }
+        @if(store.course().descriptionEnglishVisible) {
+        <mat-form-field>
+            <mat-label for="descriptionEnglish">description english</mat-label>
+            <input type="text"
+                matInput
+                formControlName="descriptionEnglish">
+        </mat-form-field>
+        }
+
+        @if(store.course().alcoholPercentageVisible) {
+        <mat-form-field>
+            <mat-label for="alcoholPercentage">alcohol percentage %</mat-label>
+            <input type="number"
+                matInput
+                formControlName="alcoholPercentage">
+        </mat-form-field>
+        }
+
+        @if(store.course().volumeVisible){
+        <mat-form-field>
+            <mat-label for="volume">volume cc</mat-label>
+            <input type="number"
+                step="1"
+                min="0.00"
+                matInput
+                formControlName="volume">
+        </mat-form-field>
+        }
+
+        @if(store.course().vesselVisible) {
+        <mat-form-field>
+            <mat-label>vessel</mat-label>
+            <mat-select formControlName="vessel">
+                <mat-option value="glass">glass</mat-option>
+                <mat-option value="bottle">bottle</mat-option>
+            </mat-select>
+        </mat-form-field>
+        }
+        @if(store.course().priceVisible){
+        <mat-form-field>
+            <mat-label for="price">price</mat-label>
+            <input type="currency"
+                step="0.01"
+                min="0.00"
+                matInput
+                formControlName="price">
+        </mat-form-field>
+        }
+
+        <div class="buttons">
+            <button mat-raised-button
+                color="primary"
+                [disabled]="form.invalid"
+                (click)="onAddOrUpdateConsumption()">{{store.consumption() ? 'update':'add' + ' consumption'}}
+                {{selectedConsumptionTypeName}}
+            </button>
+
+            <button mat-raised-button
+                (click)="onCancel()">cancel</button>
+        </div>
+
+    </form>
+</div>

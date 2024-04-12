@@ -1,0 +1,112 @@
+<!-- {{store.}} -->
+<div class="app">
+
+    <div class="title">consumptions&nbsp;{{store.course().id}}</div>
+    <!-- @if(store.consumptions() && store.consumptions().length){ -->
+
+    <ul class="consumptions-list">
+
+        @for(consumption of store.consumptions();track consumption;
+        let first = $first, last = $last, index = $index;) {
+        <li class="consumption"
+            [ngClass]="{'selected-consumption': index === indexForEdit}">
+
+            <div class="consumption-properties">
+                @if(consumption.nameDutch){
+                <div class="name-dutch consumption-property">
+                    <div class="property-name">name dutch</div>
+                    <div class="property">{{consumption.nameDutch}}</div>
+                </div>
+                }
+                @if(consumption.nameEnglish) {
+                <div class="name-english consumption-property">
+                    <div class="property-name">name english</div>
+                    <div class="property">{{consumption.nameEnglish}}</div>
+                </div>
+                }
+                @if(consumption.price) {
+                <div class="price consumption-property">
+                    <div class="property-name">price</div>
+                    <div class="property">{{consumption.price|currency:'EUR'}}</div>
+                </div>
+                }
+                @if(consumption.descriptionDutch) {
+                <div class="price consumption-property">
+                    <div class="property-name">desc. dutch</div>
+                    <div class="property"
+                        [innerHTML]="consumption.descriptionDutch">
+                    </div>
+                </div>
+                }
+                @if(consumption.descriptionEnglish) {
+                <div class="price consumption-property">
+                    <div class="property-name">desc. english</div>
+                    <div class="property"
+                        [innerHTML]="consumption.descriptionEnglish">
+                    </div>
+                </div>
+                }
+                @if(consumption.alcoholPercentage) {
+                <div class="price consumption-property">
+                    <div class="property-name">alc. %</div>
+                    <div class="property">{{consumption.alcoholPercentage|number}}
+                    </div>
+                </div>
+                }
+                @if(consumption.vessel) {
+                <div class="price consumption-property">
+                    <div class="property-name">vessel</div>
+                    <div class="property">{{consumption.vessel}}
+                    </div>
+                </div>
+                }
+                @if(consumption.volume) {
+                <div class="price consumption-property">
+                    <div class="property-name">vol. cc</div>
+                    <div class="property">{{consumption.volume|number}}
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="buttons">
+                <button mat-icon-button
+                    (click)="onDelete(consumption)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button
+                    (click)="onEdit(index,consumption)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button [disabled]="first"
+                    [ngStyle]="first ? {'visibility':'hidden' } : {}"
+                    mat-icon-button
+                    (click)="onMove('up',consumption, index)">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+
+                <button [disabled]="last"
+                    [ngStyle]="last ? {'visibility':'hidden' } : {}"
+                    mat-icon-button
+                    (click)="onMove('down', consumption, index)">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+        </li>
+        }
+    </ul>
+    <!-- } -->
+    <!-- <button mat-raised-button
+        color="primary"
+        (click)="onAddConsumption()">
+        <mat-icon>add</mat-icon>
+    </button> -->
+    <button mat-raised-button
+        color="primary"
+        (click)="store.toggleConsumptionDetailsVisible(true)">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button class="clear-selection-btn"
+        mat-raised-button
+        (click)="onCancel()">cancel</button>
+</div>

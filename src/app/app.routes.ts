@@ -202,5 +202,15 @@ export const routes: Routes = [
         path: 'javascript',
         loadChildren: () => import('./components/javascript/javascript.routes')
             .then(r => r.JAVASCRIPT_ROUTES)
+    },
+    {
+        path: 'engelbewaarder',
+        loadComponent: () => import('./components/engelbewaarder/engelbewaarder.component')
+            .then(c => c.EngelbewaarderComponent)
+    },
+    {
+        path: 'engelbewaarder-bis',
+        loadComponent: () => import('./components/engelbewaarder-bis/engelbewaarder.component')
+            .then(c => c.EngelbewaarderComponent)
     }
 ];

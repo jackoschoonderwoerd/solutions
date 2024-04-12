@@ -1,0 +1,46 @@
+<div class="app">
+    <div class="title">consumption type details</div>
+    <!-- {{store.selectedConsumptionType()|json}} -->
+    <form [formGroup]="form">
+        <mat-form-field>
+            <mat-label>name</mat-label>
+            <input type="text"
+                matInput
+                formControlName="name">
+        </mat-form-field>
+        <div class="on-edit-consumption">while adding or editing consumption:</div>
+        <mat-checkbox formControlName="showNameDutch"
+            (click)="$event.preventDefault()">
+            show name dutch
+        </mat-checkbox>
+        <mat-checkbox formControlName="showNameEnglish">
+            show name english
+        </mat-checkbox>
+        <mat-checkbox formControlName="showDescriptionDutch">
+            show description dutch
+        </mat-checkbox>
+        <mat-checkbox formControlName="showDescriptionEnglish">
+            show description english
+        </mat-checkbox>
+        <mat-checkbox formControlName="showAlcoholPercentage">
+            show alcoholpercentage
+        </mat-checkbox>
+        <mat-checkbox formControlName="showVolume">
+            show volume
+        </mat-checkbox>
+        <mat-checkbox formControlName="showVessel">
+            show vessel
+        </mat-checkbox>
+        <mat-checkbox formControlName="showPrice"
+            (click)="$event.preventDefault()">
+            show price
+        </mat-checkbox>
+        <div class="buttons">
+            <button mat-raised-button
+                [disabled]="form.invalid"
+                (click)="onSubmitForm()">{{store.selectedConsumptionType() ? 'update':'add'}}&nbsp;consumption type</button>
+            <button mat-raised-button
+                (click)="onCancel()">cancel</button>
+        </div>
+    </form>
+</div>

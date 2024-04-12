@@ -1,0 +1,9 @@
+.app {
+    .state-properties {
+        min-width: 20rem;
+        .state-property {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

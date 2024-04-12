@@ -90,6 +90,8 @@ export class NavigationService {
         'dynamic-nested-menu',
         'map',
         'map-constructor',
-        'model-function'
+        'model-function',
+        'engelbewaarder',
+        'engelbewaarder-bis'
     ]
 }
