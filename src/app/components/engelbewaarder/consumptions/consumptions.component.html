@@ -71,6 +71,13 @@
                     </div>
                 </div>
                 }
+                @if(consumption.availableOutside) {
+                <div class="price consumption-property">
+                    <div class="property-name">available outside</div>
+                    <div class="property">{{consumption.availableOutside}}
+                    </div>
+                </div>
+                }
             </div>
             <div class="buttons">
                 <button mat-icon-button

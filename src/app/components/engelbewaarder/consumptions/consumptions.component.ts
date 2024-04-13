@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { EngelbewaarderStore } from '../store/engelbewaarder.store';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Consumption } from '../models';
+
 import { MatButtonModule } from '@angular/material/button';
 import { EngelbewaarderService } from '../services/engelbewaarder.service';
 import { FirestoreService } from '../../../shared/firestore.service';
 import { FirebaseError } from '@angular/fire/app';
-import { ConsumptionType } from '../types/models';
+import { Consumption, ConsumptionType } from '../types/models';
 import { take } from 'rxjs';
 
 @Component({
@@ -45,6 +45,7 @@ export class ConsumptionsComponent implements OnInit {
     }
 
     onEdit(index: number, consumption: Consumption) {
+
         this.store.toggleConsumptionDetailsComponentVisible(true)
         // this.store.openAddConsumptionTypeDetails(true)
         this.store.consumptionSelected(consumption);

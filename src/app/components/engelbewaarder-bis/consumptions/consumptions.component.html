@@ -1,15 +1,48 @@
-<!-- {{store.}} -->
 <div class="app">
-
+    @if(store.course()) {
     <div class="title">consumptions&nbsp;{{store.course().id}}</div>
-    <!-- @if(store.consumptions() && store.consumptions().length){ -->
+    }
+    @if(store.consumptions() && store.consumptions().length){
 
-    <ul class="consumptions-list">
-
+    <mat-accordion class="consumptions-accordion"
+        multi="false">
         @for(consumption of store.consumptions();track consumption;
-        let first = $first, last = $last, index = $index;) {
-        <li class="consumption"
-            [ngClass]="{'selected-consumption': index === indexForEdit}">
+        let first = $first, last = $last, index = $index;){
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header [ngClass]="{'selected': index === indexSelected}">
+                <mat-panel-title>
+                    <button [disabled]="first"
+                        [ngStyle]="first ? {'visibility':'hidden' } : {}"
+                        mat-icon-button
+                        (click)="onMove($event, 'up',consumption, index)">
+                        <mat-icon>arrow_upward</mat-icon>
+                    </button>
+
+                    <button [disabled]="last"
+                        [ngStyle]="last ? {'visibility':'hidden' } : {}"
+                        mat-icon-button
+                        (click)="onMove($event, 'down', consumption, index)">
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
+                    <div class="property">{{consumption.nameDutch}}</div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div class="property price">{{consumption.price|currency:'EUR'}}</div>
+                    <div class="buttons">
+                        <button mat-icon-button
+                            (click)="onDelete($event,consumption)">
+                            <mat-icon color="warn">delete</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                            (click)="onEdit($event, index,consumption)">
+                            <mat-icon color="primary">edit</mat-icon>
+                        </button>
+
+
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
             <div class="consumption-properties">
                 @if(consumption.nameDutch){
@@ -67,46 +100,32 @@
                     </div>
                 </div>
                 }
-            </div>
-            <div class="buttons">
-                <button mat-icon-button
-                    (click)="onDelete(consumption)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button mat-icon-button
-                    (click)="onEdit(index,consumption)">
-                    <mat-icon>edit</mat-icon>
-                </button>
 
-                <button [disabled]="first"
-                    [ngStyle]="first ? {'visibility':'hidden' } : {}"
-                    mat-icon-button
-                    (click)="onMove('up',consumption, index)">
-                    <mat-icon>expand_less</mat-icon>
-                </button>
+                <div class="price consumption-property">
+                    <div class="property-name">available outside</div>
+                    <div class="property">{{consumption.availableOutside}}
+                    </div>
+                </div>
 
-                <button [disabled]="last"
-                    [ngStyle]="last ? {'visibility':'hidden' } : {}"
-                    mat-icon-button
-                    (click)="onMove('down', consumption, index)">
-                    <mat-icon>expand_more</mat-icon>
-                </button>
             </div>
-        </li>
+
+        </mat-expansion-panel>
         }
-    </ul>
-    <!-- } -->
-    <!-- <button mat-raised-button
-        color="primary"
-        (click)="onAddConsumption()">
-        <mat-icon>add</mat-icon>
-    </button> -->
+    </mat-accordion>
+
+
+    } @else {
+    <p class="consumptions-list">no consumptions</p>
+    }
+
     <button mat-raised-button
+        [disabled]="store.consumption()"
         color="primary"
         (click)="store.toggleConsumptionDetailsVisible(true)">
         <mat-icon>add</mat-icon>
     </button>
     <button class="clear-selection-btn"
+        [disabled]="store.consumption()"
         mat-raised-button
         (click)="onCancel()">cancel</button>
 </div>

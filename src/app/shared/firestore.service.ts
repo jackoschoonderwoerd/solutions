@@ -100,4 +100,8 @@ export class FirestoreService {
             },
         )
     }
+    updateField(path: string, fieldName: string, newValue: unknown) {
+        const docRef = doc(this.firestore, path);
+        return updateDoc(docRef, { [fieldName]: newValue })
+    }
 }

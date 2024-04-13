@@ -19,7 +19,7 @@ import { collection } from '@angular/fire/firestore';
 import { Consumption, Course } from '../types/models';
 
 @Component({
-    selector: 'app-consumption-types',
+    selector: 'app-courses',
     standalone: true,
     imports: [
         CommonModule,
@@ -44,6 +44,7 @@ export class CoursesComponent implements OnInit {
     dialog = inject(MatDialog);
     store = inject(EngelbewaarderStore)
     ebService = inject(EngelbewaarderService)
+    indexSelected: number;
     // @ViewChild('input') public input: ElementRef
 
 
@@ -60,7 +61,9 @@ export class CoursesComponent implements OnInit {
         this.store.toggleCoursesVisible(false);
     }
 
-    onCourseSelected(course: Course) {
+    onCourseSelected(index, course: Course) {
+
+        this.indexSelected = index;
         this.store.courseSelected(course);
         this.store.toggleConsumptionsVisible(true);
         this.store.toggleCourseDetailsVisible(false);
@@ -68,6 +71,7 @@ export class CoursesComponent implements OnInit {
     }
 
     onEdit(course: Course) {
+
         this.store.courseSelected(course);
         this.store.toggleCoursesVisible(false);
         this.store.toggleCourseDetailsVisible(true);

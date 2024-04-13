@@ -20,14 +20,27 @@
                 display: flex;
                 gap: 1rem;
                 align-items: center;
-            }
-            .icons {
-                display: flex;
-                gap: 1rem;
-                icon {
-                    cursor: pointer;
+                .icons {
+                    display: flex;
+                    gap: 1rem;
                 }
             }
         }
+        .right {
+            cursor: pointer;
+            align-items: center;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .id {
+                display: flex;
+            }
+        }
     }
+}
+.selected {
+    background-color: white;
+}
+mat-icon {
+    cursor: pointer;
 }

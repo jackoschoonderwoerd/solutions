@@ -11,7 +11,7 @@ import { DocumentReference } from '@angular/fire/firestore';
 import { StoreComponentComponent } from './store-component/store-component.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CoursesComponent } from '../engelbewaarder-bis/courses/courses.component';
-import { CourseDetailsComponent } from '../engelbewaarder-bis/consumption-type-details/course-details.component';
+import { CourseDetailsComponent } from '../engelbewaarder-bis/course-details/course-details.component';
 import { JsonPipe } from '@angular/common';
 
 

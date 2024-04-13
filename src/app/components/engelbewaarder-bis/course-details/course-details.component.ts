@@ -12,10 +12,12 @@ import { EngelbewaarderService } from '../services/engelbewaarder.service';
 import { FirebaseError } from '@angular/fire/app';
 import { Consumption } from '../models';
 import { Course } from '../types/models';
+import { MatDialog } from '@angular/material/dialog';
+import { WarnDialogComponent } from '../../../shared/warn-dialog/warn-dialog.component';
 
 
 @Component({
-    selector: 'app-consumption-type-details',
+    selector: 'app-course-details',
     standalone: true,
     imports: [
         JsonPipe,
@@ -33,6 +35,7 @@ export class CourseDetailsComponent implements OnInit {
     form: FormGroup;
     fsService = inject(FirestoreService);
     ebService = inject(EngelbewaarderService)
+    dialog = inject(MatDialog)
 
     baseUrl: string;
     editmode: boolean = false;
@@ -64,8 +67,8 @@ export class CourseDetailsComponent implements OnInit {
     onSubmitForm() {
         const formValue = this.form.value
         const course: Partial<Course> = {
-            id: formValue.id,
-            nameDutchVisible: formValue.showNameDutch,
+            id: formValue.id.toLowerCase(),
+            nameDutchVisible: (formValue.showNameDutch),
             nameEnglishVisible: formValue.showNameEnglish,
             descriptionDutchVisible: formValue.showDescriptionDutch,
             descriptionEnglishVisible: formValue.showDescriptionEnglish,
@@ -98,18 +101,47 @@ export class CourseDetailsComponent implements OnInit {
 
 
     addCourse(course: Partial<Course>) {
-        const path = `${this.baseUrl}/${course.id}`
-        this.fsService.setDoc(path, course)
-            .then((res: any) => {
-                console.log(`document ${course.id} set`)
-                this.store.toggleCourseDetailsVisible(false)
-                this.store.toggleCoursesVisible(true)
-
-
-            })
-            .catch((err: FirebaseError) => console.log(`failed to set doc; ${err.message}`))
-
+        this.checkForExistingCourseName(course.id).then((res: boolean) => {
+            console.log(res);
+            if (!res) {
+                this.dialog.open(WarnDialogComponent, {
+                    data: {
+                        message: 'name already taken'
+                    }
+                })
+            } else {
+                console.log(' go ahead')
+                const path = `${this.baseUrl}/${course.id}`
+                this.fsService.setDoc(path, course)
+                    .then((res: any) => {
+                        console.log(`document ${course.id} set`)
+                        this.store.toggleCourseDetailsVisible(false)
+                        this.store.toggleCoursesVisible(true)
+                    })
+                    .catch((err: FirebaseError) => console.log(`failed to set doc; ${err.message}`))
+            }
+        })
     }
+
+    private checkForExistingCourseName(courseId: string) {
+        const path = `${this.baseUrl}`;
+        const promise = new Promise((resolve, reject) => {
+
+            this.fsService.collection(path).subscribe((courses: Course[]) => {
+                console.log(courses)
+                const x = courses.find((course: Course) => {
+                    return course.id === courseId
+                })
+                if (x) {
+                    resolve(false)
+                } else {
+                    resolve(true)
+                }
+            })
+        })
+        return promise
+    }
+
     updateCourse(course: Partial<Course>) {
         const path = `${this.baseUrl}/${course.id}`
         this.fsService.updateDoc(path, course)
@@ -168,11 +200,9 @@ export class CourseDetailsComponent implements OnInit {
 
     onCancel() {
         // this.ebService.consumptionTypeChanged.emit(null)
-        this.store.courseSelected(null);
         this.store.toggleCourseDetailsVisible(false);
         this.store.toggleCoursesVisible(true);
-        this.store.courseSelected(null);
-
+        this.store.clearCourse();
     }
     // onSubmitForm() {
     //     console.log(this.form.value)

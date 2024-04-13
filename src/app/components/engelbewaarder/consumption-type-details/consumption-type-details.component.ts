@@ -12,7 +12,7 @@ import { EngelbewaarderService } from '../services/engelbewaarder.service';
 import { FirebaseError } from '@angular/fire/app';
 
 @Component({
-    selector: 'app-consumption-type-details',
+    selector: 'app-course-details',
     standalone: true,
     imports: [
         JsonPipe,

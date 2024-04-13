@@ -3,16 +3,7 @@
 export enum Vessel {
     'glass', 'bottle'
 }
-export enum InputName {
-    'nameDutch',
-    'nameEnglish',
-    'descriptionDutch',
-    'descriptionEnglish',
-    'alcoholPrecentage',
-    'volume',
-    'vessel',
-    'price'
-}
+
 
 
 export interface Consumption {
@@ -24,6 +15,7 @@ export interface Consumption {
     vessel: Vessel;
     volume: number;
     price: number;
+    availableOutside: boolean;
 }
 
 export interface Course {

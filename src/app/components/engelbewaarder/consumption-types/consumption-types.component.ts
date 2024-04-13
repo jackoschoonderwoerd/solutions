@@ -18,7 +18,7 @@ import { EngelbewaarderService } from '../services/engelbewaarder.service';
 import { collection } from '@angular/fire/firestore';
 
 @Component({
-    selector: 'app-consumption-types',
+    selector: 'app-courses',
     standalone: true,
     imports: [
         CommonModule,

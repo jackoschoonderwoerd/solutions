@@ -2,40 +2,38 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    .consumptions-list {
-        margin: 0;
-        background-color: lightgray;
-        padding: 1rem;
-        grid-template-columns: 1/2;
-        // max-width: 30rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        .consumption {
-            padding: 0.2rem 1rem;
-            border: 1px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            // width: 100%;
+    .consumptions-accordion {
+        min-width: 30rem;
+        mat-expansion-panel {
+            mat-expansion-panel-header {
+                mat-panel-title {
+                }
+                mat-panel-description {
+                    display: flex;
+                    justify-content: end;
+                    .price {
+                        width: 5rem;
+                        display: flex;
+                        justify-content: end;
+                    }
+                }
+            }
             .consumption-properties {
                 display: flex;
                 flex-direction: column;
-                width: 100%;
+                gap: 0.2rem;
                 .consumption-property {
+                    padding: 0.2rem 0.5rem;
+                    border: 1px solid lightblue;
+                    background-color: aliceblue;
                     display: flex;
                     justify-content: space-between;
                 }
-                // border: 1px solid red;
-            }
-            // width: 100%;
-            .buttons {
-                align-self: self-start;
-                display: flex;
-                padding-left: 1rem;
             }
         }
     }
-    .clear-selection-btn {
+
+    .selected {
+        background-color: wheat;
     }
 }

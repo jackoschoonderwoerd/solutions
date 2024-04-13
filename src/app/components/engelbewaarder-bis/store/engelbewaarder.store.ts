@@ -4,9 +4,9 @@ import { inject } from "@angular/core";
 import { FirestoreService } from "../../../shared/firestore.service";
 
 
-import { Consumption } from "../models";
 
-import { Course } from "../types/models";
+
+import { Consumption, Course } from "../types/models";
 
 
 type EngelbewaarderState = {
@@ -16,7 +16,7 @@ type EngelbewaarderState = {
     courses: Course[]
 
     consumptionLoading: boolean;
-    typesLoading: boolean;
+    coursesLoading: boolean;
 
     consumptionDetailsVisible: boolean,
     consumptionsVisible: boolean,
@@ -33,7 +33,7 @@ const initialState: EngelbewaarderState = {
     course: null,
     courses: [],
 
-    typesLoading: false,
+    coursesLoading: false,
     consumptionLoading: false,
 
     consumptionDetailsVisible: false,
@@ -55,32 +55,45 @@ export const EngelbewaarderStore = signalStore(
     withMethods(
         (store, fs = inject(FirestoreService)) => ({
             async loadCourses() {
-                patchState(store, { typesLoading: true });
+
+                patchState(store, { coursesLoading: true });
                 const path = `engelbewaarder-consumptions`
                 fs.collection(path).subscribe((courses: Course[]) => {
-                    console.log(courses)
+                    if (store.course()) {
+                        console.log('no course')
+                        //& UPDATE COURSE AND CONSUMPTIONS
+                        const newCoursesArray: Course[] = courses.filter((course: Course) => {
+                            return course.id === store.course().id
+                        })
+                        const newCourse: Course = newCoursesArray[0]
+                        patchState(store, { course: newCourse })
+                        patchState(store, { consumptions: newCourse.consumptions })
+                    }
                     patchState(store, { courses })
-                    patchState(store, { typesLoading: false });
-                })
+                    patchState(store, { coursesLoading: false });
 
+                })
             },
+
             courseSelected(course) {
                 patchState(store, { course })
                 patchState(store, { consumptions: course.consumptions })
             },
-            async updateCourse(course) {
-                console.log(`updating`, course)
-                patchState(store, { course })
-                patchState(store, { consumptions: course.consumptions })
+            clearCourse() {
+                patchState(store, { course: null })
+                patchState(store, { consumptions: null })
             },
-            async consumptionSelected(consumption: Consumption) {
-                console.log(consumption)
-                if (consumption) {
-                    patchState(store, { consumption: consumption })
+
+            async consumptionSelected(selectedConsumption: Consumption) {
+
+                if (selectedConsumption) {
+                    patchState(store, { consumption: selectedConsumption })
                 } else {
                     patchState(store, { consumption: null })
                 }
             },
+
+            //& COMPONENT VISIBILITY
             toggleStoreComponentVisible() {
                 return patchState(store, { storeComponentVisible: !store.storeComponentVisible() })
             },
@@ -88,18 +101,15 @@ export const EngelbewaarderStore = signalStore(
             toggleCoursesVisible(status: boolean) {
                 return patchState(store, { coursesVisible: status })
             },
-            async toggleCourseDetailsVisible(status: boolean) {
+            toggleCourseDetailsVisible(status: boolean) {
                 return patchState(store, { courseDetailsVisible: status })
             },
-            async toggleConsumptionsVisible(status: boolean) {
+            toggleConsumptionsVisible(status: boolean) {
                 return patchState(store, { consumptionsVisible: status })
             },
-            async toggleConsumptionDetailsVisible(status: boolean) {
+            toggleConsumptionDetailsVisible(status: boolean) {
                 return patchState(store, { consumptionDetailsVisible: status })
             },
-            updateStore() {
-
-            }
         })
     ),
 );

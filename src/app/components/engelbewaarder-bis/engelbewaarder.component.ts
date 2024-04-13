@@ -7,7 +7,7 @@ import { EngelbewaarderStore } from './store/engelbewaarder.store';
 import { FirebaseError } from '@angular/fire/app';
 import { FirestoreService } from '../../shared/firestore.service';
 import { DocumentReference } from '@angular/fire/firestore';
-import { CourseDetailsComponent } from './consumption-type-details/course-details.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
 import { StoreComponentComponent } from './store-component/store-component.component';
 import { MatButtonModule } from '@angular/material/button';
 

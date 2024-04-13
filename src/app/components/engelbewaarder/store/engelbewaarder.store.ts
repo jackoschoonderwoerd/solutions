@@ -1,12 +1,11 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import { ConsumptionType } from "../types/models"
+import { Consumption, ConsumptionType } from "../types/models"
 import { inject } from "@angular/core";
 import { FirestoreService } from "../../../shared/firestore.service";
 
 
-import { Consumption } from "../models";
-import { EngelbewaarderService } from "../services/engelbewaarder.service";
-import { take } from "rxjs";
+
+
 
 
 type EngelbewaarderState = {

@@ -3,27 +3,27 @@
     <button mat-raised-button
         (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
 
-    <main>
-        <div class="left">
-            @if (store.coursesVisible()) {
-            <app-consumption-types />
-            }
 
-            @if(store.courseDetailsVisible()) {
-            <app-consumption-type-details />
-            }
 
-            @if(store.consumptionsVisible()){
-            <app-consumptions />
-            }
+    @if (store.coursesVisible()) {
+    <app-courses />
+    }
 
-            @if(store.consumptionDetailsVisible()){
-            <app-consumption-details />
-            }
-        </div>
-        @if(store.storeComponentVisible()){
-        <app-store-component />
-        }
-    </main>
+    @if(store.courseDetailsVisible()) {
+    <app-course-details />
+    }
+
+    @if(store.consumptionsVisible()){
+    <app-consumptions />
+    }
+
+    @if(store.consumptionDetailsVisible()){
+    <app-consumption-details />
+    }
+
+    @if(store.storeComponentVisible()){
+    <app-store-component />
+    }
+
 
 </div>

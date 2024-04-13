@@ -43,6 +43,7 @@ export interface Consumption {
     vessel: Vessel;
     volume: number;
     price: number;
+    availableOutside: boolean;
 }
 
 

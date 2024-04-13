@@ -1,9 +1,10 @@
 <div class="app">
     <div class="title">courses</div>
-    @if(!store.typesLoading() ) {
+    @if(!store.coursesLoading() ) {
     <ul class="consumption-types-list">
         @for(course of store.courses(); track course; let index = $index) {
-        <li class="consumption-types-list-item">
+        <li [ngClass]="{'selected' :indexSelected === index}"
+            class="consumption-types-list-item">
             <div class="left">
                 <div class="icons">
                     <mat-icon class="edit-icon"
@@ -12,20 +13,23 @@
                     <mat-icon class="delete-icon"
                         color="warn"
                         (click)="onDeleteCourse(course)">delete</mat-icon>
-                    <div class="id">{{course.id}}</div>
                 </div>
             </div>
-            <mat-icon color="primary"
-                (click)="onCourseSelected(course)"
-                matPrefix>search</mat-icon>
+            <div class="right"
+                (click)="onCourseSelected(index, course)">
+                <div class="id">{{course.id}}</div>
+                <mat-icon class="search"
+                    color="primary"
+                    matPrefix>search</mat-icon>
+            </div>
         </li>
         }
     </ul>
     }
-    @if(store.typesLoading()) {
+    @if(store.coursesLoading()) {
     <mat-spinner></mat-spinner>
     }
 
     <button mat-raised-button
-        (click)="onAdd()">add consumption type</button>
+        (click)="onAdd()">add course</button>
 </div>

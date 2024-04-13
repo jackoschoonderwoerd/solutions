@@ -1,5 +1,10 @@
 <div class="app">
+    @if(store.course()) {
+
     <div class="title">course details&nbsp;{{store.course().id}}</div>
+    } @else {
+    <div class="new-course title">adding new course</div>
+    }
     <!-- {{store.selectedConsumptionType()|json}} -->
     <form [formGroup]="form">
         <mat-form-field>
@@ -9,7 +14,7 @@
                 matInput
                 formControlName="id">
         </mat-form-field>
-        <div class="on-edit-consumption">while adding or editing consumption:</div>
+        <!-- <div class="on-edit-consumption">while adding or editing consumption:</div> -->
         <mat-checkbox formControlName="showNameDutch"
             (click)="$event.preventDefault()">
             show name dutch
