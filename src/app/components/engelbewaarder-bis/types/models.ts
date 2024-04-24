@@ -19,7 +19,9 @@ export interface Consumption {
 }
 
 export interface Course {
-    id: string
+    id: string;
+    nameEnglish: string;
+    nameDutch: string;
     nameDutchVisible: boolean;
     nameEnglishVisible: boolean;
     descriptionDutchVisible: string;
@@ -31,5 +33,28 @@ export interface Course {
     consumptions: Consumption[];
 }
 
+export interface Artist {
+    firstName: string;
+    lastName: string
+}
+
+export interface EbImage {
+    url: string;
+    filename: string;
+    price?: number;
+    artist?: string;
+    sold?: boolean;
+}
+
+export interface Exhibition {
+    id?: string;
+    startDate: Date;
+    endDate: Date;
+    title: string;
+    artists: Artist[];
+    description: string;
+    downloadUrls?: string[];
+    ebImages: EbImage[]
+}
 
 

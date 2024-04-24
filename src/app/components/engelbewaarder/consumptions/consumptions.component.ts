@@ -47,14 +47,8 @@ export class ConsumptionsComponent implements OnInit {
     onEdit(index: number, consumption: Consumption) {
 
         this.store.toggleConsumptionDetailsComponentVisible(true)
-        // this.store.openAddConsumptionTypeDetails(true)
         this.store.consumptionSelected(consumption);
-        // this.ebService.consumptionChanged.emit(consumption);
-        // this.store.showConsumptionsComponentF(true).then(() => {
-        //     setTimeout(() => {
 
-        //     });
-        // })
     }
     onMoveUp(consumption: Consumption, index: number) {
         console.log(consumption, index)

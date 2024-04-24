@@ -211,6 +211,8 @@ export const routes: Routes = [
     {
         path: 'engelbewaarder-bis',
         loadComponent: () => import('./components/engelbewaarder-bis/engelbewaarder.component')
-            .then(c => c.EngelbewaarderComponent)
+            .then(c => c.EngelbewaarderComponent),
+        loadChildren: () => import('./components/engelbewaarder-bis/engelbewaarder-bis.router')
+            .then(r => r.ENGELBEWAARDER_BIS_ROUTES)
     }
 ];

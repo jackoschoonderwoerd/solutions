@@ -1,0 +1,119 @@
+<div class="app">
+    @if(store.course()) {
+    <div class="title">consumptions&nbsp;{{store.course().id}}</div>
+    }
+    @if(store.consumptions() && store.consumptions().length){
+
+    <mat-accordion class="consumptions-accordion"
+        multi="false">
+        @for(consumption of store.consumptions();track consumption;
+        let first = $first, last = $last, index = $index;){
+
+        <mat-expansion-panel>
+            <!-- <mat-expansion-panel-header [ngClass]="{'selected': index === indexSelected}"> -->
+            <mat-expansion-panel-header [ngClass]="{'selected': consumption === store.consumption()}">
+                <mat-panel-title>
+                    <div class="icons">
+
+                        <mat-icon (click)="onMove($event, 'up',consumption, index)"
+                            [ngStyle]="first ? {'visibility':'hidden' } : {}">arrow_upward</mat-icon>
+                        <mat-icon [ngStyle]="last ? {'visibility':'hidden' } : {}"
+                            (click)="onMove($event, 'down', consumption, index)">arrow_downward</mat-icon>
+                    </div>
+
+                    <div class="property">{{consumption.nameDutch}}</div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div class="property price">{{consumption.price|currency:'EUR'}}</div>
+                    <mat-icon (click)="onDelete($event,consumption)"
+                        color="warn">delete</mat-icon>
+                    <mat-icon (click)="onEdit($event, index,consumption)"
+                        color="primary">edit</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="consumption-properties">
+                @if(consumption.nameDutch){
+                <div class="name-dutch consumption-property">
+                    <div class="property-name">name dutch</div>
+                    <div class="property">{{consumption.nameDutch}}</div>
+                </div>
+                }
+                @if(consumption.nameEnglish) {
+                <div class="name-english consumption-property">
+                    <div class="property-name">name english</div>
+                    <div class="property">{{consumption.nameEnglish}}</div>
+                </div>
+                }
+                @if(consumption.price) {
+                <div class="price consumption-property">
+                    <div class="property-name">price</div>
+                    <div class="property">{{consumption.price|currency:'EUR'}}</div>
+                </div>
+                }
+                @if(consumption.descriptionDutch) {
+                <div class="price consumption-property">
+                    <div class="property-name">desc. dutch</div>
+                    <div class="property"
+                        [innerHTML]="consumption.descriptionDutch">
+                    </div>
+                </div>
+                }
+                @if(consumption.descriptionEnglish) {
+                <div class="price consumption-property">
+                    <div class="property-name">desc. english</div>
+                    <div class="property"
+                        [innerHTML]="consumption.descriptionEnglish">
+                    </div>
+                </div>
+                }
+                @if(consumption.alcoholPercentage) {
+                <div class="price consumption-property">
+                    <div class="property-name">alc. %</div>
+                    <div class="property">{{consumption.alcoholPercentage|number}}
+                    </div>
+                </div>
+                }
+                @if(consumption.vessel) {
+                <div class="price consumption-property">
+                    <div class="property-name">vessel</div>
+                    <div class="property">{{consumption.vessel}}
+                    </div>
+                </div>
+                }
+                @if(consumption.volume) {
+                <div class="price consumption-property">
+                    <div class="property-name">vol. cc</div>
+                    <div class="property">{{consumption.volume|number}}
+                    </div>
+                </div>
+                }
+
+                <div class="price consumption-property">
+                    <div class="property-name">available outside</div>
+                    <div class="property">{{consumption.availableOutside}}
+                    </div>
+                </div>
+
+            </div>
+
+        </mat-expansion-panel>
+        }
+    </mat-accordion>
+
+
+    } @else {
+    <p class="consumptions-list">no consumptions</p>
+    }
+
+    <button mat-raised-button
+        [disabled]="store.consumption()"
+        color="primary"
+        (click)="store.toggleConsumptionDetailsVisible(true)">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button class="clear-selection-btn"
+        [disabled]="store.consumption()"
+        mat-raised-button
+        (click)="onCancel()">cancel</button>
+</div>

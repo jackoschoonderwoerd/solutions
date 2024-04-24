@@ -2,6 +2,7 @@ import { patchState, signalStore, withComputed, withMethods, withState } from "@
 import { Consumption, ConsumptionType } from "../types/models"
 import { inject } from "@angular/core";
 import { FirestoreService } from "../../../shared/firestore.service";
+import { Exhibition } from "../../engelbewaarder-bis/types/models";
 
 
 
@@ -21,7 +22,9 @@ type EngelbewaarderState = {
 
     consumptionDetailsComponentVisible: boolean,
     consumptionTypeDetailsComponentVisible: boolean,
+
     storeComponentVisible: boolean;
+
 }
 
 const initialState: EngelbewaarderState = {
@@ -37,7 +40,9 @@ const initialState: EngelbewaarderState = {
     consumptionsComponentVisible: false,
     consumptionDetailsComponentVisible: false,
     consumptionTypeDetailsComponentVisible: false,
-    storeComponentVisible: true
+
+    storeComponentVisible: true,
+
 }
 
 
@@ -109,6 +114,7 @@ export const EngelbewaarderStore = signalStore(
             async toggleConsumptionDetailsComponentVisible(status: boolean) {
                 return patchState(store, { consumptionDetailsComponentVisible: status })
             },
+
         })
     ),
 );

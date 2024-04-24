@@ -8,9 +8,12 @@
         "middle-left middle-middle middle-right"
         "bottom-left bottom-middle bottom-right";
 
-    button {
+    .admin {
+    }
+    .buttons {
         grid-area: top;
     }
+
     // .top {
     //     // display: flex;
     //     // flex-direction: column;

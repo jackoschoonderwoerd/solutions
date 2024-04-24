@@ -1,0 +1,30 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .images {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .image-container {
+            background-color: lightgray;
+            display: flex;
+            padding: 1rem;
+            // flex-direction: column;
+            gap: 1rem;
+            .image {
+                display: flex;
+                flex-direction: column;
+                gap: 0.3rem;
+                img {
+                    max-width: 200px;
+                }
+            }
+            .icons {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    }
+}

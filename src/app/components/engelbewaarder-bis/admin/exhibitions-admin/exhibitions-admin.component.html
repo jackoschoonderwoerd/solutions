@@ -1,0 +1,75 @@
+<div class="app">
+    @if(store.exhibitionsListVisible()) {
+
+    <main>
+
+        <div class="title">exhibition-admin</div>
+
+        <mat-accordion class="example-headers-align"
+            multi="false">
+            @for(exhibition of store.exhibitions(); track exhibition.id) {
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon color="warn"
+                            (click)="onDeleteExhibition($event, exhibition.id)">delete</mat-icon>
+                        <div class="dates">
+                            <div class="start-date">
+                                {{((exhibition.startDate)['seconds']*1000)|date}}
+                            </div>
+                            <div class="end-date">{{(exhibition.endDate)['seconds']*1000|date}}
+                            </div>
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <div class="exhibition-title">
+                            {{exhibition.title}}
+                        </div>
+                        <mat-icon color="primary"
+                            (click)="onEditExhibition($event, exhibition.id)">edit</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="expanded">
+                    @for(artist of exhibition.artists; track artist){
+                    <div class="artist-name">
+                        <div class="title">artist</div>
+                        <span class="artist-first-Name">{{artist.firstName}}</span>&nbsp;
+                        <span class="artist-last-Name">{{artist.lastName}}</span>
+                    </div>
+                    }
+                    <div class="description-container">
+                        <div class="title">description</div>
+                        <div class="description"
+                            [innerHTML]="exhibition.description"></div>
+                    </div>
+                    <div class="images-container">
+                        <div class="title">images</div>
+                        @for(ebImage of exhibition.ebImages; track ebImage) {
+
+                        <img [src]="ebImage.url"
+                            alt="">
+                        }
+                    </div>
+                </div>
+            </mat-expansion-panel>
+            }
+        </mat-accordion>
+        <button mat-raised-button
+            class="add-exhibition"
+            (click)="onAddExhibition()">add exhibition</button>
+    </main>
+    }
+
+    @if(store.exhibitionsAdminDetailVisible()) {
+    <app-exhibitions-admin-details></app-exhibitions-admin-details>
+    }
+
+
+    @if(store.imagesAdminVisible()) {
+
+    <app-images-admin [exhibitionId]="exhibitionId">
+    </app-images-admin>
+
+    }
+</div>

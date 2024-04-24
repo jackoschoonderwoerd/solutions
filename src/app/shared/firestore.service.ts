@@ -57,7 +57,7 @@ export class FirestoreService {
     }
     getDoc(path): Observable<DocumentData> {
         const docRef = doc(this.firestore, path)
-        return docData(docRef)
+        return docData(docRef, { idField: 'id' })
     }
 
     async getDocAsync(path): Promise<DocumentData> {

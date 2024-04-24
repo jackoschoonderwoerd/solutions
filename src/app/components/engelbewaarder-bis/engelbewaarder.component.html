@@ -1,29 +1,51 @@
-<div class="content">
+    @if(!store.isAdmin()){
+    <div class="visitor">
+        <app-landing-page></app-landing-page>
+    </div>
+    }
 
+    <div class="content">
+
+        @if(store.isAdmin()){
+        <div class="buttons">
+            <button mat-raised-button
+                (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
+            <button mat-raised-button
+                (click)="store.toggleCoursesVisible(true)">show courses</button>
+            <button mat-raised-button
+                (click)="store.toggleCoursesVisible(false)">hide courses</button>
+            <button mat-raised-button
+                (click)="store.toggleExhibitionsVisible()">toggle exhibitions</button>
+
+
+
+            @if (store.coursesVisible()) {
+            <app-courses />
+            }
+
+            @if(store.courseDetailsVisible()) {
+            <app-course-details />
+            }
+
+            @if(store.consumptionsVisible()){
+            <app-consumptions />
+            }
+
+            @if(store.consumptionDetailsVisible()){
+            <app-consumption-details />
+            }
+
+            @if(store.storeComponentVisible()){
+            <app-store-component />
+            }
+            @if(store.exhibitionsVisible()) {
+            <app-exhibitions-admin></app-exhibitions-admin>
+            }
+        </div>
+        }
+
+    </div>
     <button mat-raised-button
-        (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
-
-
-
-    @if (store.coursesVisible()) {
-    <app-courses />
-    }
-
-    @if(store.courseDetailsVisible()) {
-    <app-course-details />
-    }
-
-    @if(store.consumptionsVisible()){
-    <app-consumptions />
-    }
-
-    @if(store.consumptionDetailsVisible()){
-    <app-consumption-details />
-    }
-
-    @if(store.storeComponentVisible()){
-    <app-store-component />
-    }
-
-
-</div>
+        (click)="store.changeAccess()">
+        {{store.isAdmin() ?'to visitor':'to admin'}}
+    </button>

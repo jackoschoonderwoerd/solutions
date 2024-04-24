@@ -31,7 +31,7 @@ export class StorageService {
 
     storeFile(path: string, blob: Blob) {
         if (path && blob) {
-            console.log(path, blob)
+            // console.log(path, blob)
             const storageRef = ref(this.storage, path);
             return uploadBytesResumable(storageRef, blob)
                 .then((data: any) => {

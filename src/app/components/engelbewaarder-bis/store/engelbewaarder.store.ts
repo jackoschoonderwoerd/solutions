@@ -6,25 +6,36 @@ import { FirestoreService } from "../../../shared/firestore.service";
 
 
 
-import { Consumption, Course } from "../types/models";
+import { Consumption, Course, Exhibition } from '../types/models';
+import { EngelbewaarderService } from "../services/engelbewaarder.service";
+import { take } from "rxjs";
 
 
 type EngelbewaarderState = {
     consumption: Consumption;
     consumptions: Consumption[];
     course: Course;
-    courses: Course[]
+    courses: Course[];
+    exhibitions: Exhibition[];
 
     consumptionLoading: boolean;
     coursesLoading: boolean;
 
-    consumptionDetailsVisible: boolean,
-    consumptionsVisible: boolean,
-    courseDetailsVisible: boolean,
     coursesVisible: boolean,
+    courseDetailsVisible: boolean,
+    consumptionsVisible: boolean,
+    consumptionDetailsVisible: boolean,
+    exhibitionsVisible: boolean,
+    exhibitionsListVisible: boolean,
+    exhibitionsAdminDetailVisible: boolean,
+    imagesAdminVisible: boolean,
 
     storeComponentVisible: boolean;
-    res: any;
+    isAdmin: boolean;
+    beer: Consumption[];
+    exhibitionUC: Exhibition;
+
+
 }
 
 const initialState: EngelbewaarderState = {
@@ -32,16 +43,24 @@ const initialState: EngelbewaarderState = {
     consumptions: [],
     course: null,
     courses: [],
-
+    exhibitions: [],
     coursesLoading: false,
     consumptionLoading: false,
-
-    consumptionDetailsVisible: false,
-    consumptionsVisible: false,
+    coursesVisible: false,
     courseDetailsVisible: false,
-    coursesVisible: true,
-    storeComponentVisible: true,
-    res: null
+    consumptionsVisible: false,
+    consumptionDetailsVisible: false,
+
+    exhibitionsVisible: true,
+    exhibitionsAdminDetailVisible: false,
+    exhibitionsListVisible: true,
+    imagesAdminVisible: false,
+
+    storeComponentVisible: false,
+    isAdmin: false,
+    beer: [],
+    exhibitionUC: null,
+
 }
 
 
@@ -53,7 +72,7 @@ export const EngelbewaarderStore = signalStore(
     withState(initialState),
 
     withMethods(
-        (store, fs = inject(FirestoreService)) => ({
+        (store, fs = inject(FirestoreService), ebService = inject(EngelbewaarderService)) => ({
             async loadCourses() {
 
                 patchState(store, { coursesLoading: true });
@@ -74,6 +93,14 @@ export const EngelbewaarderStore = signalStore(
 
                 })
             },
+            async loadExhibitions() {
+                const path = `engelbewaarder-exhibitions`;
+                fs.collection(path).pipe(take(1)).subscribe((exhibitions: Exhibition[]) => {
+                    console.log(exhibitions)
+
+                    patchState(store, { exhibitions: exhibitions })
+                })
+            },
 
             courseSelected(course) {
                 patchState(store, { course })
@@ -83,6 +110,18 @@ export const EngelbewaarderStore = signalStore(
                 patchState(store, { course: null })
                 patchState(store, { consumptions: null })
             },
+            loadBeer() {
+                const path = `engelbewaarder-consumptions/beer`
+                fs.getDoc(path)
+                    .subscribe(data => {
+                        // console.log(data)
+                        patchState(store, { beer: data.consumptions })
+                    })
+            },
+            loadStarters() {
+
+            },
+
 
             async consumptionSelected(selectedConsumption: Consumption) {
 
@@ -91,6 +130,9 @@ export const EngelbewaarderStore = signalStore(
                 } else {
                     patchState(store, { consumption: null })
                 }
+            },
+            changeAccess() {
+                patchState(store, { isAdmin: !store.isAdmin() })
             },
 
             //& COMPONENT VISIBILITY
@@ -110,6 +152,23 @@ export const EngelbewaarderStore = signalStore(
             toggleConsumptionDetailsVisible(status: boolean) {
                 return patchState(store, { consumptionDetailsVisible: status })
             },
+            toggleExhibitionsVisible() {
+                return patchState(store, { exhibitionsVisible: !store.exhibitionsVisible() })
+            },
+            toggleExhibitionsListVisible(status: boolean) {
+                return patchState(store, { exhibitionsListVisible: status });
+            },
+            async initExhibitionUC(exhibition: Exhibition) {
+                console.log(exhibition);
+                return patchState(store, { exhibitionUC: exhibition })
+            },
+            async toggleImagesAdminVisible(status: boolean) {
+                return patchState(store, { imagesAdminVisible: status })
+            },
+            async toggleExhibitionsAdminDetailVisible(status: boolean) {
+                return patchState(store, { exhibitionsAdminDetailVisible: status })
+            },
+
         })
     ),
 );

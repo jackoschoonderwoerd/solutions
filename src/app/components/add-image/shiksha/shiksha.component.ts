@@ -12,12 +12,14 @@ export class ShikshaComponent {
 
     url: string = '';
 
+
     onFileInputChange(event: any) {
         if (event.target.files) {
             var reader = new FileReader()
             reader.readAsDataURL(event.target.files[0])
             reader.onload = (event: any) => {
                 this.url = event.target.result
+
             }
         }
     }

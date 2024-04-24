@@ -1,15 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ConsumptionDetailsComponent } from './consumption-details/consumption-details.component';
-import { ConsumptionsComponent } from './consumptions/consumptions.component';
-import { CoursesComponent } from './courses/courses.component';
+import { ConsumptionDetailsComponent } from './admin/consumption-details/consumption-details.component';
+import { ConsumptionsComponent } from './admin/consumptions/consumptions.component';
+import { CoursesComponent } from './admin/courses/courses.component';
 import { EngelbewaarderService } from './services/engelbewaarder.service';
 import { EngelbewaarderStore } from './store/engelbewaarder.store';
 import { FirebaseError } from '@angular/fire/app';
 import { FirestoreService } from '../../shared/firestore.service';
 import { DocumentReference } from '@angular/fire/firestore';
-import { CourseDetailsComponent } from './course-details/course-details.component';
-import { StoreComponentComponent } from './store-component/store-component.component';
+import { CourseDetailsComponent } from './admin/course-details/course-details.component';
+import { StoreComponentComponent } from './admin/store-component/store-component.component';
 import { MatButtonModule } from '@angular/material/button';
+import { LandingPageComponent } from './visitor/landing-page/landing-page.component';
+import { ExhibitionsAdminComponent } from './admin/exhibitions-admin/exhibitions-admin.component';
 
 
 export interface Spirit {
@@ -21,14 +23,16 @@ export interface Spirit {
     selector: 'app-engelbewaarder',
     standalone: true,
     imports: [
-
         CoursesComponent,
         CourseDetailsComponent,
         ConsumptionsComponent,
         ConsumptionDetailsComponent,
         StoreComponentComponent,
-        MatButtonModule
+        MatButtonModule,
+        LandingPageComponent,
+        ExhibitionsAdminComponent
     ],
+
     templateUrl: './engelbewaarder.component.html',
     styleUrl: './engelbewaarder.component.scss'
 })

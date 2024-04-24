@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Consumption } from '../../firebase/firestore/array-remove/engelbewaarder/models';
-import { Course } from '../types/models';
+import { Course, Exhibition } from '../types/models';
 
 
 @Injectable({
@@ -11,7 +11,8 @@ export class EngelbewaarderService {
 
     baseUrl: string = 'engelbewaarder-consumptions'
     consumptionChanged = new EventEmitter<Consumption>;
-    courseChanged = new EventEmitter<Course>
+    courseChanged = new EventEmitter<Course>;
+    exhibitionChanged = new EventEmitter<Exhibition>
 
 
     getBaseUrl(): string {
