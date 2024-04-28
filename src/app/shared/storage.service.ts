@@ -57,4 +57,8 @@ export class StorageService {
         const storageRef = ref(this.storage, pathToBlob)
         return getBlob(storageRef)
     }
+    checkForExistingFilename(path) {
+        const storageRef = ref(this.storage, path)
+        return getDownloadURL(storageRef)
+    }
 }

@@ -43,6 +43,13 @@ export class FirestoreService {
         const collectionRef = collection(this.firestore, path)
         return collectionData(collectionRef, { idField: 'id' })
     }
+
+    sortedCollection(path, orderedBy, direction) {
+        const collectionRef = collection(this.firestore, path)
+        const q = query(collectionRef, orderBy(orderedBy, direction))
+        return collectionData(q, { idField: 'id' })
+    }
+
     deleteDoc(path): Promise<void> {
         const docRef = doc(this.firestore, path)
         return deleteDoc(docRef);

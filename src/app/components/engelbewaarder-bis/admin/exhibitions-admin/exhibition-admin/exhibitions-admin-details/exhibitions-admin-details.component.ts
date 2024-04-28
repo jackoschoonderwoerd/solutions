@@ -1,20 +1,22 @@
 import { JsonPipe, NgClass, NgFor, NgStyle } from '@angular/common';
-import { Component, inject, Input, input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FirestoreService } from '../../../../../shared/firestore.service';
+import { FirestoreService } from '../../../../../../shared/firestore.service';
 import { take } from 'rxjs';
-import { Artist, Exhibition } from '../../../types/models';
+import { Artist, Exhibition } from '../../../../types/models';
 import { DocumentReference } from '@angular/fire/firestore';
 import { FirebaseError } from '@angular/fire/app';
-import { EngelbewaarderStore } from '../../../store/engelbewaarder.store';
-import { EngelbewaarderService } from '../../../services/engelbewaarder.service';
+import { EngelbewaarderStore } from '../../../../store/engelbewaarder.store';
+import { EngelbewaarderService } from '../../../../services/engelbewaarder.service';
 import { MatDialog } from '@angular/material/dialog';
-import { WarnDialogComponent } from '../../../../../shared/warn-dialog/warn-dialog.component';
+import { WarnDialogComponent } from '../../../../../../shared/warn-dialog/warn-dialog.component';
+import { ExhibitionDescriptionComponent } from '../exhibition-description/exhibition-description.component';
+import { ExhibitionsAdminStore } from '../../exhibitions-admin.store';
 
 @Component({
     selector: 'app-exhibitions-admin-details',
@@ -30,36 +32,41 @@ import { WarnDialogComponent } from '../../../../../shared/warn-dialog/warn-dial
         NgFor,
         JsonPipe,
         NgStyle,
-        NgClass
-
-
-
-
+        NgClass,
+        ExhibitionDescriptionComponent
     ],
     templateUrl: './exhibitions-admin-details.component.html',
     styleUrl: './exhibitions-admin-details.component.scss'
 })
 export class ExhibitionsAdminDetailsComponent implements OnInit {
+    @Input() exhibitionSelectedForEdit: Exhibition
     fb = inject(FormBuilder);
     fs = inject(FirestoreService);
     store = inject(EngelbewaarderStore);
     ebService = inject(EngelbewaarderService);
-    dialog = inject(MatDialog)
+    dialog = inject(MatDialog);
+    exStore = inject(ExhibitionsAdminStore)
     exhibitionAltered: boolean = false;
     form: FormGroup;
     editmode: boolean = false;
     exhibitionId: string;
     exhibitionUC: Exhibition;
+    descriptionHtml: string;
+    @Output() resetExhibitionSelectedForEditToNull = new EventEmitter<void>
 
 
     ngOnInit(): void {
         this.initForm();
+        if (this.exhibitionSelectedForEdit) {
+            this.editmode = true;
+            this.setForm(this.exhibitionSelectedForEdit)
+        }
 
         this.ebService.exhibitionChanged.subscribe((exhibition: Exhibition) => {
-            console.log(exhibition);
             if (exhibition) {
                 this.exhibitionUC = exhibition;
                 this.editmode = true;
+                this.descriptionHtml = exhibition.description;
                 this.setForm(exhibition);
             } else {
                 this.form.reset();
@@ -67,6 +74,14 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
         })
     }
 
+    editingFinished(descriptionHtml) {
+        console.log('editingFinished admin-details')
+        if (descriptionHtml) {
+            this.descriptionHtml = descriptionHtml;
+            this.exhibitionAltered = true;
+        }
+        this.exStore.toggleDescriptionEditorVisible(false);
+    }
 
     alteringExhibition() {
         this.exhibitionAltered = true;
@@ -78,7 +93,7 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
             startDate: new FormControl(null, [Validators.required]),
             endDate: new FormControl(null, [Validators.required]),
             artists: new FormArray([], [Validators.required]),
-            description: new FormControl(null)
+            // description: new FormControl(null)
         })
     }
     artists(): FormArray {
@@ -96,21 +111,31 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
     addArtist() {
         this.artists().push(this.newArtist());
     }
-    onSaveOrUpdate() {
+
+    onAddOrUpdateExhibitionDetails() {
+        console.log(this.editmode)
         const formValue = this.form.value;
-        const exhibition: Exhibition = {
-            title: formValue.title,
-            startDate: formValue.startDate,
-            endDate: formValue.endDate,
-            artists: formValue.artists,
-            description: formValue.description,
-            downloadUrls: [],
-            ebImages: []
-        }
-        if (!this.editmode) {
-            this.saveExhibition(exhibition)
+        if (this.editmode) {
+            const updatedExhibition: Exhibition = {
+                id: this.exhibitionSelectedForEdit.id,
+                title: formValue.title,
+                startDate: formValue.startDate,
+                endDate: formValue.endDate,
+                artists: formValue.artists,
+                description: this.exhibitionSelectedForEdit.description,
+                ebImages: this.exhibitionSelectedForEdit.ebImages
+            }
+            this.updateExhibition(updatedExhibition)
         } else {
-            this.updateExhibition(exhibition)
+            const newExhibition: Exhibition = {
+                title: formValue.title,
+                startDate: formValue.startDate,
+                endDate: formValue.endDate,
+                artists: formValue.artists,
+                description: null,
+                ebImages: []
+            }
+            this.saveExhibition(newExhibition)
         }
     }
 
@@ -121,7 +146,9 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
             this.fs.addDoc(path, exhibition)
                 .then((docRef: DocumentReference) => {
                     console.log(`exhibition added; ${docRef.id}`)
-                    this.resetAll();
+                    this.exStore.editNothing();
+                    this.form.reset();
+                    this.resetExhibitionSelectedForEditToNull.emit();
                 })
                 .catch((err: FirebaseError) => {
                     console.error(`failed to store exhibition; ${err.message}`)
@@ -130,15 +157,15 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
     }
 
     updateExhibition(exhibition: Exhibition) {
-        console.log('update')
-        console.log(exhibition)
-        exhibition.ebImages = this.exhibitionUC.ebImages
-        const path = `engelbewaarder-exhibitions/${this.exhibitionUC.id}`
+        const path = `engelbewaarder-exhibitions/${exhibition.id}`
         this.fs.updateDoc(path, exhibition)
             .then((res: any) => {
-                this.store.loadExhibitions();
-                console.log(`exhibition ${exhibition.title} is updated`);
-                this.resetAll()
+                console.log(res);
+                // this.store.loadExhibitions();
+                // console.log(`exhibition ${exhibition.title} is updated`);
+                this.exStore.editNothing();
+                // this.resetAll()
+                this.resetExhibitionSelectedForEditToNull.emit();
             })
             .catch((err: FirebaseError) => {
                 console.error(`failed to update ${exhibition.title}; ${err.message}`)
@@ -146,10 +173,11 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
     }
     resetAll() {
         this.form.reset();
-        this.store.toggleExhibitionsListVisible(true);
+        this.exStore.toggleExhibitionsListVisible(true);
         this.ebService.exhibitionChanged.emit(null);
-        this.store.toggleImagesAdminVisible(false);
-        this.store.toggleExhibitionsAdminDetailVisible(false);
+        this.exStore.toggleImagesAdminVisible(false);
+        this.exStore.toggleExhibitionsAdminDetailVisible(false);
+        this.descriptionHtml = '';
         this.editmode = false;
     }
 
@@ -163,7 +191,7 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
         const path = `engelbewaarder-exhibitions/${exhibitionId}`
         this.fs.getDoc(path).pipe(take(1)).subscribe((exhibition: Exhibition) => {
             if (exhibition) {
-                this.store.initExhibitionUC(exhibition)
+                this.exStore.initExhibitionUC(exhibition)
                 console.log(exhibition)
 
                 this.exhibitionId = exhibition.id;
@@ -190,16 +218,16 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
     setForm(exhibition: Exhibition) {
 
         if (exhibition) {
-            this.store.initExhibitionUC(exhibition)
+            this.exStore.initExhibitionUC(exhibition)
             // console.log(exhibition)
 
             this.exhibitionId = exhibition.id;
             this.editmode = true;
             this.form.patchValue({
                 title: exhibition.title,
-                startDate: new Date(exhibition.startDate['seconds'] * 1000),
-                endDate: new Date(exhibition.endDate['seconds'] * 1000),
-                description: exhibition.description,
+                startDate: exhibition.startDate ? new Date(exhibition.startDate['seconds'] * 1000) : null,
+                endDate: exhibition.endDate ? new Date(exhibition.endDate['seconds'] * 1000) : null,
+                // description: exhibition.description,
             })
             this.artists().clear();
             exhibition.artists.forEach((artist: Artist) => {
@@ -222,19 +250,20 @@ export class ExhibitionsAdminDetailsComponent implements OnInit {
                 if (res) {
                     this.editmode = false;
                     this.ebService.exhibitionChanged.emit(null);
-                    this.store.toggleExhibitionsAdminDetailVisible(false);
-                    this.store.toggleImagesAdminVisible(false);
-                    this.store.toggleExhibitionsListVisible(true);
+                    this.exStore.editNothing();
+                    this.resetExhibitionSelectedForEditToNull.emit();
                 } else {
                     return;
                 }
             })
         } else {
+            this.resetExhibitionSelectedForEditToNull.emit();
             this.editmode = false;
             this.ebService.exhibitionChanged.emit(null);
-            this.store.toggleExhibitionsAdminDetailVisible(false);
-            this.store.toggleImagesAdminVisible(false);
-            this.store.toggleExhibitionsListVisible(true);
+            this.exStore.editNothing()
+            // this.exStore.toggleExhibitionsAdminDetailVisible(false);
+            // this.exStore.toggleImagesAdminVisible(false);
+            // this.exStore.toggleExhibitionsListVisible(true);
         }
     }
 }

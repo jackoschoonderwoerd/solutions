@@ -12,6 +12,7 @@ import { StoreComponentComponent } from './admin/store-component/store-component
 import { MatButtonModule } from '@angular/material/button';
 import { LandingPageComponent } from './visitor/landing-page/landing-page.component';
 import { ExhibitionsAdminComponent } from './admin/exhibitions-admin/exhibitions-admin.component';
+import { ExhibitionsAdminStore } from './admin/exhibitions-admin/exhibitions-admin.store';
 
 
 export interface Spirit {
@@ -39,6 +40,7 @@ export interface Spirit {
 export class EngelbewaarderComponent implements OnInit {
 
     store = inject(EngelbewaarderStore);
+    exStore = inject(ExhibitionsAdminStore)
     ebService = inject(EngelbewaarderService);
     fsService = inject(FirestoreService);
     baseUrl: string;

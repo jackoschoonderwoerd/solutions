@@ -8,16 +8,24 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DatePipe, JsonPipe, NgFor } from '@angular/common';
 import { FirestoreService } from '../../../../shared/firestore.service';
-import { Artist, Exhibition } from '../../types/models';
-import { FirebaseError } from '@angular/fire/app';
-import { DocumentReference } from '@angular/fire/firestore';
+import { Exhibition } from '../../types/models';
+
 import { StorageService } from '../../../../shared/storage.service';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { take } from 'rxjs';
-import { ImagesAdminComponent } from './images-admin/images-admin.component';
-import { ExhibitionsAdminDetailsComponent } from './exhibitions-admin-details/exhibitions-admin-details.component';
+import { ImagesAdminComponent } from './exhibition-admin/images-admin/images-admin.component';
+import { ExhibitionsAdminDetailsComponent } from './exhibition-admin/exhibitions-admin-details/exhibitions-admin-details.component';
 import { EngelbewaarderService } from '../../services/engelbewaarder.service';
+import { ExhibitionsAdminStore } from './exhibitions-admin.store';
+import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+import { ExhibitionDescriptionComponent } from './exhibition-admin/exhibition-description/exhibition-description.component';
+import { ExhibitionAdminComponent } from './exhibition-admin/exhibition-admin.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { WarnDialogComponent } from '../../../../shared/warn-dialog/warn-dialog.component';
+import { FirebaseError } from '@angular/fire/app';
+
 
 @Component({
     selector: 'app-exhibitions-admin',
@@ -35,7 +43,9 @@ import { EngelbewaarderService } from '../../services/engelbewaarder.service';
         MatExpansionModule,
         DatePipe,
         ImagesAdminComponent,
-        ExhibitionsAdminDetailsComponent
+        ExhibitionsAdminDetailsComponent,
+        ExhibitionDescriptionComponent,
+        ExhibitionAdminComponent
     ],
     providers: [provideNativeDateAdapter()],
     templateUrl: './exhibitions-admin.component.html',
@@ -45,7 +55,9 @@ export class ExhibitionsAdminComponent implements OnInit {
     fb = inject(FormBuilder);
     fs = inject(FirestoreService);
     store = inject(EngelbewaarderStore);
-    ebService = inject(EngelbewaarderService)
+    exStore = inject(ExhibitionsAdminStore)
+    ebService = inject(EngelbewaarderService);
+    dialog = inject(MatDialog);
     form: FormGroup;
     editmode: boolean = false;
     imageFiles: File[] = [];
@@ -54,46 +66,76 @@ export class ExhibitionsAdminComponent implements OnInit {
     downloadUrls: string[] = [];
     exhibitionId: string;
     exhibitionUC: Exhibition;
+    descriptionHtml: string;
+    exhibitionSelectedForEdit: Exhibition
 
 
     ngOnInit(): void {
-        // this.initForm();
-        this.store.loadExhibitions();
-
-
+        this.exStore.loadExhibitions();
     }
+
 
 
 
     onDeleteExhibition(event: MouseEvent, exhibitionId: string) {
+        console.log(exhibitionId)
         event.stopPropagation();
-    }
-    onEditExhibition(event: MouseEvent, exhibitionId: string) {
-        this.store.toggleExhibitionsListVisible(false);
-        event.stopPropagation()
-        const path = `engelbewaarder-exhibitions/${exhibitionId}`
-        this.fs.getDoc(path).pipe(take(1)).subscribe((exhibition: Exhibition) => {
-            if (exhibition) {
-                this.store.initExhibitionUC(exhibition)
-                this.store.toggleExhibitionsAdminDetailVisible(true)
-                    .then(() => {
-                        this.store.toggleImagesAdminVisible(true)
-                            .then((res) => {
-                                console.log(res)
-                                setTimeout(() => {
-                                    this.ebService.exhibitionChanged.emit(exhibition);
-                                }, 0);
+        this.checkForImages(exhibitionId).then((ebImagesLength: number) => {
+            console.log(ebImagesLength)
+            if (ebImagesLength) {
+                this.dialog.open(AlertComponent, {
+                    data: {
+                        message: 'remove all images before deleting the complete exhibition'
+                    }
+                })
+            } else {
+                const dialogRef = this.dialog.open(WarnDialogComponent, {
+                    data: {
+                        message: `This will permanently delete the exhibition and all of its properties`
+                    }
+                })
+                dialogRef.afterClosed().subscribe((res: boolean) => {
+                    if (res) {
+                        const path = `engelbewaarder-exhibitions/${exhibitionId}`
+                        this.fs.deleteDoc(path)
+                            .then((res: any) => {
+                                console.log(`exhibition deleted`)
                             })
-
-                    })
+                            .catch((err: FirebaseError) => {
+                                console.error(`failed to delete exhibition; ${err.message}`)
+                            })
+                    }
+                })
             }
         })
-
     }
+
+    onEditExhibition(event: MouseEvent, exhibition: Exhibition) {
+        event.stopPropagation();
+        this.exhibitionSelectedForEdit = exhibition
+        this.exStore.editDetail();
+    }
+
     onAddExhibition() {
-        this.store.toggleExhibitionsListVisible(false);
-        this.store.toggleExhibitionsAdminDetailVisible(true);
-        this.ebService.exhibitionChanged.emit(null);
-        this.store.toggleImagesAdminVisible(false);
+        this.exStore.editDetail()
+        // this.exStore.toggleExhibitionsListVisible(false);
+        // this.exStore.toggleExhibitionsAdminDetailVisible(true);
+        // this.ebService.exhibitionChanged.emit(null);
+        // this.exStore.toggleImagesAdminVisible(false);
+    }
+
+    checkForImages(exhibitionId) {
+        const promise = new Promise((resolve, reject) => {
+
+            const path = `engelbewaarder-exhibitions/${exhibitionId}`
+            this.fs.getDoc(path)
+                .pipe(take(1))
+                .subscribe((exhibition: Exhibition) => {
+                    if (exhibition) {
+                        resolve(exhibition.ebImages.length);
+                    }
+                })
+        })
+        return promise
     }
 }

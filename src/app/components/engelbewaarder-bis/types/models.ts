@@ -41,6 +41,7 @@ export interface Artist {
 export interface EbImage {
     url: string;
     filename: string;
+    title?: string;
     price?: number;
     artist?: string;
     sold?: boolean;

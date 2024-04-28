@@ -1,0 +1,26 @@
+@if(exhibitionSelectedForEdit) {
+<div class="title">exhibition admin</div>
+<div class="buttons">
+    <button mat-raised-button
+        (click)="onEditDetails()">edit details</button>
+    <button mat-raised-button
+        (click)="onEditDescription()">edit description</button>
+    <button mat-raised-button
+        (click)="onEditImages()">edit images</button>
+</div>
+}
+
+
+
+@if(exStore.showExhibitionsAdminDetail()){
+<app-exhibitions-admin-details (resetExhibitionSelectedForEditToNull)="resetExhibitionSelectedForEditToNull()"
+    [exhibitionSelectedForEdit]="exhibitionSelectedForEdit"></app-exhibitions-admin-details>
+}
+@if(exStore.showImagesAdmin()) {
+<app-images-admin (resetExhibitionSelectedForEditToNull)="resetExhibitionSelectedForEditToNull()"
+    [exhibitionSelectedForEdit]="exhibitionSelectedForEdit"></app-images-admin>
+}
+@if(exStore.showDescriptionEditor()){
+<app-exhibition-description (resetExhibitionSelectedForEditToNull)="resetExhibitionSelectedForEditToNull()"
+    [exhibitionSelectedForEdit]="exhibitionSelectedForEdit"></app-exhibition-description>
+}

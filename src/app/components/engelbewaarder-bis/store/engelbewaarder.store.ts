@@ -29,6 +29,7 @@ type EngelbewaarderState = {
     exhibitionsListVisible: boolean,
     exhibitionsAdminDetailVisible: boolean,
     imagesAdminVisible: boolean,
+    descriptionEditorVisible: boolean,
 
     storeComponentVisible: boolean;
     isAdmin: boolean;
@@ -55,6 +56,7 @@ const initialState: EngelbewaarderState = {
     exhibitionsAdminDetailVisible: false,
     exhibitionsListVisible: true,
     imagesAdminVisible: false,
+    descriptionEditorVisible: false,
 
     storeComponentVisible: false,
     isAdmin: false,
@@ -152,22 +154,25 @@ export const EngelbewaarderStore = signalStore(
             toggleConsumptionDetailsVisible(status: boolean) {
                 return patchState(store, { consumptionDetailsVisible: status })
             },
-            toggleExhibitionsVisible() {
-                return patchState(store, { exhibitionsVisible: !store.exhibitionsVisible() })
-            },
-            toggleExhibitionsListVisible(status: boolean) {
-                return patchState(store, { exhibitionsListVisible: status });
-            },
-            async initExhibitionUC(exhibition: Exhibition) {
-                console.log(exhibition);
-                return patchState(store, { exhibitionUC: exhibition })
-            },
-            async toggleImagesAdminVisible(status: boolean) {
-                return patchState(store, { imagesAdminVisible: status })
-            },
-            async toggleExhibitionsAdminDetailVisible(status: boolean) {
-                return patchState(store, { exhibitionsAdminDetailVisible: status })
-            },
+            // toggleExhibitionsVisible() {
+            //     return patchState(store, { exhibitionsVisible: !store.exhibitionsVisible() })
+            // },
+            // toggleExhibitionsListVisible(status: boolean) {
+            //     return patchState(store, { exhibitionsListVisible: status });
+            // },
+            // toggleDescriptionEditorVisible(status: boolean) {
+            //     return patchState(store, { descriptionEditorVisible: status })
+            // },
+
+            // async initExhibitionUC(exhibition: Exhibition) {
+            //     return patchState(store, { exhibitionUC: exhibition })
+            // },
+            // async toggleImagesAdminVisible(status: boolean) {
+            //     return patchState(store, { imagesAdminVisible: status })
+            // },
+            // async toggleExhibitionsAdminDetailVisible(status: boolean) {
+            //     return patchState(store, { exhibitionsAdminDetailVisible: status })
+            // },
 
         })
     ),
