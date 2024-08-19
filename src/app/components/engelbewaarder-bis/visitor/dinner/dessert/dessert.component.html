@@ -1,1 +1,10 @@
-<p>dessert works!</p>
+@if(viStore.selectedLanguage()=='en') {
+<div class="title">dessert</div>
+}
+@if(viStore.selectedLanguage()=='nl') {
+<div class="title">dessert</div>
+}
+
+@for(consumption of viStore.desertsByLanguage(); track consumption) {
+<app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+}

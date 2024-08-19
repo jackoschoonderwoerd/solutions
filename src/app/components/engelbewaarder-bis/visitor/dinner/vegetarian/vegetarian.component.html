@@ -1,1 +1,10 @@
-<p>vegetarian works!</p>
+@if(viStore.selectedLanguage()=='en') {
+<div class="title">vegetarian</div>
+}
+@if(viStore.selectedLanguage()=='nl') {
+<div class="title">vegetarisch</div>
+}
+
+@for(consumption of viStore.vegetarianConsumptionsByLanguage(); track consumption) {
+<app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+}

@@ -8,9 +8,15 @@
     <!-- {{store.selectedConsumptionType()|json}} -->
     <form [formGroup]="form">
         <mat-form-field>
+            <mat-label>id</mat-label>
+            <input type="text"
+                readonly="true"
+                matInput
+                formControlName="id">
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>name dutch</mat-label>
             <input type="text"
-                [readonly]="editmode"
                 matInput
                 formControlName="nameDutch">
         </mat-form-field>
@@ -21,6 +27,9 @@
                 formControlName="nameEnglish">
         </mat-form-field>
         <!-- <div class="on-edit-consumption">while adding or editing consumption:</div> -->
+
+        <div class="title">On the consumptions form show:</div>
+
         <mat-checkbox formControlName="showNameDutch"
             (click)="$event.preventDefault()">
             show name dutch

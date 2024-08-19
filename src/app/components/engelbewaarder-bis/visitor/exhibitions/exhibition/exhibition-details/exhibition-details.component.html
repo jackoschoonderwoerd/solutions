@@ -1,0 +1,66 @@
+<div class="wrapper">
+    <!-- <pre>
+        <code>
+
+            {{exhibition|json}}
+        </code>
+    </pre> -->
+    <div class="exhibition">
+        <button class="close"
+            mat-icon-button
+            (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <div class="period">
+            <div class="start">{{(exhibition.startDate.seconds)*1000|date}}</div>
+            <div class="end">{{exhibition.endDate.seconds*1000|date}}</div>
+        </div>
+        <div class="artists">
+            @for(artist of exhibition.artists;track artist) {
+            <div class="artist">
+                <div class="first-name">{{artist.firstName}}</div>
+                <div class="last-name">{{artist.lastName}}</div>
+            </div>
+            }
+        </div>
+        <div class="eb-title_flags">
+            <div class="eb-title">{{exhibition.title}}</div>
+            <div class="flags">
+                <img class="flag"
+                    (click)="onChangeLanguage('en')"
+                    src="./../../../../../../../assets/engelbewaarder/flags/uk-flag.png"
+                    alt="">
+                <img class="flag"
+                    (click)="onChangeLanguage('nl')"
+                    src="./../../../../../../../assets/engelbewaarder/flags/nl-flag.png"
+                    alt="">
+            </div>
+        </div>
+        <div class="description"
+            [innerHTML]="viStore.exhibitionByLanguage().descriptionSelectedLanguage"></div>
+
+    </div>
+    <div class="images">
+        @for(image of exhibition.ebImages;track image){
+        <div class="image">
+            <img [src]="image.url"
+                alt="">
+            @if(image.title || image.artist || image.price || image.sold){
+
+            <div class="image-details">
+                <div class="title_artist">
+                    <div class="img-title">{{image.title}}</div>
+                    <div class="img-artist">©&nbsp;{{image.artist}}</div>
+                </div>
+                <div class="price_sold">
+                    <div class="img-price">{{image.price|currency:"EUR"}}</div>
+                    <div class="img-sold">{{image.sold ? '(sold)':''}}</div>
+                </div>
+            </div>
+            }
+
+        </div>
+        }
+    </div>
+</div>

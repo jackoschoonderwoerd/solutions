@@ -1,0 +1,18 @@
+<div class="title"
+    mat-dialog-title>{{data.exhibitionTitle}}</div>
+<mat-dialog-content>
+    <p>
+        You are about to edit the exhibition with the title mentioned hereabove.
+    </p>
+    <p>Please select the section you want to edit</p>
+    <mat-dialog-actions>
+        <button mat-raised-button
+            [mat-dialog-close]="'details'">details</button>
+        <button mat-raised-button
+            [mat-dialog-close]="'description'">description</button>
+        <button mat-raised-button
+            [mat-dialog-close]="'images'">images</button>
+        <button mat-raised-button
+            mat-dialog-close>cancel</button>
+    </mat-dialog-actions>
+</mat-dialog-content>

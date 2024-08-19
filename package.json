@@ -27,6 +27,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@tinymce/tinymce-angular": "^7.0.0",
     "@uploadcare/blocks": "^0.33.2",
+    "luxon": "^3.5.0",
     "ngx-highlightjs": "^10.0.0",
     "ngx-image-cropper": "^7.2.1",
     "ngx-webcam": "^0.4.1",

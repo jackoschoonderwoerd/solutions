@@ -1,1 +1,10 @@
-<p>meat works!</p>
+<div class="eb-course">
+    <div class="eb-course-name">
+        {{viStore.meatCourseByLanguage()?.nameSelectedLanguage}}
+    </div>
+    <div class="eb-consumptions">
+        @for(consumption of viStore.meatCourseByLanguage()?.consumptions; track consumption) {
+        <app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+        }
+    </div>
+</div>

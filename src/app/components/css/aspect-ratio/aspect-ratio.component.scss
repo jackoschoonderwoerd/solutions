@@ -1,0 +1,12 @@
+.wrapper {
+    padding: 1rem;
+    fieldset {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    .element {
+        background-color: blue;
+        width: 50%;
+    }
+}

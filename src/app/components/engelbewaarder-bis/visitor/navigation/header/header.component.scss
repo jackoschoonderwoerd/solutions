@@ -1,0 +1,21 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .language-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        .img-container {
+            width: 3rem;
+            display: flex;
+            align-items: center;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+.language-selected {
+    border: 3px solid red;
+}

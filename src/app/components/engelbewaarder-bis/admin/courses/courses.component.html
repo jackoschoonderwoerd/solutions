@@ -17,7 +17,10 @@
             </div>
             <div class="right"
                 (click)="onCourseSelected(index, course)">
-                <div class="id">{{course.id}}</div>
+                <div class="name-id">
+                    <div class="name-dutch">{{course.nameDutch}}</div>
+                    <div class="id">{{course.id}}</div>
+                </div>
                 <mat-icon class="search"
                     color="primary"
                     matPrefix>search</mat-icon>

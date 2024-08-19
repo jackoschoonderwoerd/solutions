@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes),
         provideAnimationsAsync(),
+        provideNativeDateAdapter(),
         importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
         importProvidersFrom(
             provideAuth(() => getAuth())),

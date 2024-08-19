@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { SignalsComponent } from './components/signals/signals.component';
+import { ControlValueAccessorComponent } from './components/angular/control-value-accessor/control-value-accessor.component';
 
 export const routes: Routes = [
     {
@@ -214,5 +215,29 @@ export const routes: Routes = [
             .then(c => c.EngelbewaarderComponent),
         loadChildren: () => import('./components/engelbewaarder-bis/engelbewaarder-bis.router')
             .then(r => r.ENGELBEWAARDER_BIS_ROUTES)
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./shared/auth/login/login.component')
+            .then(c => c.LoginComponent)
+    },
+    {
+        path: 'css',
+        loadComponent: () => import('./components/css/css.component')
+            .then(c => c.CssComponent),
+        loadChildren: () => import('./components/css/css-routes')
+            .then(r => r.CSS_ROUTES)
+
+    },
+    {
+        path: 'control-value-accessor',
+        loadComponent: () => import('./components/angular/control-value-accessor/control-value-accessor.component')
+            .then(c => c.ControlValueAccessorComponent)
+    },
+    {
+        path: 'timepicker',
+        loadComponent: () => import('./components/timepicker/timepicker.component')
+            .then(c => c.TimepickerComponent)
     }
+
 ];

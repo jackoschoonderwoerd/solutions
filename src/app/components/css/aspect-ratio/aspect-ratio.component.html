@@ -1,0 +1,23 @@
+<div class="wrapper">
+
+    <fieldset [formGroup]="form">
+        <legend>aspect-ratio</legend>
+        <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input type="number"
+                formControlName="width"
+                placeholder="Width"
+                matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input type="number"
+                formControlName="height"
+                matInput
+                placeholder="Height">
+        </mat-form-field>
+
+    </fieldset>
+    <div class="element"
+        [style]="getAspectRatio()"></div>
+</div>

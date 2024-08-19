@@ -1,0 +1,19 @@
+<p>login works!</p>
+
+<form [formGroup]="form">
+    <div class="title">log in form</div>
+    <mat-form-field>
+        <mat-label>email address</mat-label>
+        <input matInput
+            type="email"
+            formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>password</mat-label>
+        <input matInput
+            type="password"
+            formControlName="password">
+    </mat-form-field>
+    <button mat-raised-button
+        (click)="onSubmit()">submit</button>
+</form>

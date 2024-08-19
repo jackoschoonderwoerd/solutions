@@ -1,5 +1,5 @@
 <div class="app">
-    <div class="title">consumption details&nbsp;{{store.course().id}}</div>
+    <div class="title">consumption details&nbsp;{{store.course().nameDutch}}</div>
 
     <form [formGroup]="form">
         @if(store.course().nameDutchVisible){
@@ -11,14 +11,6 @@
         </mat-form-field>
         }
 
-        @if(store.course().nameEnglishVisible){
-        <mat-form-field>
-            <mat-label for="nameDutch">name english</mat-label>
-            <input type="text"
-                matInput
-                formControlName="nameEnglish">
-        </mat-form-field>
-        }
 
         @if(store.course().descriptionDutchVisible) {
         <mat-form-field>
@@ -26,6 +18,14 @@
             <textarea type="text"
                 matInput
                 formControlName="descriptionDutch"></textarea>
+        </mat-form-field>
+        }
+        @if(store.course().nameEnglishVisible){
+        <mat-form-field>
+            <mat-label for="nameDutch">name english</mat-label>
+            <input type="text"
+                matInput
+                formControlName="nameEnglish">
         </mat-form-field>
         }
         @if(store.course().descriptionEnglishVisible) {

@@ -1,0 +1,66 @@
+<a href="https://angular-university.io/lesson/angular-controlvalueaccessor-nested-form">Vasco</a>
+
+<div class="main-form"
+    [formGroup]="form">
+    <app-address-form legend="Address"
+        formControlName="address"></app-address-form>
+
+    <fieldset class="non-address-form">
+        <legend>non address</legend>
+        <mat-form-field>
+            <input type="text"
+                matInput
+                placeholder="Course Title"
+                formControlName="title"
+                #title>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Select"
+                formControlName="category">
+
+                <ng-container *ngFor="let category of courseCategories">
+                    <mat-option [value]="category.code">{{category.description}}</mat-option>
+                </ng-container>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput
+                [matDatepicker]="releaseDatePicker"
+                formControlName="releasedAt"
+                placeholder="Release date">
+
+            <mat-datepicker-toggle matSuffix
+                [for]="releaseDatePicker"></mat-datepicker-toggle>
+
+            <mat-datepicker #releaseDatePicker></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-checkbox color="primary"
+            formControlName="downloadsAllowed">
+            Downloads allowed?
+        </mat-checkbox>
+
+        <mat-form-field appearance="outline">
+
+            <textarea matInput
+                placeholder="Description"
+                formControlName="longDescription">
+
+                </textarea>
+
+        </mat-form-field>
+    </fieldset>
+
+</div>
+<div class="form-val">
+    <code>
+        <pre>
+            {{form.value|json}}
+        </pre>
+    </code>
+</div>

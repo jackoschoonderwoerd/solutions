@@ -1,0 +1,13 @@
+form {
+    padding: 1rem;
+    min-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    .buttons {
+        background-color: lightgray;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+}

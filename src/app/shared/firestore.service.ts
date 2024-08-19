@@ -111,4 +111,15 @@ export class FirestoreService {
         const docRef = doc(this.firestore, path);
         return updateDoc(docRef, { [fieldName]: newValue })
     }
+    findCollectionArray(path, fieldName, value) {
+        const collectionRef = collection(this.firestore, path)
+        const q = query(collectionRef, where(fieldName, '==', value))
+        return collectionData(q, { idField: 'id' })
+    }
+
+    // findDoc(path, field, value) {
+    //     const collectionRef = collection(this.firestore, path)
+    //     const queryRef = query(collectionRef, where(field, '==', value))
+    //     return collectionData(queryRef, { idField: 'id' })
+    // }
 }

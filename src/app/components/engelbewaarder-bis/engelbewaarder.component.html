@@ -1,51 +1,55 @@
-    @if(!store.isAdmin()){
-    <div class="visitor">
-        <app-landing-page></app-landing-page>
+@if(!auStore.isLoggedIn()){
+<div class="visitor">
+    <app-landing-page></app-landing-page>
+</div>
+}
+
+
+@if(auStore.isLoggedIn()){
+<div class="content">
+
+    <div class="buttons">
+        <button mat-raised-button
+            (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
+        <button mat-raised-button
+            (click)="store.toggleCoursesVisible()">toggle courses visible</button>
+        <button mat-raised-button
+            (click)="exStore.toggleExhibitionsVisible()">toggle exhibitions visible</button>
+        <button mat-icon-button
+            (click)="onLogout()">
+            <mat-icon>logout</mat-icon>
+        </button>
     </div>
+
+
+    @if (store.coursesVisible()) {
+    <app-courses />
     }
 
-    <div class="content">
+    @if(store.courseDetailsVisible()) {
+    <app-course-details />
+    }
 
-        @if(store.isAdmin()){
-        <div class="buttons">
-            <button mat-raised-button
-                (click)="store.toggleStoreComponentVisible()">toggle store visible</button>
-            <button mat-raised-button
-                (click)="store.toggleCoursesVisible(true)">show courses</button>
-            <button mat-raised-button
-                (click)="store.toggleCoursesVisible(false)">hide courses</button>
-            <button mat-raised-button
-                (click)="exStore.toggleExhibitionsVisible()">toggle exhibitions</button>
+    @if(store.consumptionsVisible()){
+    <app-consumptions />
+    }
 
+    @if(store.consumptionDetailsVisible()){
+    <app-consumption-details />
+    }
 
+    @if(store.storeComponentVisible()){
+    <app-store-component />
+    }
+    @if(exStore.showExhibitions()) {
+    <app-exhibitions-admin></app-exhibitions-admin>
+    }
+</div>
+}
+@if(!auStore.isLoggedIn) {
 
-            @if (store.coursesVisible()) {
-            <app-courses />
-            }
-
-            @if(store.courseDetailsVisible()) {
-            <app-course-details />
-            }
-
-            @if(store.consumptionsVisible()){
-            <app-consumptions />
-            }
-
-            @if(store.consumptionDetailsVisible()){
-            <app-consumption-details />
-            }
-
-            @if(store.storeComponentVisible()){
-            <app-store-component />
-            }
-            @if(store.exhibitionsVisible()) {
-            <app-exhibitions-admin></app-exhibitions-admin>
-            }
-        </div>
-        }
-
-    </div>
-    <button mat-raised-button
-        (click)="store.changeAccess()">
-        {{store.isAdmin() ?'to visitor':'to admin'}}
-    </button>
+<button mat-raised-button
+    (click)="login()">
+    {{store.isAdmin() ?'to visitor':'to admin'}}
+</button>
+}

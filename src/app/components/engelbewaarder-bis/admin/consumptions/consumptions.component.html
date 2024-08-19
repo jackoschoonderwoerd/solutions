@@ -1,6 +1,6 @@
 <div class="app">
     @if(store.course()) {
-    <div class="title">consumptions&nbsp;{{store.course().id}}</div>
+    <div class="title">consumptions&nbsp;{{store.course().nameDutch}}</div>
     }
     @if(store.consumptions() && store.consumptions().length){
 
@@ -19,8 +19,8 @@
                             [ngStyle]="first ? {'visibility':'hidden' } : {}">arrow_upward</mat-icon>
                         <mat-icon [ngStyle]="last ? {'visibility':'hidden' } : {}"
                             (click)="onMove($event, 'down', consumption, index)">arrow_downward</mat-icon>
+                        <mat-icon>info</mat-icon>
                     </div>
-
                     <div class="property">{{consumption.nameDutch}}</div>
                 </mat-panel-title>
                 <mat-panel-description>

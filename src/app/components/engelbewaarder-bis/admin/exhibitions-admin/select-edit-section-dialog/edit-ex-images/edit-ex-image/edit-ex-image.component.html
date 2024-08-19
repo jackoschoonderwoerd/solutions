@@ -1,0 +1,61 @@
+<div class="top">
+    <div class="image-container">
+        <img [src]="ebImage.url"
+            alt="">
+    </div>
+
+</div>
+<div class="bottom">
+    @if(ebImages?.length > 1){
+    <div class="arrows">
+        @if(index !=0){
+        <button mat-icon-button
+            (click)="onMove('up')">
+            <mat-icon>
+                arrow_left
+            </mat-icon>
+        </button>
+
+        }
+        @if(index != ebImages?.length - 1){
+        <button mat-icon-button
+            (click)="onMove('down')">
+
+            <mat-icon>
+                arrow_right</mat-icon>
+        </button>
+        }
+    </div>
+    }
+
+    <div class="details">
+        <div class="image-property image-title-container">
+            <div class="property-name">title:</div>
+            <div class="">{{ebImage.title}}</div>
+        </div>
+        <div class="image-property artist-container">
+            <div class="property-name">artist:</div>
+            <div class="">{{ebImage.artist}}</div>
+        </div>
+        <div class="image-property price-container">
+            <div class="property-name">price:</div>
+            <div class="">{{ebImage.price|currency:"EUR"}}</div>
+        </div>
+        <div class="image-property sold-container">
+            <div class="property-name">sold:</div>
+            <div class="">{{ebImage.sold}}</div>
+        </div>
+    </div>
+    <div class="edit_delete">
+        <button (click)="onDeleteImage()"
+            mat-icon-button>
+
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button
+            (click)="onEditDetails()">
+
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+</div>

@@ -32,9 +32,13 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
-            .id {
+            .name-id {
                 display: flex;
+                gap: 1rem;
             }
+            // .id {
+            //     display: flex;
+            // }
         }
     }
 }

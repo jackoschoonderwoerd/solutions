@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+
+
+    <mat-form-field>
+        <mat-label>title</mat-label>
+        <input type="text"
+            matInput
+            formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>artist</mat-label>
+        <input type="text"
+            matInput
+            formControlName="artist">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>price</mat-label>
+        <input type="number"
+            matInput
+            formControlName="price">
+    </mat-form-field>
+    <mat-checkbox formControlName="sold"
+        class="example-margin"
+        [checked]="true">
+        sold
+    </mat-checkbox>
+    <div class="buttons">
+        <button class="cancel"
+            mat-raised-button
+            (click)="onCancel()">cancel</button>
+        <button class="confirm"
+            (click)="onConfirm()"
+            mat-raised-button>confirm</button>
+    </div>
+</form>

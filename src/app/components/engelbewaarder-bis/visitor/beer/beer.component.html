@@ -1,31 +1,26 @@
-<ul>
-    @for(beer of store.beer();track beer) {
-    <li>
-        <div class="name-dutch">
-            {{beer.nameDutch}}
-        </div>
-        <div class="name-english">
-            {{beer.nameEnglish}}
-        </div>
-        <div class="description-dutch">
-            {{beer.descriptionDutch}}
-        </div>
-        <div class="description-english">
-            {{beer.descriptionEnglish}}
-        </div>
-        <div class="alcohol-percentage">
-            {{beer.alcoholPercentage}}
-        </div>
-        <div class="volume">
-            {{beer.volume}}
-        </div>
-        <div class="price">
-            {{beer.price}}
-        </div>
-        <div class="available-outside">
-            {{beer.availableOutside}}
-        </div>
-        <hr>
-    </li>
-    }
-</ul>
+ @for(beer of viStore.beersByLanguage();track beer) {
+ <div class="beer"
+     (click)="onInfo(beer)">
+
+     <div class="left">
+         <mat-icon>info</mat-icon>
+         <div class="name">
+             {{beer.nameSelectedLanguage}}
+         </div>
+     </div>
+
+
+     <div class="right">
+         <div class="price">
+             {{beer.price|currency:"EUR"}}
+         </div>
+         <div class="alcohol-percentage">
+             {{beer.alcoholPercentage}}%
+         </div>
+         <div class="volume">
+             {{beer.volume}}cc
+         </div>
+     </div>
+
+ </div>
+ }

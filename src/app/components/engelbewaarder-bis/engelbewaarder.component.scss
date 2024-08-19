@@ -1,17 +1,26 @@
+.visitor {
+    height: 100%;
+    width: 100%;
+}
 .content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    // grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     background-color: lightcyan;
     grid-template-areas:
         "top top top"
         "middle-left middle-middle middle-right"
         "bottom-left bottom-middle bottom-right";
+    .buttons {
+        border: 1px solid red;
+        grid-area: top;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        // justify-content: center;
+    }
 
     .admin {
-    }
-    .buttons {
-        grid-area: top;
     }
 
     // .top {

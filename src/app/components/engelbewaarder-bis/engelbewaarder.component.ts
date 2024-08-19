@@ -3,7 +3,7 @@ import { ConsumptionDetailsComponent } from './admin/consumption-details/consump
 import { ConsumptionsComponent } from './admin/consumptions/consumptions.component';
 import { CoursesComponent } from './admin/courses/courses.component';
 import { EngelbewaarderService } from './services/engelbewaarder.service';
-import { EngelbewaarderStore } from './store/engelbewaarder.store';
+import { EngelbewaarderStore } from './stores/engelbewaarder.store';
 import { FirebaseError } from '@angular/fire/app';
 import { FirestoreService } from '../../shared/firestore.service';
 import { DocumentReference } from '@angular/fire/firestore';
@@ -12,7 +12,12 @@ import { StoreComponentComponent } from './admin/store-component/store-component
 import { MatButtonModule } from '@angular/material/button';
 import { LandingPageComponent } from './visitor/landing-page/landing-page.component';
 import { ExhibitionsAdminComponent } from './admin/exhibitions-admin/exhibitions-admin.component';
-import { ExhibitionsAdminStore } from './admin/exhibitions-admin/exhibitions-admin.store';
+import { ExhibitionsAdminStore } from './stores/exhibitions-admin.store';
+import { LoginComponent } from '../../shared/auth/login/login.component';
+import { Router } from '@angular/router';
+import { AuthStore } from '../../shared/auth/auth.store';
+import { MatIconModule } from '@angular/material/icon';
+import { VisitorStore } from './stores/visitor.store';
 
 
 export interface Spirit {
@@ -31,7 +36,9 @@ export interface Spirit {
         StoreComponentComponent,
         MatButtonModule,
         LandingPageComponent,
-        ExhibitionsAdminComponent
+        ExhibitionsAdminComponent,
+        LoginComponent,
+        MatIconModule
     ],
 
     templateUrl: './engelbewaarder.component.html',
@@ -40,14 +47,19 @@ export interface Spirit {
 export class EngelbewaarderComponent implements OnInit {
 
     store = inject(EngelbewaarderStore);
+    auStore = inject(AuthStore)
     exStore = inject(ExhibitionsAdminStore)
     ebService = inject(EngelbewaarderService);
     fsService = inject(FirestoreService);
+    viStore = inject(VisitorStore)
     baseUrl: string;
+    router = inject(Router)
 
     ngOnInit(): void {
         this.baseUrl = this.ebService.getBaseUrl();
         // this.checkForExistingCollection();
+        this.viStore.checkLS()
+
     }
 
     private checkForExistingCollection() {
@@ -70,5 +82,12 @@ export class EngelbewaarderComponent implements OnInit {
                         })
                 }
             })
+    }
+    login() {
+        this.store.changeAccess()
+        this.router.navigateByUrl('login')
+    }
+    onLogout() {
+        this.auStore.logout();
     }
 }

@@ -1,0 +1,17 @@
+.consumption {
+    color: var(--eb-bright-orange);
+    letter-spacing: 1.1px;
+    // border-bottom: 1px solid var(--eb-bright-orange);
+    .name-price {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+        .name {
+            text-transform: uppercase;
+        }
+    }
+
+    .description {
+        margin-left: 1rem;
+    }
+}

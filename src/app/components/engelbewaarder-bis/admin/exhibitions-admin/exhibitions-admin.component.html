@@ -46,7 +46,7 @@
                     <div class="description-container">
                         <div class="title">description</div>
                         <div class="description"
-                            [innerHTML]="exhibition.description"></div>
+                            [innerHTML]="exhibition.descriptionSelectedLanguage"></div>
                     </div>
                     <div class="images-container">
                         <div class="title">images</div>
@@ -66,25 +66,10 @@
         </mat-accordion>
         <button mat-raised-button
             class="add-exhibition"
-            (click)="exStore.editDetail()">add exhibition</button>
+            (click)="onAddExhibition()">add exhibition</button>
     </main>
     }
 
-    <app-exhibition-admin [exhibitionSelectedForEdit]="exhibitionSelectedForEdit"></app-exhibition-admin>
+    <!-- <app-exhibition-admin></app-exhibition-admin> -->
 
-    <!-- @if(exStore.showExhibitionsAdminDetail()) {
-    <app-exhibitions-admin-details></app-exhibitions-admin-details>
-    }
-    @if(exStore.showDescriptionEditor()) {
-    <app-exhibition-description [descriptionHtml]="descriptionHtml"
-        (editingFinished)="editingFinished($event)"></app-exhibition-description>
-    }
-
-
-    @if(store.imagesAdminVisible()) {
-
-    <app-images-admin [exhibitionId]="exhibitionId">
-    </app-images-admin>
-
-    } -->
 </div>

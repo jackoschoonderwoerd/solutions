@@ -1,3 +1,22 @@
 <mat-toolbar color="primary">
     <mat-icon (click)="toggleSidenav()">menu</mat-icon>
+    <!-- {{ebStore.selectedLanguage()}} -->
+    <div class="language-selector">
+
+        <div class="img-container en"
+            [ngStyle]="viStore.selectedLanguage()==='en' ? {'border':'3px solid red' } :{'border':'3px solid transparent'}"
+            (click)="onSelectLanguage('en')"><img src="./../../../../../../assets/engelbewaarder/flags/uk-flag.png"
+                alt=""></div>
+
+
+        <div class="img-container nl"
+            [ngStyle]="viStore.selectedLanguage()==='nl' ? {'border':'3px solid red' } :{'border':'3px solid transparent'}"
+            (click)="onSelectLanguage('nl')"><img src="./../../../../../../assets/engelbewaarder/flags/nl-flag.png"
+                alt=""></div>
+
+        <div class="login"
+            (click)="onLogin()">
+            <mat-icon>login</mat-icon>
+        </div>
+    </div>
 </mat-toolbar>

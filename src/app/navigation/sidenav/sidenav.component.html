@@ -1,55 +1,11 @@
-<!-- @for(subject of subjects$|async; track subject) {
-<mat-menu #subject.subjectName="matMenu">
-    <button mat-button
-        [matMenuTriggerFor]="subject.subjectName">{{subject.subjectName}}</button>
-
-</mat-menu>
-} -->
-
+@if(!auStore.isLoggedIn()) {
+<mat-icon (click)="onLogin()">login</mat-icon>
+}
+@if(auStore.isLoggedIn()) {
+<mat-icon (click)="onLogout()">logout</mat-icon>
+}
 
 
-<!-- @for(subject of subjects$|async; track subject) {
-<mat-accordion>
-    <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
-            @if(!subject.topicsArray.length){
-
-            <mat-panel-title>
-                <a [routerLink]="subject.subjectName"
-                    class="subject-link">{{subject.subjectName}}</a>
-            </mat-panel-title>
-            } @else {
-            {{subject.subjectName}}
-            }
-        </mat-expansion-panel-header>
-        @for(topic of subject.topicsArray; track topic) {
-        <mat-accordion>
-            @if(!topic.itemsArray.length) {
-            <div class="topic-links">
-                <a [routerLink]="topic.topicName">{{topic.topicName}}!!!</a>
-            </div>
-            } @else {
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{topic.topicName}}???
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                @for(item of topic.itemsArray; track item) {
-                <div class="subitem-links">
-                    <a routerLinkActive="link-active"
-                        [routerLink]="item.itemName">{{item.itemName}}</a>
-                </div>
-                }
-            </mat-expansion-panel>
-            }
-
-        </mat-accordion>
-        }
-
-    </mat-expansion-panel>
-</mat-accordion>
-} -->
 <div class="nav-list">
     @for(item of menuItems; track item) {
     <a [routerLink]="item"
@@ -60,9 +16,3 @@
     (click)="addNaviagionSubject()">
     edit navigation
 </button>
-<!-- <pre>
-    <code>
-        <div class="subjects">{{subjects$|async|json}}</div>
-
-    </code>
-</pre> -->

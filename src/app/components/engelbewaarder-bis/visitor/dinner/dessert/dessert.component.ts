@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { EngelbewaarderStore } from '../../../stores/engelbewaarder.store';
+import { JsonPipe } from '@angular/common';
+import { VisitorStore } from '../../../stores/visitor.store';
+import { EbConsumptionComponent } from '../eb-consumption/eb-consumption.component';
 
 @Component({
-  selector: 'app-dessert',
-  standalone: true,
-  imports: [],
-  templateUrl: './dessert.component.html',
-  styleUrl: './dessert.component.scss'
+    selector: 'app-dessert',
+    standalone: true,
+    imports: [JsonPipe, EbConsumptionComponent],
+    templateUrl: './dessert.component.html',
+    styleUrl: './dessert.component.scss'
 })
-export class DessertComponent {
+export class DessertComponent implements OnInit {
+    viStore = inject(VisitorStore);
 
+    ngOnInit(): void {
+        this.viStore.loadDesertsByLanguage();
+    }
 }
+

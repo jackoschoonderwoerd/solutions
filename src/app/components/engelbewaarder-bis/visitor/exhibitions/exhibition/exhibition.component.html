@@ -1,0 +1,22 @@
+<div class="period">
+    <!-- <pre>
+        <code>
+
+            {{exhibition|json}}
+        </code>
+    </pre> -->
+    <div class="start">
+        {{(exhibition.startDate.seconds)*1000|date}}
+    </div>
+    <div class="end">{{(exhibition.endDate.seconds)*1000|date}}</div>
+</div>
+<div class="bottom">
+    <button mat-icon-button
+        (click)="onInfo()">
+        <mat-icon>info</mat-icon>
+    </button>
+    <div class="ex-title">
+        {{exhibition.title}}
+    </div>
+
+</div>

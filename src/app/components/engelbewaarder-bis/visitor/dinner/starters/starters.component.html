@@ -1,1 +1,10 @@
-<p>starters works!</p>
+@if(viStore.selectedLanguage()=='en') {
+<div class="title">starters</div>
+}
+@if(viStore.selectedLanguage()=='nl') {
+<div class="title">voorgerechten</div>
+}
+
+@for(consumption of viStore.starterConsumptionsByLanguage(); track consumption) {
+<app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+}

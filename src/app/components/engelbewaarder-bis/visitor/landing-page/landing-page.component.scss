@@ -1,0 +1,17 @@
+mat-sidenav-container {
+    border: 3px solid blue;
+    height: 100%;
+
+    mat-sidenav {
+        width: 80%;
+        max-width: 20rem;
+        // app-sidenav {
+        // }
+    }
+    mat-sidenav-content {
+        border: 3px solid green;
+        background-color: var(--eb-blue);
+    }
+}
+:host {
+}

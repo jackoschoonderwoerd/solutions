@@ -2,7 +2,7 @@ import { patchState, signalStore, withComputed, withMethods, withState } from "@
 import { Consumption, ConsumptionType } from "../types/models"
 import { inject } from "@angular/core";
 import { FirestoreService } from "../../../shared/firestore.service";
-import { Exhibition } from "../../engelbewaarder-bis/types/models";
+import { Exhibition } from "../../engelbewaarder-bis/types/eb-models";
 
 
 
@@ -54,8 +54,6 @@ export const EngelbewaarderStore = signalStore(
     withState(initialState),
 
     withMethods(
-
-
 
         (store, fs = inject(FirestoreService)) => ({
             async loadTypes() {

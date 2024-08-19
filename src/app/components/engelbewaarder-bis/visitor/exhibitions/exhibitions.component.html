@@ -1,1 +1,3 @@
-<p>exhibitions works!</p>
+@for(exhibition of viStore.exhibitions(); track exhibition) {
+<app-exhibition [exhibition]="exhibition"></app-exhibition>
+}

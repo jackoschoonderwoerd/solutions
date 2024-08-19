@@ -1,0 +1,24 @@
+<div class="app">
+    <div class="title">images-admin</div>
+    <div class="images">
+
+        @for(ebImage of exhibition?.ebImages; let first = $first; let last = $last; track ebImage; let i = $index ){
+
+        <app-edit-image-details [ebImage]="ebImage"
+            [exhibitionId]="exhibition.id"
+            [index]="i">
+        </app-edit-image-details>
+        }
+    </div>
+    <input type="file"
+        style="display: none;"
+        (change)="onFileInputChange($event)"
+        #fileInput>
+    <div class="buttons">
+        <button mat-raised-button
+            (click)="fileInput.click()">add image</button>
+        <button mat-raised-button
+            (click)="onDoneEditing()">done editing</button>
+    </div>
+
+</div>

@@ -10,5 +10,6 @@ export const ANGULAR_ROUTES: Routes = [
         path: 'angular-17',
         loadChildren: () => import('./angular-17/angular-17.routes')
             .then(r => r.ANGULAR_17_ROUTES)
-    }
+    },
+    {}
 ]

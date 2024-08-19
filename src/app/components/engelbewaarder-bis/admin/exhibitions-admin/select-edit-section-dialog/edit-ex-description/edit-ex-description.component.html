@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+    <div class="title">exhibition description</div>
+    <mat-form-field>
+        <mat-label>select language</mat-label>
+        <mat-select [(value)]="selectecLanguage"
+            (selectionChange)="onSelectionChange($event)">
+            @for (language of availableLangages; track language) {
+            <mat-option [value]="language">{{language.full}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    @if(selectecLanguage) {
+
+    <editor formControlName="editor"
+        #editor
+        apiKey="n6z1jie1g7j3j6d4x9oyay4przt4ivupw964pkwl6c9t7j21"
+        [init]="tinymceInit"
+        (ngModelChange)="onChange()"></editor>
+
+
+    <button mat-raised-button
+        [ngClass]="{'contentChangedConfirm':contentChanged}"
+        (click)="onSubmit()">submit {{selectecLanguage.full}}</button>
+    <button mat-raised-button
+        [ngClass]="{'contentChangedCancel':contentChanged}"
+        (click)="onCancel()">cancel</button>
+    }
+</form>

@@ -1,0 +1,48 @@
+:host {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+    grid-auto-rows: auto;
+    gap: 0.2rem;
+    padding: 0.2rem;
+    .beer {
+        background-color: wheat;
+        border-radius: 3px;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid var(--eb-blue);
+        background-color: var(--eb-bright-orange);
+        color: var(--eb-blue);
+
+        cursor: pointer;
+        .left {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            .name {
+                text-transform: capitalize;
+            }
+        }
+        .right {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+    // align-content: start;
+    // mat-expansion-panel {
+    //     align-self: flex-start;
+    //     background-color: wheat;
+    //     mat-panel-title {
+    //         text-transform: capitalize;
+    //         // border: 3px solid green;
+    //     }
+    //     mat-panel-description {
+    //         display: flex;
+    //         gap: 1rem;
+    //         // border: 3px solid red;
+    //         max-width: 10rem;
+    //         justify-content: end;
+    //     }
+    // }
+}

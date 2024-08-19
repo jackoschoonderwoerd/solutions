@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+import { EngelbewaarderStore } from '../../stores/engelbewaarder.store';
 import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -9,7 +9,7 @@ import { FirestoreService } from '../../../../shared/firestore.service';
 import { FirebaseError } from '@angular/fire/app';
 
 import { take } from 'rxjs';
-import { Consumption, Course } from '../../types/models';
+import { EbConsumption, Course } from '../../types/eb-models';
 import { MatDialog } from '@angular/material/dialog';
 import { WarnDialogComponent } from '../../../../shared/warn-dialog/warn-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -43,7 +43,7 @@ export class ConsumptionsComponent implements OnInit {
         this.course = this.store.course()
     }
 
-    onDelete(event: MouseEvent, consumption: Consumption) {
+    onDelete(event: MouseEvent, consumption: EbConsumption) {
         event.stopPropagation()
         const dialogRef = this.dialog.open(WarnDialogComponent, {
             data: {
@@ -66,7 +66,7 @@ export class ConsumptionsComponent implements OnInit {
         })
     }
 
-    onEdit(event: MouseEvent, index: number, consumption: Consumption) {
+    onEdit(event: MouseEvent, index: number, consumption: EbConsumption) {
         event.stopPropagation();
         const path = `${this.baseUrl}/${this.store.course().id}`
         this.fsService.getDoc(path)
@@ -85,7 +85,7 @@ export class ConsumptionsComponent implements OnInit {
 
 
 
-    onMove(event: MouseEvent, direction: string, consumption: Consumption, index: number) {
+    onMove(event: MouseEvent, direction: string, consumption: EbConsumption, index: number) {
         event.stopPropagation()
         const path = `${this.baseUrl}/${this.store.course().id}`;
         this.fsService.getDoc(path).pipe(take(1)).subscribe((course: Course) => {
@@ -103,13 +103,13 @@ export class ConsumptionsComponent implements OnInit {
     }
 
     private swapElements(array, i, j): void {
-        const newArray: Consumption[] = [...array];
+        const newArray: EbConsumption[] = [...array];
         [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         this.updateArray(newArray)
     }
 
 
-    private updateArray(newArray: Consumption[]): void {
+    private updateArray(newArray: EbConsumption[]): void {
 
         const object = { consumptions: newArray }
         const path = `${this.baseUrl}/${this.store.course().id}`;

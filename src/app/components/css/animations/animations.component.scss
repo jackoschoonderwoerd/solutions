@@ -1,0 +1,35 @@
+.parent {
+    background-color: hsla(200, 100%, 20%);
+    height: 400px;
+    width: 400px;
+}
+.child {
+    background-color: red;
+    height: 50%;
+    width: 50%;
+}
+.parent:hover .child {
+    animation: left-to-right 3s ease-in forwards alternate;
+    // all new properties on hover
+    // animation-play-state: paused;
+}
+@keyframes left-to-right {
+    0% {
+        transform: translateX(0%);
+        background-color: pink;
+    }
+    25% {
+        transform: translateX(100%);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%);
+        background-color: lightblue;
+    }
+    75% {
+        transform: translateX(0%) translateY(100%);
+    }
+    100% {
+        transform: translateX(0) translateY(0%);
+        background-color: pink;
+    }
+}

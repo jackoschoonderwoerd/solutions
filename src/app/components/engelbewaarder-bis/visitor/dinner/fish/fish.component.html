@@ -1,1 +1,10 @@
-<p>fish works!</p>
+<div class="eb-course">
+    <div class="eb-course-name">
+        {{viStore.fishCourseByLanguage()?.nameSelectedLanguage}}
+    </div>
+    <div class="eb-consumptions">
+        @for(consumption of viStore.fishCourseByLanguage()?.consumptions; track consumption) {
+        <app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+        }
+    </div>
+</div>

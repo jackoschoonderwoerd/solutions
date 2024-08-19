@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { FirestoreService } from '../../shared/firestore.service';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { AuthStore } from '../../shared/auth/auth.store';
 
 
 
@@ -32,6 +33,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 export class SidenavComponent implements OnInit {
     navigationService = inject(NavigationService);
     router = inject(Router)
+    auStore = inject(AuthStore)
     menuItems;
     subjects: Subject[] = [];
     subjects$: Observable<any>;
@@ -56,5 +58,12 @@ export class SidenavComponent implements OnInit {
     disableExpansionPanel() {
         // return true
         console.log('hi ther')
+    }
+    onLogin() {
+        this.router.navigateByUrl('login')
+    }
+    onLogout() {
+        this.auStore.logout();
+        this.router.navigateByUrl('login')
     }
 }

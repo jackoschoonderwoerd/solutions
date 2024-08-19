@@ -1,80 +1,55 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { DatePipe, JsonPipe, NgFor } from '@angular/common';
-import { FirestoreService } from '../../../../shared/firestore.service';
-import { Exhibition } from '../../types/models';
-
-import { StorageService } from '../../../../shared/storage.service';
-
-import { MatExpansionModule } from '@angular/material/expansion';
-import { take } from 'rxjs';
-import { ImagesAdminComponent } from './exhibition-admin/images-admin/images-admin.component';
-import { ExhibitionsAdminDetailsComponent } from './exhibition-admin/exhibitions-admin-details/exhibitions-admin-details.component';
-import { EngelbewaarderService } from '../../services/engelbewaarder.service';
-import { ExhibitionsAdminStore } from './exhibitions-admin.store';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
-import { ExhibitionDescriptionComponent } from './exhibition-admin/exhibition-description/exhibition-description.component';
-import { ExhibitionAdminComponent } from './exhibition-admin/exhibition-admin.component';
-import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
-import { WarnDialogComponent } from '../../../../shared/warn-dialog/warn-dialog.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Exhibition } from '../../types/eb-models';
+
+import { EditExDescription } from './select-edit-section-dialog/edit-ex-description/edit-ex-description.component';
+
+import { ExhibitionsAdminService } from './exhibitions-admin.service';
+import { ExhibitionsAdminStore } from '../../stores/exhibitions-admin.store';
 import { FirebaseError } from '@angular/fire/app';
+import { FirestoreService } from '../../../../shared/firestore.service';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { take } from 'rxjs';
+import { WarnDialogComponent } from '../../../../shared/warn-dialog/warn-dialog.component';
+import { SelectEditSectionDialogComponent } from './select-edit-section-dialog/select-edit-section-dialog.component';
+import { EditExDetails } from './select-edit-section-dialog/edit-ex-details/edit-ex-details.component';
+import { EditExImages } from './select-edit-section-dialog/edit-ex-images/edit-ex-images.component';
+
 
 
 @Component({
     selector: 'app-exhibitions-admin',
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
         MatButtonModule,
         MatIconModule,
-        MatLabel,
-        MatDatepickerModule,
-        NgFor,
-        JsonPipe,
         MatExpansionModule,
         DatePipe,
-        ImagesAdminComponent,
-        ExhibitionsAdminDetailsComponent,
-        ExhibitionDescriptionComponent,
-        ExhibitionAdminComponent
+        EditExImages,
+        EditExDescription,
+
     ],
     providers: [provideNativeDateAdapter()],
     templateUrl: './exhibitions-admin.component.html',
     styleUrl: './exhibitions-admin.component.scss'
 })
 export class ExhibitionsAdminComponent implements OnInit {
-    fb = inject(FormBuilder);
-    fs = inject(FirestoreService);
-    store = inject(EngelbewaarderStore);
-    exStore = inject(ExhibitionsAdminStore)
-    ebService = inject(EngelbewaarderService);
-    dialog = inject(MatDialog);
-    form: FormGroup;
-    editmode: boolean = false;
-    imageFiles: File[] = [];
-    urls: File[] = [];
-    storage = inject(StorageService);
-    downloadUrls: string[] = [];
-    exhibitionId: string;
-    exhibitionUC: Exhibition;
-    descriptionHtml: string;
-    exhibitionSelectedForEdit: Exhibition
 
+    fs = inject(FirestoreService);
+    exStore = inject(ExhibitionsAdminStore)
+    exService = inject(ExhibitionsAdminService)
+    dialog = inject(MatDialog);
+    exhibitionId: string;
 
     ngOnInit(): void {
         this.exStore.loadExhibitions();
     }
-
-
 
 
     onDeleteExhibition(event: MouseEvent, exhibitionId: string) {
@@ -112,16 +87,44 @@ export class ExhibitionsAdminComponent implements OnInit {
 
     onEditExhibition(event: MouseEvent, exhibition: Exhibition) {
         event.stopPropagation();
-        this.exhibitionSelectedForEdit = exhibition
-        this.exStore.editDetail();
+        const dialogRef = this.dialog.open(SelectEditSectionDialogComponent, {
+            data: {
+                exhibitionTitle: exhibition.title
+            }
+        })
+        dialogRef.afterClosed().subscribe((res: string) => {
+            console.log(res)
+            switch (res) {
+                case 'details':
+                    this.dialog.open(EditExDetails, { data: { exhibition } });
+                    break;
+                case 'description':
+                    this.dialog.open(EditExDescription, { data: { exhibition } });
+                    break;
+                case 'images':
+                    this.dialog.open(EditExImages, {
+                        data: { exhibitionId: exhibition.id },
+                        height: "calc(100% - 30px)",
+                        width: "calc(100% - 30px)",
+                        maxWidth: "100%",
+                        maxHeight: "100%"
+                    })
+                    break;
+                default:
+                    this.dialog.open(AlertComponent, {
+                        data: {
+                            message: 'Aborted by user'
+                        }
+                    })
+            }
+        })
+        // this.exService.exhibitionSelected.emit(exhibition);
+        // this.exService.exhibitionSelected(exhibition)
     }
 
     onAddExhibition() {
-        this.exStore.editDetail()
-        // this.exStore.toggleExhibitionsListVisible(false);
-        // this.exStore.toggleExhibitionsAdminDetailVisible(true);
-        // this.ebService.exhibitionChanged.emit(null);
-        // this.exStore.toggleImagesAdminVisible(false);
+        // this.exService.exhibitionSelected.emit();
+        this.dialog.open(EditExDetails)
     }
 
     checkForImages(exhibitionId) {

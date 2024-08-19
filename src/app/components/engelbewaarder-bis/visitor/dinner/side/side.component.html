@@ -1,1 +1,10 @@
-<p>side works!</p>
+@if(viStore.selectedLanguage()=='en') {
+<div class="title">side dishes</div>
+}
+@if(viStore.selectedLanguage()=='nl') {
+<div class="title">bijgerechten</div>
+}
+
+@for(consumption of viStore.sideDishesConsumptionsByLanguage(); track consumption) {
+<app-eb-consumption [ebConsumption]="consumption"></app-eb-consumption>
+}

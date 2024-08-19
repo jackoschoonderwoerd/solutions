@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+import { EngelbewaarderStore } from '../../stores/engelbewaarder.store';
 import { JsonPipe } from '@angular/common';
 
 @Component({

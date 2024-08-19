@@ -1,5 +1,7 @@
 <mat-nav-list>
-
+    <a mat-list-item
+        (click)="mainStore.toggleMainSidenavVisibility()"
+        routerLink="beer">toggle main sidenav</a>
     <a mat-list-item
         (click)="toggleSidenav()"
         routerLink="beer">beer</a>
@@ -9,5 +11,14 @@
     <a mat-list-item
         (click)="toggleSidenav()"
         routerLink="dinner">dinner</a>
+    <a mat-list-item
+        (click)="toggleSidenav()"
+        routerLink="snacks">snacks</a>
+    <a mat-list-item
+        (click)="toggleSidenav()"
+        routerLink="exhibitions">exhibitions</a>
+    <a routerLink="exhibition-details">info
+
+    </a>
 </mat-nav-list>
 <mat-icon (click)="toggleSidenav()">close</mat-icon>

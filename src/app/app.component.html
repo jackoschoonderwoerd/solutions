@@ -3,7 +3,9 @@
 <!-- <app-second-try></app-second-try> -->
 <app-nested-navigation></app-nested-navigation>
 <main>
+    @if(mainStore.showMainSidenav()){
     <app-sidenav></app-sidenav>
+    }
 
 
     <router-outlet></router-outlet>

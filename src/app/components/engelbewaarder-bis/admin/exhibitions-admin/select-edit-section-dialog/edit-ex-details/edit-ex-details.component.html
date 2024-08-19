@@ -1,0 +1,94 @@
+<div class="app">
+    <div class="title">exhibitions-admin-details</div>
+    {{exhibitionAltered}}
+    <form [formGroup]="form">
+        <div class="left">
+
+            <div class="date-container form-field-container">
+                <div class="title">date</div>
+                <mat-form-field>
+                    <mat-label>Select a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate
+                            (dateChange)="alteringExhibition()"
+                            formControlName="startDate"
+                            placeholder="Start date">
+                        <input matEndDate
+                            (dateChange)="alteringExhibition()"
+                            formControlName="endDate"
+                            placeholder="End date">
+                    </mat-date-range-input>
+
+                    <mat-datepicker-toggle matIconSuffix
+                        [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+            <div class="title-container form-field-container">
+                <div class="title">title</div>
+                <mat-form-field>
+                    <mat-label>title</mat-label>
+                    <input type="text"
+                        (input)="alteringExhibition()"
+                        matInput
+                        formControlName="title">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="right">
+
+            <div class="artists-container form-field-container">
+                <div class="artists"
+                    formArrayName="artists">
+                    <div class="title">artists</div>
+                    <div class="artist">
+                        @for(artist of artists().controls; track artist; let artistIndex=$index) {
+                        <div class="artist-group"
+                            [formGroupName]="artistIndex">
+
+                            <mat-form-field>
+                                <mat-label>artist first name</mat-label>
+                                <input matInput
+                                    (input)="alteringExhibition()"
+                                    type="text"
+                                    formControlName="firstName">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>artist last name</mat-label>
+                                <input matInput
+                                    (input)="alteringExhibition()"
+                                    type="text"
+                                    formControlName="lastName">
+                            </mat-form-field>
+                            <mat-icon matSuffix
+                                (click)="removeArtist(artistIndex)">delete_forever</mat-icon>
+
+                        </div>
+                        }
+                    </div>
+                    <button class="add-artist-button"
+                        mat-raised-button
+                        (click)="addArtist()">add artist</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </form>
+    <div class="buttons">
+        <button mat-raised-button
+            (click)="onAddOrUpdateExhibitionDetails()"
+            [ngClass]="{contentChangedConfirm : exhibitionAltered}">{{editmode? 'update': 'add'}}&nbsp;exhibition details</button>
+        <button mat-raised-button
+            (click)="onCancel()"
+            [ngClass]="{contentChangedCancel : exhibitionAltered}">cancel</button>
+    </div>
+</div>
+
+<!-- <pre>
+    <code>
+
+        {{exhibition|json}}
+    </code>
+</pre> -->

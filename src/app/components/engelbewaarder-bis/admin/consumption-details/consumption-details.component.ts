@@ -8,10 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { FirebaseError } from '@angular/fire/app';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+import { EngelbewaarderStore } from '../../stores/engelbewaarder.store';
 import { JsonPipe } from '@angular/common';
 import { EngelbewaarderService } from '../../services/engelbewaarder.service';
-import { Consumption, Course } from '../../types/models';
+import { EbConsumption, Course } from '../../types/eb-models';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
@@ -42,19 +42,19 @@ export class ConsumptionDetailsComponent implements OnInit {
     editmode: boolean = false;
     baseUrl: string;
     // consumptionsArray: Consumption[];
-    doomedConsumption: Consumption;
+    doomedConsumption: EbConsumption;
     indexDoomedConsumption: number
     course: Course;
 
 
     ngOnInit(): void {
-        this.ebService.consumptionChanged.subscribe((consumption: Consumption) => {
+        this.ebService.consumptionChanged.subscribe((consumption: EbConsumption) => {
             this.editmode = true;
             this.setConsumptionForm(consumption)
         })
         this.ebService.courseChanged.subscribe((course: Course) => {
             this.course = course;
-            this.indexDoomedConsumption = course.consumptions.findIndex((consumption: Consumption) => {
+            this.indexDoomedConsumption = course.consumptions.findIndex((consumption: EbConsumption) => {
                 return consumption.nameDutch === this.doomedConsumption.nameDutch
             })
         })
@@ -69,7 +69,7 @@ export class ConsumptionDetailsComponent implements OnInit {
 
     }
 
-    setConsumptionForm(consumption: Consumption) {
+    setConsumptionForm(consumption: EbConsumption) {
         this.doomedConsumption = consumption;
 
         this.form.setValue({
@@ -82,8 +82,10 @@ export class ConsumptionDetailsComponent implements OnInit {
         this.form = this.fb.group({
             nameDutch: new FormControl(null, [Validators.required]),
             nameEnglish: new FormControl(null),
+            nameSelectedLanguage: new FormControl(null),
             descriptionDutch: new FormControl(null),
             descriptionEnglish: new FormControl(null),
+            descriptionSelectedLanguage: new FormControl(null),
             alcoholPercentage: new FormControl(null),
             vessel: new FormControl(null),
             volume: new FormControl(null),
@@ -99,11 +101,13 @@ export class ConsumptionDetailsComponent implements OnInit {
         console.log(formValue.nameDutch)
         console.log((formValue.nameDutch).toLowerCase())
         // return;
-        const consumption: Consumption = {
+        const consumption: EbConsumption = {
             nameDutch: (formValue.nameDutch).toLowerCase(),
             nameEnglish: formValue.nameEnglish ? formValue.nameEnglish.toLowerCase() : null,
+            nameSelectedLanguage: null,
             descriptionDutch: formValue.descriptionDutch ? formValue.descriptionDutch.toLowerCase() : null,
             descriptionEnglish: formValue.descriptionEnglish ? formValue.descriptionEnglish.toLowerCase() : null,
+            descriptionSelectedLanguage: null,
             alcoholPercentage: formValue.alcoholPercentage,
             vessel: formValue.vessel,
             volume: formValue.volume,
@@ -144,7 +148,7 @@ export class ConsumptionDetailsComponent implements OnInit {
         // this.store.addingNewConsumptionF(false)
     }
 
-    private addConsumption(consumption: Consumption): void {
+    private addConsumption(consumption: EbConsumption): void {
         console.log(consumption)
         this.fsService.addElementToArrayF(`${this.baseUrl}/${this.store.course().id}`, `consumptions`, consumption)
             .then((res: any) => {
@@ -157,7 +161,7 @@ export class ConsumptionDetailsComponent implements OnInit {
     }
 
 
-    private deleteConsumption(doomedConsumption: Consumption) {
+    private deleteConsumption(doomedConsumption: EbConsumption) {
         const path = `${this.baseUrl}/${this.store.course().id}`
         return this.fsService.removeElementFromArray(path, 'consumptions', doomedConsumption)
 

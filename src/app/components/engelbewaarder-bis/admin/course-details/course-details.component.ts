@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { EngelbewaarderStore } from '../../store/engelbewaarder.store';
+import { EngelbewaarderStore } from '../../stores/engelbewaarder.store';
 import { JsonPipe } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,10 +10,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FirestoreService } from '../../../../shared/firestore.service';
 import { EngelbewaarderService } from '../../services/engelbewaarder.service';
 import { FirebaseError } from '@angular/fire/app';
-import { Consumption } from '../../models';
-import { Course } from '../../types/models';
+
+import { EbConsumption, Course } from '../../types/eb-models';
 import { MatDialog } from '@angular/material/dialog';
 import { WarnDialogComponent } from '../../../../shared/warn-dialog/warn-dialog.component';
+import { DocumentReference } from '@angular/fire/firestore';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
 
 
 @Component({
@@ -39,12 +41,15 @@ export class CourseDetailsComponent implements OnInit {
 
     baseUrl: string;
     editmode: boolean = false;
-    consumption: Consumption;
+    consumption: EbConsumption;
+    courseUC: Course;
 
     ngOnInit(): void {
         this.baseUrl = this.ebService.getBaseUrl();
         this.initForm();
+
         if (this.store.course()) {
+            this.courseUC = this.store.course()
             this.editmode = true;
             this.patchForm(this.store.course())
         }
@@ -52,9 +57,10 @@ export class CourseDetailsComponent implements OnInit {
 
     initForm() {
         this.form = this.fb.group({
-
+            id: new FormControl(null),
             nameDutch: new FormControl(null, [Validators.required]),
             nameEnglish: new FormControl(null),
+            nameSelectedLanguage: new FormControl(null),
             showNameDutch: new FormControl(true),
             showNameEnglish: new FormControl(false),
             showDescriptionDutch: new FormControl(false),
@@ -69,9 +75,10 @@ export class CourseDetailsComponent implements OnInit {
     onSubmitForm() {
         const formValue = this.form.value
         const course: Partial<Course> = {
-            id: formValue.nameDutch,
+            // id: this.store.course()? this.courseUC.id : null,
             nameDutch: formValue.nameDutch,
             nameEnglish: formValue.nameEnglish,
+            nameSelectedLanguage: null,
             nameDutchVisible: (formValue.showNameDutch),
             nameEnglishVisible: formValue.showNameEnglish,
             descriptionDutchVisible: formValue.showDescriptionDutch,
@@ -79,20 +86,23 @@ export class CourseDetailsComponent implements OnInit {
             alcoholPercentageVisible: formValue.showAlcoholPercentage,
             volumeVisible: formValue.showVolume,
             vesselVisible: formValue.showVessel,
-            priceVisible: formValue.showPrice
+            priceVisible: formValue.showPrice,
+            // consumptions: this.store.course() ? this.courseUC.consumptions : []
         }
-        if (!this.store.course()) {
+        if (!this.editmode) {
+            course.consumptions = []
             this.addCourse(course)
         } else {
             this.updateCourse(course)
         }
 
     }
+
     private patchForm(course: Course) {
+        console.log(course)
         this.form.patchValue({
-            id: course ? course.id : null,
-            nameEnglish: course ? course.nameEnglish : 'tba',
-            nameDutch: course ? course.nameDutch : 'nnb',
+            nameEnglish: course ? course.nameEnglish : null,
+            nameDutch: course ? course.nameDutch : null,
             shownameDutch: course ? course.nameDutchVisible : true,
             showNameEnglish: course ? course.nameEnglishVisible : false,
             showDescriptionDutch: course ? course.descriptionDutchVisible : false,
@@ -107,36 +117,50 @@ export class CourseDetailsComponent implements OnInit {
 
 
     addCourse(course: Partial<Course>) {
-        this.checkForExistingCourseName(course.id).then((res: boolean) => {
+        this.checkForExistingCourseName(course.nameDutch).then((res: boolean) => {
             console.log(res);
             if (!res) {
-                this.dialog.open(WarnDialogComponent, {
+                this.dialog.open(AlertComponent, {
                     data: {
-                        message: 'name already taken'
+                        message: 'Aborted; this is name already taken'
                     }
                 })
             } else {
-                console.log(' go ahead')
-                const path = `${this.baseUrl}/${course.id}`
-                this.fsService.setDoc(path, course)
-                    .then((res: any) => {
-                        console.log(`document ${course.id} set`)
+                console.log('name does not yet exist; go ahead')
+                const path = `${this.baseUrl}`
+                this.fsService.addDoc(path, course)
+                    .then((docRef: DocumentReference) => {
+                        console.log(`course ${docRef.id} added`)
                         this.store.toggleCourseDetailsVisible(false)
-                        this.store.toggleCoursesVisible(true)
+                        this.store.toggleCoursesVisible()
+                        this.form.reset();
                     })
                     .catch((err: FirebaseError) => console.log(`failed to set doc; ${err.message}`))
             }
         })
     }
 
-    private checkForExistingCourseName(courseId: string) {
+    updateCourse(course: Partial<Course>) {
+        console.log(course)
+        const path = `${this.baseUrl}/${this.courseUC.id}`
+        this.fsService.updateDoc(path, course)
+            .then((res: any) => {
+                console.log(`document ${course.nameDutch} updated`)
+                this.store.toggleCourseDetailsVisible(false);
+                this.store.toggleCoursesVisible();
+                this.form.reset();
+            })
+            .catch((err: FirebaseError) => console.log(`failed to update doc; ${err.message}`))
+    }
+
+    private checkForExistingCourseName(courseNameDutch: string) {
         const path = `${this.baseUrl}`;
         const promise = new Promise((resolve, reject) => {
 
             this.fsService.collection(path).subscribe((courses: Course[]) => {
                 console.log(courses)
                 const x = courses.find((course: Course) => {
-                    return course.id === courseId
+                    return course.nameDutch === courseNameDutch
                 })
                 if (x) {
                     resolve(false)
@@ -148,69 +172,12 @@ export class CourseDetailsComponent implements OnInit {
         return promise
     }
 
-    updateCourse(course: Partial<Course>) {
-        const path = `${this.baseUrl}/${course.id}`
-        this.fsService.updateDoc(path, course)
-            .then((res: any) => {
-                console.log(`document ${course.id} updated`)
-                this.store.toggleCourseDetailsVisible(false);
-                this.store.toggleCoursesVisible(true)
-            })
-            .catch((err: FirebaseError) => console.log(`failed to update doc; ${err.message}`))
-    }
-
-    updateConsumptionTypesArray(course: Partial<Course>) {
-        const path = `${this.baseUrl}/${course.id}`
-        if (!this.store.course()) {
-            console.log('!editmode; add!')
-            this.fsService.setDoc(path, course)
-                .then((res: any) => {
-                    console.log(res)
-                    // create collection / with empty consumptionsArray
-                    const doc = { consumptionsDetails: [] }
-                    this.fsService.setDoc(path, doc)
-                    this.store.toggleCourseDetailsVisible(false);
-
-                })
-                .catch((err: FirebaseError) => {
-                    console.error(err.message)
-                    return err.message
-                })
-                .then((res: any) => {
-                    console.log(res)
-                    this.fsService.setDoc(path, course)
-                })
-                .catch((err: FirebaseError) => console.error(err.message))
-            // } else {
-            //     console.log('editmode; update')
-            //     const doomedConsumptionType = this.store.selectedConsumptionType();
-            //     const path = `${this.baseUrl}/consumptions`
-            //     this.fsService.removeElementFromArray(path, 'consumptionTypes', doomedConsumptionType)
-            //         .then((res) => {
-            //             console.log(res)
-            //             this.fsService.addElementToArray(path, 'consumptionTypes', consumptionType)
-            //         })
-            //         .catch((err: FirebaseError) => {
-            //             console.error((err.message))
-            //             return err.message;
-            //         })
-            //         .then((res: any) => {
-            //             console.log(res)
-            //             this.store.toggleConsumptionTypeDetailsComponentVisible(false)
-            //         })
-            //         .catch((err: FirebaseError) => {
-            //             console.error(err.message)
-            //         })
-        }
-    }
 
     onCancel() {
-        // this.ebService.consumptionTypeChanged.emit(null)
+
         this.store.toggleCourseDetailsVisible(false);
-        this.store.toggleCoursesVisible(true);
+        this.store.toggleCoursesVisible();
         this.store.clearCourse();
     }
-    // onSubmitForm() {
-    //     console.log(this.form.value)
-    // }
+
 }
