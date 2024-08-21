@@ -50,7 +50,7 @@ const initialState: EngelbewaarderState = {
 
 
 export const EngelbewaarderStore = signalStore(
-    { providedIn: 'root' },
+    { providedIn: 'root', protectedState: false },
     withState(initialState),
 
     withMethods(

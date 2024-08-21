@@ -1,2 +1,54 @@
-<p>timepicker works!</p>
-<div class="from">from</div>
+<div class="content">
+
+    <div class="install">npm i ngx-mat-timepicker</div>
+    <a href="https://tonysamperi.github.io/ngx-mat-timepicker/"
+        target="_blank">link</a>
+    <a href="https://github.com/tonysamperi/ngx-mat-timepicker/blob/master/projects/ngx-mat-timepicker-repo/src/app/components/demo/demo.component.ts"
+        target="_blank">link</a>
+    <div class="time">
+        <mat-form-field>
+            <input matInput
+                name="selected_time_A"
+                [(ngModel)]="start"
+                [ngxMatTimepicker]="pickerStart"
+                placeholder="select time"
+                readonly />
+            <mat-icon matSuffix
+                (click)="pickerStart.open()">
+                watch_later
+            </mat-icon>
+        </mat-form-field>
+        <ngx-mat-timepicker #pickerStart
+            dottedMinutesInGap
+            enableKeyboardInput
+            (timeSet)="onTimeSet($event)">
+        </ngx-mat-timepicker>
+
+        <mat-form-field>
+            <input matInput
+                name="selected_time_A"
+                [(ngModel)]="end"
+                [ngxMatTimepicker]="pickerEnd"
+                placeholder="select time"
+                readonly />
+            <mat-icon matSuffix
+                (click)="pickerEnd.open()">
+                watch_later
+            </mat-icon>
+        </mat-form-field>
+        <ngx-mat-timepicker #pickerEnd
+            dottedMinutesInGap
+            enableKeyboardInput
+            (timeSet)="onTimeSet($event)">
+        </ngx-mat-timepicker>
+
+        <div class="result">
+            <h3>result:</h3>
+            <div class="start">start: {{start}}</div>
+            <div class="end">end: {{end}}</div>
+        </div>
+
+        <button (click)="onPopulateTimepicker()">populate picker</button>
+        <button (click)="onClearTimepicker()">clear picker</button>
+    </div>
+</div>

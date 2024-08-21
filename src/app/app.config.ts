@@ -27,16 +27,15 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideAnimationsAsync(),
         provideNativeDateAdapter(),
-        importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
-        importProvidersFrom(
-            provideAuth(() => getAuth())),
-        importProvidersFrom(
-            provideFirestore(() => getFirestore())
-        ),
-        importProvidersFrom(
-            provideFunctions(() => getFunctions())),
-        importProvidersFrom(
-            provideStorage(() => getStorage())),
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+
+        provideAuth(() => getAuth()),
+
+        provideFirestore(() => getFirestore()),
+
+        provideFunctions(() => getFunctions()),
+
+        provideStorage(() => getStorage()),
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

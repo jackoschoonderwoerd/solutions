@@ -32,7 +32,7 @@ const initialState: ExhibitionsAdminState = {
 }
 
 export const ExhibitionsAdminStore = signalStore(
-    { providedIn: 'root' },
+    { providedIn: 'root', protectedState: false },
     withState(initialState),
 
     withMethods(

@@ -18,7 +18,7 @@ const initialState: TodosState = {
 }
 
 export const TodosStore = signalStore(
-    { providedIn: 'root' },
+    { providedIn: 'root', protectedState: false },
     withState(initialState),
     withMethods(
         (store, todosService = inject(TodosService)) => ({

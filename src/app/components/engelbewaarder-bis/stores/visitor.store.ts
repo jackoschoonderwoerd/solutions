@@ -66,7 +66,7 @@ const initialState: VisitorState = {
 
 
 export const VisitorStore = signalStore(
-    { providedIn: 'root' },
+    { providedIn: 'root', protectedState: false },
     withState(initialState),
 
     withMethods(

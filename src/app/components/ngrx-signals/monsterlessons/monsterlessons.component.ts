@@ -14,7 +14,7 @@ export interface PostsStateInterface {
 }
 
 export const PostsStore = signalStore(
-    withState<PostsStateInterface>({
+    { protectedState: false }, withState<PostsStateInterface>({
         posts: [],
         error: null,
         isLoading: false

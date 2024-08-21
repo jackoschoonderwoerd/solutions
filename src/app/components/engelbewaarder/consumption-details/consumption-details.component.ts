@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EngelbewaarderStore } from '../store/engelbewaarder.store';
 import { JsonPipe } from '@angular/common';
-import { STATE_SIGNAL } from '@ngrx/signals/src/state-signal';
+
 import { signalState, signalStore } from '@ngrx/signals';
 import { EngelbewaarderService } from '../services/engelbewaarder.service';
 import { ConsumptionType } from '../types/models';

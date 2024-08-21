@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         onAuthStateChanged(this.afAuth, (user: FirebaseUser) => {
             if (user) {
-                console.log(user)
+                // console.log(user)
                 this.auStore.persistLogin();
 
             } else {

@@ -28,7 +28,7 @@ const initialState: AuthState = {
     isLoggedIn: false
 }
 export const AuthStore = signalStore(
-    { providedIn: 'root' },
+    { providedIn: 'root', protectedState: false },
     withState(initialState),
     withMethods(
         (store, auth = inject(Auth)) => ({
