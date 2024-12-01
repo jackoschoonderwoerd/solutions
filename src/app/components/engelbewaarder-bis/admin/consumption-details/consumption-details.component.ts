@@ -17,7 +17,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-consumption-details',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         MatSelectModule,

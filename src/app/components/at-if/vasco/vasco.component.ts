@@ -7,7 +7,6 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
 
 @Component({
     selector: 'app-vasco',
-    standalone: true,
     imports: [MatButtonModule, HighlightModule, ShowCodeComponent],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss',
@@ -18,7 +17,7 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
                 lineNumbers: true,
             },
         },
-    ],
+    ]
 })
 export class VascoComponent implements OnInit {
 

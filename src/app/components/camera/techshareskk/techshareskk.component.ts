@@ -20,7 +20,6 @@ import { VascoService } from '../../loading-indicator/vasco/vasco.service';
 
 @Component({
     selector: 'app-techshareskk',
-    standalone: true,
     imports: [CommonModule, MatButtonModule, WebcamModule, MatIconModule],
     templateUrl: './techshareskk.component.html',
     styleUrl: './techshareskk.component.scss'

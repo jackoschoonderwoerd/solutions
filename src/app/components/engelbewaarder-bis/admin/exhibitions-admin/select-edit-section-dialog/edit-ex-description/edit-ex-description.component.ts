@@ -26,7 +26,6 @@ export interface AvailableLanguage {
 
 @Component({
     selector: 'app-exhibition-description.',
-    standalone: true,
     imports: [
         EditorModule,
         ReactiveFormsModule,

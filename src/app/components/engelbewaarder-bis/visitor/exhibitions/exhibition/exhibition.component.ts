@@ -10,7 +10,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-exhibition',
-    standalone: true,
     imports: [
         JsonPipe,
         DatePipe,

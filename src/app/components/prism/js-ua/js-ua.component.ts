@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-js-ua',
-    standalone: true,
     imports: [ReactiveFormsModule, CommonModule, MatButtonModule],
     templateUrl: './js-ua.component.html',
     styleUrl: './js-ua.component.scss'

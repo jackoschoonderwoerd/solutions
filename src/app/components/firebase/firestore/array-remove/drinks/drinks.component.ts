@@ -15,7 +15,6 @@ interface DrinkType {
 
 @Component({
     selector: 'app-drinks',
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatFormFieldModule,

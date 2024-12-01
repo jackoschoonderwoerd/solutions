@@ -10,7 +10,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-control-value-accessor',
-    standalone: true,
     imports: [
         AddressFormComponent,
         ReactiveFormsModule,

@@ -18,7 +18,6 @@ import { ConsumptionType } from '../types/models';
 
 @Component({
     selector: 'app-consumption-details',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         MatSelectModule,

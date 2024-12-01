@@ -5,7 +5,6 @@ import { ShowCodeComponent } from '../../../../../shared/show-code/show-code.com
 
 @Component({
     selector: 'app-ayyaz',
-    standalone: true,
     imports: [CommonModule, ShowCodeComponent],
     templateUrl: './ayyaz.component.html',
     styleUrl: './ayyaz.component.scss'

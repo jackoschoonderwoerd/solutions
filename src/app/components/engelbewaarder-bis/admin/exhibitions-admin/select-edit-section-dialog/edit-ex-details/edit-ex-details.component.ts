@@ -15,9 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-ex-admin-details',
-    standalone: true,
     imports: [
-        JsonPipe,
+
         MatButtonModule,
         MatDatepickerModule,
         MatFormFieldModule,
@@ -25,13 +24,13 @@ import { MatIconModule } from '@angular/material/icon';
         MatInputModule,
         MatLabel,
         NgClass,
-        NgFor,
+
         ReactiveFormsModule,
     ],
     templateUrl: './edit-ex-details.component.html',
+    standalone: true,
     styleUrl: './edit-ex-details.component.scss',
     providers: [provideNativeDateAdapter()]
-
 })
 export class EditExDetails implements OnInit {
     data: any = inject(MAT_DIALOG_DATA);

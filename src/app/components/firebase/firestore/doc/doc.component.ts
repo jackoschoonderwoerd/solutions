@@ -3,7 +3,6 @@ import { ShowCodeComponent } from '../../../../shared/show-code/show-code.compon
 
 @Component({
     selector: 'app-doc',
-    standalone: true,
     imports: [ShowCodeComponent],
     templateUrl: './doc.component.html',
     styleUrl: './doc.component.scss'

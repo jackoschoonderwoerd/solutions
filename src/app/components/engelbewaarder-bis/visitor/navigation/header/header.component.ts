@@ -8,10 +8,10 @@ import { VisitorStore } from '../../../stores/visitor.store';
 
 @Component({
     selector: 'app-header',
-    standalone: true,
     imports: [
         MatToolbarModule,
-        MatIconModule, NgClass, NgStyle],
+        MatIconModule, NgClass, NgStyle
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })

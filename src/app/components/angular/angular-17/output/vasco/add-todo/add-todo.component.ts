@@ -10,7 +10,6 @@ import {
 
 @Component({
     selector: 'app-add-todo',
-    standalone: true,
     imports: [MatFormFieldModule, MatInput],
     templateUrl: './add-todo.component.html',
     styleUrl: './add-todo.component.scss'

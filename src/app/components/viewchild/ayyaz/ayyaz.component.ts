@@ -3,7 +3,6 @@ import { TimerComponent } from './timer/timer.component';
 
 @Component({
     selector: 'app-ayyaz',
-    standalone: true,
     imports: [TimerComponent],
     templateUrl: './ayyaz.component.html',
     styleUrl: './ayyaz.component.scss'

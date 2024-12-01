@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-output',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './output.component.html',
     styleUrl: './output.component.scss'

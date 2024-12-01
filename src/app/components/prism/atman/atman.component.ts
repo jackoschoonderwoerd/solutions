@@ -8,7 +8,6 @@ import { AtmanService } from './atman.service';
 
 @Component({
     selector: 'app-atman',
-    standalone: true,
     imports: [CommonModule, SharedModule],
     templateUrl: './atman.component.html',
     styleUrl: './atman.component.scss'

@@ -11,7 +11,6 @@ export interface Language {
 
 @Component({
     selector: 'app-navbar',
-    standalone: true,
     imports: [MatToolbarModule, MatSelectModule, TranslateModule],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss'

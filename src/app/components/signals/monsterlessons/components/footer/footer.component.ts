@@ -5,7 +5,6 @@ import { FilterEnum } from '../../types/filter.enum';
 
 @Component({
     selector: 'app-footer',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './footer.component.html',
     styleUrl: './footer.component.scss'

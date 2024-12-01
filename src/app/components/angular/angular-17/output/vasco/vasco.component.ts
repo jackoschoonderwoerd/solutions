@@ -3,7 +3,6 @@ import { AddTodoComponent } from './add-todo/add-todo.component';
 
 @Component({
     selector: 'app-vasco',
-    standalone: true,
     imports: [AddTodoComponent],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'

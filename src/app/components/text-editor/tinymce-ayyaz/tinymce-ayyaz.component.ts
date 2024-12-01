@@ -13,7 +13,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 @Component({
     selector: 'app-tinymce-ayyaz',
-    standalone: true,
     imports: [EditorModule, ReactiveFormsModule],
     templateUrl: './tinymce-ayyaz.component.html',
     styleUrl: './tinymce-ayyaz.component.scss'

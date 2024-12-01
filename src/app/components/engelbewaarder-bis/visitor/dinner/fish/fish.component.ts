@@ -5,7 +5,6 @@ import { EbConsumptionComponent } from '../eb-consumption/eb-consumption.compone
 
 @Component({
     selector: 'app-fish',
-    standalone: true,
     imports: [JsonPipe, EbConsumptionComponent],
     templateUrl: './fish.component.html',
     styleUrl: './fish.component.scss'

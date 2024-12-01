@@ -13,7 +13,6 @@ import { FirebaseError } from '@angular/fire/app';
 
 @Component({
     selector: 'app-image-details',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         MatInputModule,

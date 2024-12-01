@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-dynamic-nested-menu',
-    standalone: true,
     imports: [MatToolbar, RouterModule],
     templateUrl: './dynamic-nested-menu.component.html',
     styleUrl: './dynamic-nested-menu.component.scss'

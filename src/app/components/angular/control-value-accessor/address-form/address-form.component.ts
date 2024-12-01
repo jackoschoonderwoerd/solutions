@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-address-form',
-    standalone: true,
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, JsonPipe],
     templateUrl: './address-form.component.html',
     styleUrl: './address-form.component.scss',

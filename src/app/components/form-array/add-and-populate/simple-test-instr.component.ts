@@ -23,7 +23,6 @@ export interface Cd {
 
 @Component({
     selector: 'app-simple-test-instr',
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './simple-test-instr.component.html',
     styleUrl: './simple-test-instr.component.scss'

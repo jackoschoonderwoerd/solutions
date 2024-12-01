@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-text-editor',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './text-editor.component.html',
     styleUrl: './text-editor.component.scss'

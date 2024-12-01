@@ -7,7 +7,6 @@ import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'app-filename-dialog',
-    standalone: true,
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInput, MatButtonModule, MatDialogModule],
     templateUrl: './filename-dialog.component.html',
     styleUrl: './filename-dialog.component.scss'

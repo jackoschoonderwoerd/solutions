@@ -6,7 +6,6 @@ import { Language } from '../../../ngx-translate/hano/navbar/navbar.component';
 
 @Component({
     selector: 'app-exhibitions',
-    standalone: true,
     imports: [
         JsonPipe,
         ExhibitionComponent

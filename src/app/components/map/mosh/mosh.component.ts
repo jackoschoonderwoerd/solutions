@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-mosh',
-    standalone: true,
     imports: [JsonPipe],
     templateUrl: './mosh.component.html',
     styleUrl: './mosh.component.scss'

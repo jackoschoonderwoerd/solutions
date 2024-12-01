@@ -17,7 +17,6 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
 
 @Component({
     selector: 'app-edit-image-details',
-    standalone: true,
     imports: [
         MatIconModule,
         NgStyle,

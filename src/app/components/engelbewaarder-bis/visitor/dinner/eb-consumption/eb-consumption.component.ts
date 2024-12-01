@@ -5,7 +5,6 @@ import { CurrencyPipe } from '@angular/common';
 
 @Component({
     selector: 'app-eb-consumption',
-    standalone: true,
     imports: [CurrencyPipe],
     templateUrl: './eb-consumption.component.html',
     styleUrl: './eb-consumption.component.scss'

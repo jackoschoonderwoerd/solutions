@@ -7,7 +7,6 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
 
 @Component({
     selector: 'app-vasco',
-    standalone: true,
     imports: [JsonPipe, TodosListComponent, MatProgressSpinnerModule, ShowCodeComponent],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'

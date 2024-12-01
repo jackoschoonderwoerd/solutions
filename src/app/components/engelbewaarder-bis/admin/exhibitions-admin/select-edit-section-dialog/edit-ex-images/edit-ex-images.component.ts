@@ -12,7 +12,6 @@ import { WarnDialogComponent } from '../../../../../../shared/warn-dialog/warn-d
 
 @Component({
     selector: 'app-images-admin',
-    standalone: true,
     imports: [
         MatButtonModule,
         EditImageDetails

@@ -15,7 +15,6 @@ import { AuthStore } from '../../shared/auth/auth.store';
 
 @Component({
     selector: 'app-sidenav',
-    standalone: true,
     imports: [
         RouterModule,
         RouterOutlet,

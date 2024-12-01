@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-prism',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './prism.component.html',
     styleUrl: './prism.component.scss'

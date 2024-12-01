@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-uploadcare',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './uploadcare.component.html',
     styleUrl: './uploadcare.component.scss'

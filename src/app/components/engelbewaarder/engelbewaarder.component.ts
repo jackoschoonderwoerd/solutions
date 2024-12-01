@@ -22,7 +22,6 @@ export interface Spirit {
 
 @Component({
     selector: 'app-engelbewaarder',
-    standalone: true,
     imports: [
         CoursesComponent,
         CourseDetailsComponent,

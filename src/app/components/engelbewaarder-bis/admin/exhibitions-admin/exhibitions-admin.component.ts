@@ -25,7 +25,6 @@ import { EditExImages } from './select-edit-section-dialog/edit-ex-images/edit-e
 
 @Component({
     selector: 'app-exhibitions-admin',
-    standalone: true,
     imports: [
         MatButtonModule,
         MatIconModule,
@@ -33,7 +32,6 @@ import { EditExImages } from './select-edit-section-dialog/edit-ex-images/edit-e
         DatePipe,
         EditExImages,
         EditExDescription,
-
     ],
     providers: [provideNativeDateAdapter()],
     templateUrl: './exhibitions-admin.component.html',

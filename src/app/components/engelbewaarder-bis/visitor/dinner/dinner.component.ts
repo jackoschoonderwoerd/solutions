@@ -8,7 +8,6 @@ import { VegetarianComponent } from './vegetarian/vegetarian.component';
 
 @Component({
     selector: 'app-dinner',
-    standalone: true,
     imports: [
         DessertComponent,
         FishComponent,

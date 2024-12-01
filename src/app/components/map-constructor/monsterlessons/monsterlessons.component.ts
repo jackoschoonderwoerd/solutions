@@ -4,7 +4,6 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
 
 @Component({
     selector: 'app-monsterlessons',
-    standalone: true,
     imports: [JsonPipe, ShowCodeComponent],
     templateUrl: './monsterlessons.component.html',
     styleUrl: './monsterlessons.component.scss'

@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button'
 
 @Component({
     selector: 'app-vasco',
-    standalone: true,
     imports: [MatButtonModule],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'

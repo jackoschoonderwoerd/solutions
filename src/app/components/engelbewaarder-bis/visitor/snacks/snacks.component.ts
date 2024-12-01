@@ -7,7 +7,6 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'app-snacks',
-    standalone: true,
     imports: [
         SnacksSavoryComponent,
         SnacksSweetComponent,

@@ -10,7 +10,6 @@ import { ErrorPageComponent } from '../../../../shared/error-page/error-page.com
 
 @Component({
     selector: 'app-second-try-menu',
-    standalone: true,
     imports: [
         MatMenuModule,
         NgFor,

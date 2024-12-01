@@ -19,7 +19,6 @@ interface Person {
 
 @Component({
     selector: 'app-update-doc',
-    standalone: true,
     imports: [
         CommonModule,
         MatIconModule,

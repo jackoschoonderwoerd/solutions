@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-ngrx-signals',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './ngrx-signals.component.html',
     styleUrl: './ngrx-signals.component.scss'

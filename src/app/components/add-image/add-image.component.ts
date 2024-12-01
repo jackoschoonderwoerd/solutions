@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-add-image',
-    standalone: true,
     imports: [RouterModule, MatToolbarModule],
     templateUrl: './add-image.component.html',
     styleUrl: './add-image.component.scss'

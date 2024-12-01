@@ -6,7 +6,6 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
     selector: 'app-zoaib',
-    standalone: true,
     imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule],
     templateUrl: './zoaib.component.html',
     styleUrl: './zoaib.component.scss'

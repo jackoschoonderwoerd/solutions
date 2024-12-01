@@ -9,7 +9,6 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'app-second-try',
-    standalone: true,
     imports: [
         MatMenuModule,
         MatButtonModule,

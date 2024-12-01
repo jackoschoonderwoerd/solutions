@@ -6,7 +6,6 @@ import { MainStore } from '../../../../../main.store';
 
 @Component({
     selector: 'app-sidenav',
-    standalone: true,
     imports: [MatListModule, MatIconModule, RouterModule],
     templateUrl: './sidenav.component.html',
     styleUrl: './sidenav.component.scss'

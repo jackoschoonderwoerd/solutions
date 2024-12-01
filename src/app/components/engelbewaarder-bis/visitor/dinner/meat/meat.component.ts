@@ -5,7 +5,6 @@ import { EbConsumptionComponent } from '../eb-consumption/eb-consumption.compone
 
 @Component({
     selector: 'app-meat',
-    standalone: true,
     imports: [JsonPipe, EbConsumptionComponent],
     templateUrl: './meat.component.html',
     styleUrl: './meat.component.scss'

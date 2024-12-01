@@ -24,7 +24,6 @@ import {
 
 @Component({
     selector: 'app-timepicker',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         FormsModule,
@@ -36,14 +35,12 @@ import {
         NgIf,
         FormsModule,
         // CodeViewerComponent,
-
         MatInputModule,
         NgxMatTimepickerDirective,
         NgxMatTimepickerComponent,
         NgxMatTimepickerFieldComponent,
         MatDatepickerModule,
         NgxMatTimepickerToggleComponent
-
     ],
     templateUrl: './timepicker.component.html',
     styleUrl: './timepicker.component.scss'

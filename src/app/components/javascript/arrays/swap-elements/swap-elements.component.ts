@@ -3,7 +3,6 @@ import { ShowCodeComponent } from '../../../../shared/show-code/show-code.compon
 
 @Component({
     selector: 'app-swap-elements',
-    standalone: true,
     imports: [ShowCodeComponent],
     templateUrl: './swap-elements.component.html',
     styleUrl: './swap-elements.component.scss'

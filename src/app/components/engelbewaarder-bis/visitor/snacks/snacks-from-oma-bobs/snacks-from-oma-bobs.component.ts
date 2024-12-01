@@ -5,7 +5,6 @@ import { SnackComponent } from '../snack/snack.component';
 
 @Component({
     selector: 'app-snacks-from-oma-bobs',
-    standalone: true,
     imports: [JsonPipe, SnackComponent],
     templateUrl: './snacks-from-oma-bobs.component.html',
     styleUrl: './snacks-from-oma-bobs.component.scss'

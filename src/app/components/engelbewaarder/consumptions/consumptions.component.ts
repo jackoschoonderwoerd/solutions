@@ -12,7 +12,6 @@ import { take } from 'rxjs';
 
 @Component({
     selector: 'app-consumptions',
-    standalone: true,
     imports: [
         CommonModule,
         MatIconModule,

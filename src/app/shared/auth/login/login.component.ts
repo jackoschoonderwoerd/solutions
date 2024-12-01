@@ -12,7 +12,6 @@ import { User as FirebaseUser } from "@angular/fire/auth";
 
 @Component({
     selector: 'app-login',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         MatInputModule,

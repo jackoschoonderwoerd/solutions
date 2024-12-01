@@ -6,7 +6,6 @@ import { KurataSignalsService } from './kurata-signals.service';
 
 @Component({
     selector: 'app-kurata',
-    standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './kurata.component.html',
     styleUrl: './kurata.component.scss'

@@ -7,7 +7,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-menu',
-    standalone: true,
     imports: [
         MatMenuModule,
         NgFor,

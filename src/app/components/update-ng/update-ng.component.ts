@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-update-ng',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './update-ng.component.html',
     styleUrl: './update-ng.component.scss'

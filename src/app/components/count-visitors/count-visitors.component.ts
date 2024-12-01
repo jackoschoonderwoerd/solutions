@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-count-visitors',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './count-visitors.component.html',
     styleUrl: './count-visitors.component.scss'

@@ -28,7 +28,6 @@ export type ImageData = {
 
 @Component({
     selector: 'app-zoaib',
-    standalone: true,
     imports: [CommonModule, MatButtonModule, MatDialogModule, MatIconModule, WarnDialogComponent],
     templateUrl: './zoaib.component.html',
     styleUrl: './zoaib.component.scss'

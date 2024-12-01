@@ -4,7 +4,6 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
 
 @Component({
     selector: 'app-swe',
-    standalone: true,
     imports: [ShowCodeComponent],
     templateUrl: './swe.component.html',
     styleUrl: './swe.component.scss'

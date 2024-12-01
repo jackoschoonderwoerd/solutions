@@ -14,7 +14,6 @@ import { Observable, take } from 'rxjs';
 
 @Component({
     selector: 'app-jacko-cd',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         ReactiveFormsModule,

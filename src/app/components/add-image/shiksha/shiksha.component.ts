@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-shiksha',
-    standalone: true,
     imports: [MatButtonModule],
     templateUrl: './shiksha.component.html',
     styleUrl: './shiksha.component.scss'

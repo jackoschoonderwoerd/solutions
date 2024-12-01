@@ -6,7 +6,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-ayyaz',
-    standalone: true,
     imports: [MatDividerModule, MatButtonModule, MatIconModule, MatCheckboxModule],
     templateUrl: './ayyaz.component.html',
     styleUrl: './ayyaz.component.scss'

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navigation-menu',
-    standalone: true,
     imports: [
         MatMenuModule,
         NgIf,

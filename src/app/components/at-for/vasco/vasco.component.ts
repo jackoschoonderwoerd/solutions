@@ -6,7 +6,6 @@ import { VascoService } from './vasco.service';
 
 @Component({
     selector: 'app-vasco',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'

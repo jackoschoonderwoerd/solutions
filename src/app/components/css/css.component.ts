@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-css',
-    standalone: true,
     imports: [
         RouterModule,
         MatToolbarModule

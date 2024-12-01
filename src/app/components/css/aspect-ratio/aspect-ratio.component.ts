@@ -6,7 +6,6 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
     selector: 'app-aspect-ratio',
-    standalone: true,
     imports: [MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatLabel],
     templateUrl: './aspect-ratio.component.html',
     styleUrl: './aspect-ratio.component.scss'

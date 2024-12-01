@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-async-await',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule],
     templateUrl: './async-await.component.html',
     styleUrl: './async-await.component.scss'

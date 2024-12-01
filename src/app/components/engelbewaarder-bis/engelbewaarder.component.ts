@@ -27,7 +27,6 @@ export interface Spirit {
 
 @Component({
     selector: 'app-engelbewaarder',
-    standalone: true,
     imports: [
         CoursesComponent,
         CourseDetailsComponent,
@@ -40,7 +39,6 @@ export interface Spirit {
         LoginComponent,
         MatIconModule
     ],
-
     templateUrl: './engelbewaarder.component.html',
     styleUrl: './engelbewaarder.component.scss'
 })

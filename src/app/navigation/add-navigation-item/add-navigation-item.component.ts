@@ -17,7 +17,6 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-add-navigation-item',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         ReactiveFormsModule,

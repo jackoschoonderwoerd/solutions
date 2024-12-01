@@ -61,7 +61,6 @@ export const PostsStore = signalStore(
 
 @Component({
     selector: 'app-monsterlessons',
-    standalone: true,
     imports: [ReactiveFormsModule, CommonModule],
     templateUrl: './monsterlessons.component.html',
     styleUrl: './monsterlessons.component.scss',

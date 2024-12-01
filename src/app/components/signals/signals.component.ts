@@ -4,7 +4,6 @@ import { MatToolbar } from '@angular/material/toolbar'
 
 @Component({
     selector: 'app-signals',
-    standalone: true,
     imports: [RouterModule, RouterOutlet, MatToolbar],
     templateUrl: './signals.component.html',
     styleUrl: './signals.component.scss'

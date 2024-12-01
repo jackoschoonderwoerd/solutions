@@ -16,14 +16,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
     selector: 'app-consumptions',
-    standalone: true,
     imports: [
         CommonModule,
         MatIconModule,
         MatButtonModule,
         AsyncPipe,
         MatExpansionModule,
-
     ],
     templateUrl: './consumptions.component.html',
     styleUrl: './consumptions.component.scss'

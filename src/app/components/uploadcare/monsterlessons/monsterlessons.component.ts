@@ -17,7 +17,6 @@ declare var uploadcare: any
 
 @Component({
     selector: 'app-monsterlessons',
-    standalone: true,
     imports: [CommonModule, RouterOutlet],
     templateUrl: './monsterlessons.component.html',
     styleUrl: './monsterlessons.component.scss',

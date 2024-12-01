@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-todo',
-    standalone: true,
     imports: [CommonModule, MatIconModule],
     templateUrl: './todo.component.html',
     styleUrl: './todo.component.scss'

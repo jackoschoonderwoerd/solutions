@@ -9,7 +9,6 @@ import { ShowCodeComponent } from '../../../shared/show-code/show-code.component
 
 @Component({
     selector: 'app-vasco-loading-indicator',
-    standalone: true,
     imports: [MatProgressSpinnerModule, AsyncPipe, NgIf, NgTemplateOutlet, ShowCodeComponent],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'

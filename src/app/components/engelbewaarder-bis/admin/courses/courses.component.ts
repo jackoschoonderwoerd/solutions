@@ -21,7 +21,6 @@ import { AlertComponent } from '../../../../shared/alert/alert.component';
 
 @Component({
     selector: 'app-courses',
-    standalone: true,
     imports: [
         CommonModule,
         MatButtonModule,

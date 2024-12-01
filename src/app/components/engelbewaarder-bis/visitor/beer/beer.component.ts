@@ -11,7 +11,6 @@ import { VisitorStore } from '../../stores/visitor.store';
 
 @Component({
     selector: 'app-beer',
-    standalone: true,
     imports: [
         JsonPipe,
         MatCardModule,

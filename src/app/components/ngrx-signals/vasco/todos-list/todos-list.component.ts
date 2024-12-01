@@ -10,7 +10,6 @@ import { TodosFilter, TodosStore } from '../store/todos.store';
 
 @Component({
     selector: 'app-todos-list',
-    standalone: true,
     imports: [
         JsonPipe,
         MatFormFieldModule,

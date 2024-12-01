@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-select-edit-section-dialog',
-    standalone: true,
     imports: [MatDialogModule, MatButtonModule],
     templateUrl: './select-edit-section-dialog.component.html',
     styleUrl: './select-edit-section-dialog.component.scss'

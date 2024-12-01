@@ -20,14 +20,14 @@ import { AlertComponent } from '../../../../shared/alert/alert.component';
 
 @Component({
     selector: 'app-course-details',
-    standalone: true,
     imports: [
         JsonPipe,
         MatCheckboxModule,
         ReactiveFormsModule,
         MatInputModule,
         MatButtonModule,
-        MatFormFieldModule],
+        MatFormFieldModule
+    ],
     templateUrl: './course-details.component.html',
     styleUrl: './course-details.component.scss'
 })

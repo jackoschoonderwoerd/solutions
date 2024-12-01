@@ -6,7 +6,6 @@ import { HighlightLoader } from 'ngx-highlightjs';
 
 @Component({
     selector: 'app-jacko',
-    standalone: true,
     imports: [MatButtonModule, HighlightModule],
     templateUrl: './jacko.component.html',
     styleUrl: './jacko.component.scss'

@@ -7,7 +7,6 @@ import { ShowCodeComponent } from '../../shared/show-code/show-code.component';
 
 @Component({
     selector: 'app-loading-indicator',
-    standalone: true,
     imports: [MatToolbarModule, RouterModule, ShowCodeComponent],
     templateUrl: './loading-indicator.component.html',
     styleUrl: './loading-indicator.component.scss'

@@ -4,7 +4,6 @@ import { CurrencyPipe } from '@angular/common';
 
 @Component({
     selector: 'app-snack',
-    standalone: true,
     imports: [CurrencyPipe],
     templateUrl: './snack.component.html',
     styleUrl: './snack.component.scss'

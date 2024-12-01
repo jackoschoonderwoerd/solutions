@@ -16,7 +16,6 @@ import { VisitorStore } from '../../../../stores/visitor.store';
 
 @Component({
     selector: 'app-exhibition-details',
-    standalone: true,
     imports: [
         MatIconModule,
         MatButtonModule,
@@ -24,11 +23,9 @@ import { VisitorStore } from '../../../../stores/visitor.store';
         DatePipe,
         CurrencyPipe,
         MatDialogModule,
-
     ],
     templateUrl: './exhibition-details.component.html',
-    styleUrl: './exhibition-details.component.scss',
-
+    styleUrl: './exhibition-details.component.scss'
 })
 export class ExhibitionDetailsComponent implements OnInit {
     router = inject(Router);

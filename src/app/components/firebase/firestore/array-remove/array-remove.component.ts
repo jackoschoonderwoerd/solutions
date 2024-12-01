@@ -26,7 +26,6 @@ export interface HobbyPerson {
 
 @Component({
     selector: 'app-array-remove',
-    standalone: true,
     imports: [
         // ReactiveFormsModule,
         // MatButtonModule,

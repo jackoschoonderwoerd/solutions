@@ -22,7 +22,6 @@ export interface HobbyPerson {
 
 @Component({
     selector: 'app-hobbies',
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,

@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-warn-dialog',
-    standalone: true,
     imports: [MatDialogModule, MatButtonModule],
     templateUrl: './warn-dialog.component.html',
     styleUrl: './warn-dialog.component.scss'

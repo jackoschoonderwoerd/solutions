@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular
 
 @Component({
     selector: 'app-tekturorialshub',
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './tekturorialshub.component.html',
     styleUrl: './tekturorialshub.component.scss'

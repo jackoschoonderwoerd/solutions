@@ -16,7 +16,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @Component({
     selector: 'app-hano',
-    standalone: true,
     imports: [
         MatToolbarModule,
         NavbarComponent,
@@ -24,13 +23,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         TranslateModule,
         ShowCodeComponent,
         MatCardModule
-
     ],
     templateUrl: './hano.component.html',
     styleUrl: './hano.component.scss',
-    providers: [
-
-    ]
+    providers: []
 })
 export class HanoComponent implements OnInit {
     public hanoService = inject(HanoService)

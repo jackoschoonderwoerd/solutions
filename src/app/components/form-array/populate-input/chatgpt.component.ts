@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular
 
 @Component({
     selector: 'app-chatgpt',
-    standalone: true,
     imports: [ReactiveFormsModule, CommonModule],
     templateUrl: './chatgpt.component.html',
     styleUrl: './chatgpt.component.scss'

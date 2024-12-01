@@ -8,7 +8,6 @@ import { SidenavComponent } from '../navigation/sidenav/sidenav.component';
 
 @Component({
     selector: 'app-landing-page',
-    standalone: true,
     imports: [
         HeaderComponent,
         MatSidenavModule,

@@ -7,7 +7,6 @@ import { DevService } from './dev.service';
 
 @Component({
     selector: 'app-dev',
-    standalone: true,
     imports: [
         MatMenuModule,
         MatButtonModule,

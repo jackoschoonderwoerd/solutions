@@ -23,7 +23,6 @@ import { AuthStore } from './shared/auth/auth.store';
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [
         CommonModule,
         RouterOutlet,
@@ -42,7 +41,7 @@ import { AuthStore } from './shared/auth/auth.store';
                 lineNumbers: true,
             },
         },
-    ],
+    ]
 })
 export class AppComponent implements OnInit {
     title = 'solutions';

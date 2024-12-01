@@ -8,7 +8,6 @@ import { Book } from './navigation.models';
 
 @Component({
     selector: 'app-nested-navigation',
-    standalone: true,
     imports: [
         MatMenuModule,
         MatButtonModule,

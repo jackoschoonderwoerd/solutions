@@ -16,7 +16,6 @@ export type CropperDialogResult = {
 
 @Component({
     selector: 'app-cropper-dialog',
-    standalone: true,
     imports: [CommonModule, ImageCropperModule, MatDialogModule],
     templateUrl: './cropper-dialog.component.html',
     styleUrl: './cropper-dialog.component.scss'
