@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'app-show-code',
     imports: [],
+    standalone: true,
     templateUrl: './show-code.component.html',
     styleUrl: './show-code.component.scss'
 })

@@ -8,17 +8,17 @@
                     placeholder="Item {{ i + 1 }}" />
             </div>
         </div>
+        <button (click)="setFormArrayValues()">Set Values</button>
+        <button (click)="onSubmit()">submit</button>
     </form>
     }
-    <button (click)="setFormArrayValues()">Set Values</button>
-    <button (click)="onSubmit()">submit</button>
+    @if(show){
+    <!-- <pre><code>
+            {{controls|json}}
+            <hr>
+        </code></pre> -->
+    <pre><code>
+            {{myForm.value|json}}
+        </code></pre>
+    }
 </div>
-@if(show){
-<!-- <pre><code>
-        {{controls|json}}
-        <hr>
-    </code></pre> -->
-<pre><code>
-        {{myForm.value|json}}
-    </code></pre>
-}

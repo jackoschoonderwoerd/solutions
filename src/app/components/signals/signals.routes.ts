@@ -25,6 +25,12 @@ export const SIGNALS_ROUTES: Routes = [
         path: 'max',
         loadComponent: () => import('./max/max.component')
             .then(c => c.MaxComponent)
+    },
+    {
+        path: 'udemy-signals',
+        loadComponent: () => import('./udemy-signals/udemy-signals.component')
+            .then(c => c.UdemySignalsComponent)
     }
+
 
 ]

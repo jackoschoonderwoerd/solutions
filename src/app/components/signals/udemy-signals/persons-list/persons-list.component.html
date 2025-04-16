@@ -1,0 +1,14 @@
+<div class="header">{{header()}}</div>
+@for(person of persons(); track person.id){
+<div class="person">
+    <div class="name">
+
+        {{person.name}}
+    </div>
+    <div class="age">
+        {{person.age}}
+    </div>
+    <mat-icon (click)="onDeletePerson(person.id)">delete</mat-icon>
+    <mat-icon (click)="onEditPerson(person.id)">edit</mat-icon>
+</div>
+}

@@ -1,0 +1,7 @@
+<iframe id="webpage"
+    [src]="getSafeUrl()"
+    width="100%"
+    height="500px"
+    [class.displayIframe]="displayIframe"></iframe>
+<button mat-raised-button
+    (click)="toggleIframe()">{{displayIframe ? 'show iframe':'hide iframe'}}</button>

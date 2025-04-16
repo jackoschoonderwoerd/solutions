@@ -81,7 +81,7 @@ export class NavigationService {
         'form-array',
         'google-translate',
         'highlights',
-        'loadingindicator',
+        'loading-indicator',
         'map-constructor',
         'map',
         'mat-theme',
@@ -95,6 +95,8 @@ export class NavigationService {
         'update-ng',
         'uploadcare',
         'viewchild',
-        'timepicker'
+        'timepicker',
+        'webpage-in-app',
+        'images'
     ]
 }

@@ -238,6 +238,19 @@ export const routes: Routes = [
         path: 'timepicker',
         loadComponent: () => import('./components/timepicker/timepicker.component')
             .then(c => c.TimepickerComponent)
+    },
+    {
+        path: 'webpage-in-app',
+        loadComponent: () => import('./components/webpage-in-app/webpage-in-app.component')
+            .then(c => c.WebpageInAppComponent)
+    },
+    {
+        path: 'images',
+        loadComponent: () => import('./components/images/images.component')
+            .then(c => c.ImagesComponent),
+        loadChildren: () => import('./components/images/images-router.module')
+            .then(m => m.imagesRoutes)
     }
+
 
 ];

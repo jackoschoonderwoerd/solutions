@@ -1,0 +1,24 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    .header {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+
+    .person {
+        display: flex;
+        gap: 1rem;
+        width: 300px;
+        background-color: lightgray;
+        border: 1px solid gray;
+        padding: 0.2rem;
+        .age {
+            // border: 1px solid red;
+            flex-grow: 1;
+            display: flex;
+            justify-content: end;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<main>
+    @if(isLoading()) {
+    <!-- <div class="modal-container"> -->
+    <app-temporary-modal></app-temporary-modal>
+    <!-- </div> -->
+    } @else{
+
+    <app-form [personToAdd]="personToAdd"
+        [personToUpdate]="personToUpdate"
+        [personToEdit]="personIdForUpdate"> </app-form>
+    <app-persons-list [persons]="underFifty()"
+        [header]="'under Fifty'"
+        [persionIdForDeletion]="persionIdForDeletion"
+        [personIdForEdit]="personIdForUpdate"></app-persons-list>
+    <app-persons-list [persons]="fiftyAndUp()"
+        [header]="'fifty plus'"
+        [persionIdForDeletion]="persionIdForDeletion"
+        [personIdForEdit]="personIdForUpdate"></app-persons-list>
+    }
+</main>

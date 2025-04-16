@@ -1,5 +1,5 @@
 import { JsonPipe, NgClass, NgFor } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Artist, Exhibition } from '../../../../types/eb-models';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,22 +15,22 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-ex-admin-details',
+    standalone: true,
     imports: [
-
-        MatButtonModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatLabel,
+        // MatButtonModule,
+        // MatDatepickerModule,
+        // MatFormFieldModule,
+        // MatIconModule,
+        // MatInputModule,
+        // MatLabel,
         NgClass,
-
         ReactiveFormsModule,
     ],
     templateUrl: './edit-ex-details.component.html',
-    standalone: true,
     styleUrl: './edit-ex-details.component.scss',
-    providers: [provideNativeDateAdapter()]
+    providers: [
+        provideNativeDateAdapter(),
+    ]
 })
 export class EditExDetails implements OnInit {
     data: any = inject(MAT_DIALOG_DATA);
@@ -42,7 +42,11 @@ export class EditExDetails implements OnInit {
     exhibitionAltered: boolean = false;
 
     constructor(
-        public matDialogRef: MatDialogRef<EditExDetails>) { }
+        @Inject(MatDialogRef) public matDialogRef: any
+
+    ) { }
+
+    // constructor(@Inject(PLATFORM_ID) private platformId: object) { }
 
     ngOnInit(): void {
         this.initForm()

@@ -1,15 +1,23 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterModule } from '@angular/router';
+
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { VascoService } from './vasco.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ShowCodeComponent } from '../../../shared/show-code/show-code.component';
+// import { ShowCodeComponent } from '../../../shared/show-code/show-code.component';
 
 @Component({
     selector: 'app-vasco-loading-indicator',
-    imports: [MatProgressSpinnerModule, AsyncPipe, NgIf, NgTemplateOutlet, ShowCodeComponent],
+    standalone: true,
+    imports: [
+        MatProgressSpinnerModule,
+        AsyncPipe,
+        NgIf,
+        NgTemplateOutlet,
+        ShowCodeComponent
+    ],
     templateUrl: './vasco.component.html',
     styleUrl: './vasco.component.scss'
 })

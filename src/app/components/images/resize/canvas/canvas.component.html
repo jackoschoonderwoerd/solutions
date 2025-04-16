@@ -1,0 +1,74 @@
+<main>
+
+
+    <div class="left">
+
+        <div class="radio-buttons">
+            <div class="size">
+
+
+                <div class="select-max-width">
+                    <h2>Select Max Width</h2>
+                    <mat-radio-group aria-label="Select size">
+                        <mat-radio-button (click)="onMaxWidthSelected(300)"
+                            value="300">300</mat-radio-button>
+                        <mat-radio-button (click)="onMaxWidthSelected(600)"
+                            value="600">600</mat-radio-button>
+                        <mat-radio-button (click)="onMaxWidthSelected(900)"
+                            value="900">900</mat-radio-button>
+                        <mat-radio-button (click)="onMaxWidthSelected(1200)"
+                            value="1200">1200</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="select-max-height">
+                    <h2>Select Max Height</h2>
+                    <mat-radio-group aria-label="Select size">
+                        <mat-radio-button (click)="onMaxHeightSelected(300)"
+                            value="300">300</mat-radio-button>
+                        <mat-radio-button (click)="onMaxHeightSelected(600)"
+                            value="600">600</mat-radio-button>
+                        <mat-radio-button (click)="onMaxHeightSelected(900)"
+                            value="900">900</mat-radio-button>
+                        <mat-radio-button (click)="onMaxHeightSelected(1200)"
+                            value="1200">1200</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div class="selected-dimensions">
+                <div class="width">width: {{selectedMaxWidth}}</div>
+                <div class="height">height: {{selectedMaxHeight}}</div>
+            </div>
+
+            <div class="select-format">
+                <h2>Select format</h2>
+                <mat-radio-group aria-label="Select format">
+                    <mat-radio-button (click)="onFormatSelected('jpeg')"
+                        value="1">jpeg</mat-radio-button>
+                    <mat-radio-button (click)="onFormatSelected('png')"
+                        value="2">png</mat-radio-button>
+                    <mat-radio-button (click)="onFormatSelected('webp')"
+                        value="2">webp</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div class="file-input">
+            <h2>Select an image:</h2>
+            <input type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*">
+        </div>
+    </div>
+    <div class="image-container">
+        @if(resizedImageBase64) {
+
+        <div>
+            <h3>Resized Image:</h3>
+            <div class="filename">filename: {{filename}}</div>
+            <img [src]="resizedImageBase64"
+                alt="Resized Preview"
+                style="max-width: 100%;">
+        </div>
+        }
+    </div>
+</main>
