@@ -1,8 +1,12 @@
 import { Routes } from '@angular/router';
 import { SignalsComponent } from './components/signals/signals.component';
 import { ControlValueAccessorComponent } from './components/angular/control-value-accessor/control-value-accessor.component';
+import { HomeComponent } from './components/engelbewaarder-bis/visitor/home/home.component';
 
 export const routes: Routes = [
+    {
+        path: '', redirectTo: 'home', pathMatch: 'full'
+    }, // Default redirect
     {
         path: 'signals',
         loadComponent: () => import('./components/signals/signals.component')
@@ -250,7 +254,9 @@ export const routes: Routes = [
             .then(c => c.ImagesComponent),
         loadChildren: () => import('./components/images/images-router.module')
             .then(m => m.imagesRoutes)
+    },
+    {
+        path: '**', loadComponent: () => import('./shared/page-not-found/page-not-found.component')
+            .then(c => c.PageNotFoundComponent)
     }
-
-
 ];

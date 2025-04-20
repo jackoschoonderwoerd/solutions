@@ -1,0 +1,32 @@
+<a href="https://www.google.com/search?client=firefox-b-d&q=angular+university+signal+store#fpstate=ive&vld=cid:9e5e15c4,vid:HqxY0JPlh54,st:0"
+    target="_blank">LINK</a>
+<h1>ngrx signal store app</h1>
+
+<mat-form-field class="todo-input">
+    <mat-label>enter a todo and press enter</mat-label>
+    <input type="text"
+        matInput
+        #input
+        (keyup.enter)="onAddTodo(input.value)">
+    <mat-icon matSuffix>edit</mat-icon>
+</mat-form-field>
+
+<mat-button-toggle-group #filter
+    (change)="onFilterTodos($event)">
+    <mat-button-toggle value="all">all</mat-button-toggle>
+    <mat-button-toggle value="pending">pending</mat-button-toggle>
+    <mat-button-toggle value="completed">completed</mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-selection-list class="todos-list">
+    @for(todo of store.filteredTodos();track todo.id; let index = $index){
+    <mat-list-option [selected]="todo.completed"
+        (selectedChange)="onTodoToggled(todo.id, $event)">
+        <div class="todo-item">
+            <mat-icon class="delete-todo"
+                (click)="onDelete(todo.id, $event)">delete</mat-icon>
+            <span [ngStyle]="{'text-decoration': todo.completed ? 'line-through':''}">{{todo.title}}</span>
+        </div>
+    </mat-list-option>
+    }
+</mat-selection-list>

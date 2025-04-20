@@ -1,0 +1,12 @@
+<div class="form"
+    [formGroup]="form">
+    <mat-form-field>
+        <mat-label>bandname</mat-label>
+        <input type="text"
+            #input
+            matInput
+            formControlName="bandname">
+    </mat-form-field>
+    <button mat-button
+        (click)="updateBandname(input.value)">update bandname</button>
+</div>

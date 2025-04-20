@@ -2,11 +2,17 @@
 <app-vasco-loading-indicator [detectRouteTransitions]="false" />
 <!-- <app-second-try></app-second-try> -->
 <app-nested-navigation></app-nested-navigation>
+@if(loadingService.loading()){
+
+<app-loading-indicator></app-loading-indicator>
+}
+
+<!-- @if(!(loadingService.loading())){ -->
 <main>
     @if(mainStore.showMainSidenav()){
     <app-sidenav></app-sidenav>
     }
 
-
     <router-outlet></router-outlet>
 </main>
+<!-- } -->

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
@@ -15,5 +15,25 @@ export class SnackbarService {
 
             panelClass: ['mat-warn']
         })
+    }
+
+    private messageSignal = signal<string | null>(null);
+    readonly message = computed(() => this.messageSignal());
+
+    constructor(private snackBar: MatSnackBar) {
+        effect(() => {
+            const msg = this.message();
+            if (msg) {
+                this.snackBar.open(msg, 'Close', {
+                    // duration: 3000,
+
+                });
+                this.messageSignal.set(null); // reset so it only triggers once
+            }
+        });
+    }
+
+    show(message: string) {
+        this.messageSignal.set(message);
     }
 }

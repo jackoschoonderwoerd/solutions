@@ -1,0 +1,17 @@
+<main>
+
+    <div class="bands-list-container">
+        <app-bands-list [bands]="bands()"
+            (idBandForDeletion)="deleteBand($event)"></app-bands-list>
+        <button mat-button
+            (click)="onOpenInitBand()">init band</button>
+    </div>
+
+    <app-band></app-band>
+</main>
+<!-- @for(band of bands();track band.id){
+<div class="band">
+    <div class="name">name: {{band.name}}</div>
+</div>
+
+} -->

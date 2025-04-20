@@ -1,0 +1,34 @@
+<div class="form-container">
+    <form [formGroup]="form">
+        <div>{{data?.mode}}</div>
+        <mat-form-field>
+            <mat-label>name</mat-label>
+            <input type="text"
+                matInput
+                formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>age</mat-label>
+            <input type="number"
+                matInput
+                formControlName="age">
+        </mat-form-field>
+        <!-- <app-select-category></app-select-category> -->
+        <mat-form-field>
+            <mat-label>religion</mat-label>
+            <mat-select formControlName="religion">
+                <mat-option value="CATHOLIC">catholic</mat-option>`
+                <mat-option value="PROTESTANT">protestant</mat-option>
+            </mat-select>
+
+        </mat-form-field>
+        <div class="buttons">
+            <button color="primary"
+                mat-button
+                (click)="onAddOrUpdate()">{{!(data?.mode === 'update') ? 'add' : 'update'}}&nbsp;person</button>
+            <button mat-button
+                (click)="onClose()">close</button>
+        </div>
+    </form>
+</div>

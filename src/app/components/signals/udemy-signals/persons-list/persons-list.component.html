@@ -8,7 +8,11 @@
     <div class="age">
         {{person.age}}
     </div>
-    <mat-icon (click)="onDeletePerson(person.id)">delete</mat-icon>
+    @if(person.religion){
+    {{person.religion}}
+    }
+    <mat-icon (click)="onDeletePerson(person)">delete</mat-icon>
     <mat-icon (click)="onEditPerson(person.id)">edit</mat-icon>
+    <mat-icon (click)="onEditPersonVasco(person)">edit_attributes</mat-icon>
 </div>
 }

@@ -1,0 +1,20 @@
+<div class="app">
+    <div class="angular-univ-container">
+        <img src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+            alt="">>
+
+
+        <h1>angular university</h1>
+        <a href="https://angular-university.io">angular university</a>
+    </div>
+    <!-- <div class="todos">
+        @for(todo of store.todos();track todo.id){
+        <div class="todo">{{todo.title}}</div>
+        }
+    </div> -->
+    @if(!store.loading()) {
+    <app-todos-list></app-todos-list>
+    } @else {
+    <mat-spinner></mat-spinner>
+    }
+</div>

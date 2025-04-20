@@ -23,10 +23,9 @@ import {
     where,
 } from '@angular/fire/firestore';
 import { firstValueFrom, merge, Observable } from 'rxjs';
-import { Person } from './models/person.model';
-import { LoadingService } from '../../../shared/loading/loading.service';
-
-
+import { Person } from '../../udemy-signals/models/person.model';
+import { LoadingService } from '../../../../shared/loading/loading.service';
+import { Band } from '../models/band.model';
 
 
 
@@ -34,7 +33,7 @@ import { LoadingService } from '../../../shared/loading/loading.service';
 @Injectable({
     providedIn: 'root'
 })
-export class SignalsFirestoreService {
+export class OosteropFirestoreService {
 
     personToEdit = new EventEmitter<Person>()
 
@@ -43,19 +42,16 @@ export class SignalsFirestoreService {
 
     firestore = inject(Firestore)
 
-    async collectionAsPromise(path: string, orderedBy: string, direction: any): Promise<Person[]> {
-        const personsRef = collection(this.firestore, path);
-        const queryRef = query(personsRef, orderBy(orderedBy, direction))
+    async collectionAsPromise(path: string, orderedBy: string, direction: any): Promise<Band[]> {
+        const bandsRef = collection(this.firestore, path);
+        const queryRef = query(bandsRef, orderBy(orderedBy, direction))
         const snapshot = await getDocs(queryRef)
-        const persons: Person[] = snapshot.docs.map((doc: any) => ({
+        const bands: Band[] = snapshot.docs.map((doc: any) => ({
             id: doc.id,
-            name: doc.data().name,
-            age: doc.data().age,
-            religion: doc.data().religion
-            // ...doc.data()
+            bandname: doc.data().bandname,
         }))
 
-        return persons
+        return bands
     }
     // C
     async addDoc(path: string, data: object): Promise<DocumentReference<object, DocumentData>> {
@@ -104,11 +100,10 @@ export class SignalsFirestoreService {
         return await this.getDocAsync(path)
     }
 
-    async addDocReturnsTheNewElement(path: string, data: object): Promise<any> {
-        const personsCollection = collection(this.firestore, path)
-        const docRef = await (addDoc(personsCollection, data))
+    async addDocReturnsTheNewElement(path: string, bandname: any): Promise<any> {
+        const bandsCollection = collection(this.firestore, path)
+        const docRef = await addDoc(bandsCollection, bandname)
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
             const userData = docSnap.data();
             return { id: docRef.id, ...userData };
@@ -185,9 +180,9 @@ export class SignalsFirestoreService {
             },
         )
     }
-    updateField(path: string, fieldName: string, newValue: unknown) {
+    async updateField(path: string, fieldName: string, newValue: unknown) {
         const docRef = doc(this.firestore, path);
-        return updateDoc(docRef, { [fieldName]: newValue })
+        return await updateDoc(docRef, { [fieldName]: newValue })
     }
     findCollectionArray(path, fieldName, value) {
         const collectionRef = collection(this.firestore, path)
@@ -195,5 +190,4 @@ export class SignalsFirestoreService {
         return collectionData(q, { idField: 'id' })
     }
 }
-
 

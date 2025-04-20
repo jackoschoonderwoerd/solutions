@@ -30,6 +30,16 @@ export const SIGNALS_ROUTES: Routes = [
         path: 'udemy-signals',
         loadComponent: () => import('./udemy-signals/udemy-signals.component')
             .then(c => c.UdemySignalsComponent)
+    },
+    {
+        path: 'signals-store',
+        loadComponent: () => import('./signal-store/signal-store.component')
+            .then(c => c.SignalStoreComponent)
+    },
+    {
+        path: 'oosterop-signals',
+        loadComponent: () => import('./oosterop-signals/oosterop-signals.component')
+            .then(c => c.OosteropSignalsComponent)
     }
 
 

@@ -1,0 +1,14 @@
+@if(bands() && bands().length > 0 ){
+
+@for(band of bands();track band.id){
+
+<div class="band">
+    <!-- {{band|json}} -->
+    <mat-icon class="delete"
+        (click)="onDelete(band.id)">delete</mat-icon>
+    <div class="name">{{band.bandname}}</div>
+    <mat-icon (click)="onEditBand(band)">edit</mat-icon>
+    <!-- <div class="id">{{band.id}}</div> -->
+</div>
+}
+}

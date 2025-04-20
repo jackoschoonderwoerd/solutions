@@ -4,17 +4,23 @@
     <app-temporary-modal></app-temporary-modal>
     <!-- </div> -->
     } @else{
-
-    <app-form [personToAdd]="personToAdd"
+    <button mat-button
+        (click)="onAddPerson()">add person</button>
+    <!-- <app-form [personToAdd]="personToAdd"
         [personToUpdate]="personToUpdate"
-        [personToEdit]="personIdForUpdate"> </app-form>
-    <app-persons-list [persons]="underFifty()"
-        [header]="'under Fifty'"
+        [personToEdit]="personIdForUpdate"> </app-form> -->
+    <app-persons-list [persons]="protestant()"
+        (personUpdated)="onPersonUpdated($event)"
+        (personDeleted)="onPersonDeleted($event)"
+        [header]="'protestant'"
         [persionIdForDeletion]="persionIdForDeletion"
         [personIdForEdit]="personIdForUpdate"></app-persons-list>
-    <app-persons-list [persons]="fiftyAndUp()"
-        [header]="'fifty plus'"
+    <app-persons-list [persons]="catholic()"
+        (personUpdated)="onPersonUpdated($event)"
+        (personDeleted)="onPersonDeleted($event)"
+        [header]="'catholic'"
         [persionIdForDeletion]="persionIdForDeletion"
         [personIdForEdit]="personIdForUpdate"></app-persons-list>
     }
 </main>
+<app-messages></app-messages>

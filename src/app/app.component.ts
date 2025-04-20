@@ -17,6 +17,9 @@ import { SecondTryComponent } from './components/dynamic-nested-menu/second-try/
 import { NestedNavigationComponent } from './navigation/nested-navigation/nested-navigation.component';
 import { MainStore } from './main.store';
 import { AuthStore } from './shared/auth/auth.store';
+import { LoadingIndicatorComponent } from './shared/loading/loading-indicator.component';
+import { LoadingService } from './shared/loading/loading.service';
+
 
 
 
@@ -30,7 +33,8 @@ import { AuthStore } from './shared/auth/auth.store';
         HighlightModule,
         VascoComponent,
         SecondTryComponent,
-        NestedNavigationComponent
+        NestedNavigationComponent,
+        LoadingIndicatorComponent
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
@@ -49,6 +53,7 @@ export class AppComponent implements OnInit {
     mainStore = inject(MainStore)
     afAuth = inject(Auth);
     auStore = inject(AuthStore)
+    loadingService = inject(LoadingService)
 
 
 
